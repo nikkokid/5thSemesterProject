@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -5,13 +7,17 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --color-bg: #f9fafb; 
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+h1 { font-size: 2.25rem; font-weight: 700; margin-bottom: var(--space-md); }
+h2 { font-size: 1.875rem; font-weight: 700; margin-bottom: var(--space-md); }
+h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: var(--space-sm); }
 
 a {
   font-weight: 500;
@@ -20,6 +26,10 @@ a {
 }
 a:hover {
   color: #535bf2;
+}
+
+.hamburger-react {
+  color: white;
 }
 
 body {
@@ -36,22 +46,33 @@ h1 {
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  background-color: #cbced4;
+  font-weight: 600;
+  padding: var(--space-sm) var(--space-md);
+  border: 3px solid transparent;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border-radius: 24px;
+  transition: 
+    background-color 0.2s, 
+    transform 0.2s, 
+    box-shadow 0.2s,
+    border-color 0.2s;
 }
+
 button:hover {
-  border-color: #646cff;
+  background-color: #b4b8be; 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  border-color: rgba(0, 0, 0, 0.1);
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.card {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+input:focus, textarea:focus, select:focus, button:focus {
+  border-color: rgb(77,16,49);
 }
 
 @media (prefers-color-scheme: light) {
@@ -65,4 +86,12 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/*Font from Buurgaard.wine*/
+.tangerine {
+  font-size: 3rem;
+  font-family: "Tangerine", cursive;
+  font-weight: 700;
+  font-style: normal;
 }
