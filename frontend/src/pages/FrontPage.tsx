@@ -1,7 +1,9 @@
-import { useNavigate } from 'react-router-dom'; // for at kunne navigere til de andre sider
-import Grape from "./assets/grape.svg"; 
-import Statistics from "./assets/statistics.svg";
-import WineBottle from "./assets/winebottle.svg";
+import { useNavigate } from 'react-router-dom';
+import grape from "../assets/grapesvg.svg"; 
+import statistics from "../assets/statisticssvg.svg";
+import wine from "../assets/winesvg.svg";
+
+
 
 
 type ButtonCardProps = {
@@ -10,7 +12,19 @@ type ButtonCardProps = {
   description: string;
   onClick?: () => void;
 };
-//Genanvendelig knappe komponent, bruger det istedet for at kode 3 knapper, hvilket også virker fint
+
+/**
+ * A reusable button card used on the front page.
+ *
+ * @component
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.image - The image displayed on button
+ * @param {string} props.title - The button title text, also used as alt text
+ * @param {string} props.description - A short description shown below the title
+ * @param {() => void} [props.onClick]
+ * @returns {JSX.Element} A button card element
+ */
 function ButtonCard({ image, title, description, onClick}: ButtonCardProps){
   return (
     <button 
@@ -27,25 +41,24 @@ function ButtonCard({ image, title, description, onClick}: ButtonCardProps){
 }  
 
 export default function FrontPage() {
-  const navigate = useNavigate(); // for at kunne navigere til de andre sider
+  const navigate = useNavigate();
 
-  //definere billede, tekst og onClick til de 3 knapper
   const buttons = [
-    { image: Grape, title: "Druesort", description: "Se druedata her", onClick: () => navigate('/druesorter')},
-    { image: Statistics, title: "Statistik", description: "Se statistik her", onClick: () => navigate('/statistik')},
-    { image: WineBottle, title: "Vin", description: "Se vindata her", onClick: () => navigate('/vine')}
-  ];
+  { image: grape, title: "Druesort", description: "Se druedata her", onClick: () => navigate('/grape-type')},
+  { image: statistics, title: "Statistik", description: "Se statistik her", onClick: () => navigate('/statistics')},
+  { image: wine, title: "Vin", description: "Se vindata her", onClick: () => navigate('/wine')}
+];
+
   return (
     <>
       <h2 className="text-center">
         Forside
       </h2>
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-25 p-2 "> {/*Grid til alle knapper*/}
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-25 p-2 "> 
 
-        {/*Mappe hver knap fra tidligere array til en ButtonCard komponent ting*/}
         {buttons.map((btn, index) => (
           <ButtonCard
-            key={index}                     // unik nøgle til React's rendering fis så den kan iterere over arrayet
+            key={index}                    
             image={btn.image}
             title={btn.title}
             description={btn.description}
@@ -53,10 +66,9 @@ export default function FrontPage() {
         />
         ))}
 
-      {/* dåm knap bare for visuals*/} 
         <button className="flex flex-col items-center">
           <div className="">
-            <img src={WineBottle} className="w-24 h-24 p-2" alt="Wine Bottle" />
+            <img src={wine} className="w-24 h-24 p-2" alt="Wine Bottle" />
           </div>
           <h1 className="mt-2">Whatever</h1>
           <p>Hvis der skulle komme noget mere, <br/>bare for lige at se hvordan det ser ud</p>

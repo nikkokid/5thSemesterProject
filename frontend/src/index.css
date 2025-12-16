@@ -1,48 +1,62 @@
 @import "tailwindcss";
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --color-primary: #3b82f6;    /* blue-500 */
+  --color-secondary: #facc15;  /* yellow-400 */
+  --color-accent: #10b981;     /* green-500 */
+  --color-bg: #f9fafb;         /* gray-50 */
+  --color-text: #111827;       /* gray-900 */
+  --font-base: 'Inter', sans-serif;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  --color-bg: #f9fafb; 
+  /* Spacing scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Border radius */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+}
+
+html, body {
+  font-family: var(--font-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
 }
 
 h1 { font-size: 2.25rem; font-weight: 700; margin-bottom: var(--space-md); }
 h2 { font-size: 1.875rem; font-weight: 700; margin-bottom: var(--space-md); }
 h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: var(--space-sm); }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+p {
+  margin-bottom: var(--space-md);
 }
-a:hover {
-  color: #535bf2;
+
+a {
+  color: rgb(255, 255, 255);
+}
+
+a:hover{
+  background-color:rgb(194,41,122);
 }
 
 .hamburger-react {
   color: white;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
 }
 
 button {
@@ -64,6 +78,7 @@ button:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   border-color: rgba(0, 0, 0, 0.1);
 }
+
 .card {
   background-color: white;
   border-radius: var(--radius-lg);
@@ -71,24 +86,13 @@ button:hover {
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+
 input:focus, textarea:focus, select:focus, button:focus {
   border-color: rgb(77,16,49);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
 
-/*Font from Buurgaard.wine*/
+/*Tangerine font from Buurgaard Vin*/
 .tangerine {
   font-size: 3rem;
   font-family: "Tangerine", cursive;
