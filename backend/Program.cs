@@ -10,7 +10,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-builder.Services.AddScoped<IHarvestDAO, HarvestDAOStub>();
+builder.Services.AddScoped<IHarvestDAO, HarvestDAO>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
