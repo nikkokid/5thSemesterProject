@@ -28,9 +28,16 @@ public class RowDAOStub : BaseDAO, IRowDAO
         };
     }
 
-    public Row? GetRowById(int id)
+    public Row GetRowById(int id)
     {
-        return id > 0 && id <= _rows.Count ? _rows[id - 1] : null;
+        int i = 0;
+        while (i <= _rows.Count)
+        {
+            if (_rows[i].rowId == id)
+                return _rows[i];
+            i++;
+        }
+        return null;
     }
 
     public IEnumerable<Row> GetAllRows()
