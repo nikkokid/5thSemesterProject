@@ -1,6 +1,8 @@
 
 services:
   backend:
+    environment:
+      ConnectionStrings__DefaultConnection: Host=postgres;Port=5432;Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Database=${POSTGRES_DB}
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -8,13 +10,13 @@ services:
     ports:
       - "8081:8081"
     volumes:
-      - ./backend:/src
-      - /src/bin
-      - /src/obj
+     - ./backend:/src
+     - /src/bin
+     - /src/obj
     working_dir: /src
-    command: dotnet watch run --urls "http://0.0.0.0:8081"
+    command: dotnet watch run --urls "http://0.0.0.0:8081/"
     depends_on:
-      - postgres
+    - postgres
     restart: unless-stopped
 
   frontend:
@@ -40,10 +42,10 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
     ports:
-      - "5433:5433"
+      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/initDragos.sql:/docker-entrypoint-initdb.d/init.sql
     restart: unless-stopped
 
 volumes:
