@@ -13,6 +13,9 @@ export default defineConfig({
  server: {
   port: 5179,
   strictPort: true,
+  watch: {
+      usePolling: true,
+    },
   host: true,
   origin: "http://0.0.0.0:5179",
  },
