@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IJuiceDAO, JuiceDAO>();
 builder.Services.AddScoped<ITasteProfileDAO, TasteProfileDAO>();
+builder.Services.AddScoped<IHarvestDAO, HarvestDAO>();
 
 // Allow Dapper to map snake_case database columns
 // to camelCase C# property names
@@ -53,3 +54,4 @@ if (app.Environment.IsDevelopment())
 app.MapControllers();
 
 app.Run();
+
