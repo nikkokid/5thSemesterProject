@@ -1,21 +1,24 @@
-using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Mvc;
-using backend.dal.Models;
-using backend.dal.DAO;
+using _5thSemesterProject.Backend.DAL.IDAO;
+using _5thSemesterProject.Backend.DAL.Model;
+namespace _5thSemesterProject.Backend.Controllers;
+
+
+
 
 [ApiController]
 [Route("api/v1/[controller]")]
 public class RowsController : ControllerBase
 {
-    Row curRow;
-    RowDAO rowDAO;
+    GrapeRow? curRow;
+    IRowDAO _rowDAO;
     /*
     Contructor for the RowsController class.
     Initializes a new instance of RowDAO for data access.
     */
-    public RowsController()
+    public RowsController(IRowDAO rowDAO)
     {
-        rowDAO = new RowDAO("tester connection string");
+        _rowDAO = rowDAO;
     }
 
     /*
@@ -24,11 +27,11 @@ public class RowsController : ControllerBase
     Returns the Row object if found; otherwise, returns a 404 Not Found response.
     */
     [HttpGet("{id}")]
-    public ActionResult<Row> GetRow(int id)
+    public ActionResult<GrapeRow> GetRow(int id)
     {
         try
         {
-            curRow = rowDAO.GetRowById(id);
+            curRow = _rowDAO.GetRowById(id);
             if (curRow == null)
             {
                 return NotFound($"Row with ID {id} not found.");
@@ -46,12 +49,12 @@ public class RowsController : ControllerBase
     Retrieves all Rows from the database.
     */
     [HttpGet]
-    public ActionResult<IEnumerable<Row>> GetAllRows()
+    public ActionResult<IEnumerable<GrapeRow>> GetAllRows()
     {
         try
         {
-            List<Row> rows = new List<Row>();
-            rows = (List<Row>)rowDAO.GetAllRows();
+            List<GrapeRow> rows = new List<GrapeRow>();
+            rows = (List<GrapeRow>)_rowDAO.GetAllRows();
             return Ok(rows);
         }
         catch (Exception ex)
@@ -65,11 +68,11 @@ public class RowsController : ControllerBase
     Returning the ID of the new Row.
     */
     [HttpPost]
-    public ActionResult<int> CreateRow([FromBody] Row row)
+    public ActionResult<int> CreateRow([FromBody] GrapeRow row)
     {
         try
         {
-            int createdRowId = rowDAO.CreateRow(row);
+            int createdRowId = _rowDAO.CreateRow(row);
             return Ok(createdRowId);
         }
         catch (Exception ex)
@@ -82,12 +85,12 @@ public class RowsController : ControllerBase
     Updates an existing Row in the database.
     */
     [HttpPut("{id}")]
-    public ActionResult<int> UpdateRow(int id, [FromBody] Row row)
+    public ActionResult<int> UpdateRow([FromRoute]int id, [FromBody] GrapeRow row)
     {
         try
         {
-            rowDAO.UpdateRow(row, id);
-            if(rowDAO.GetRowById(id) == row)
+            _rowDAO.UpdateRow(row, id);
+            if(_rowDAO.GetRowById(id) == row)
             {
                 return Ok(id);
             }
@@ -107,7 +110,7 @@ public class RowsController : ControllerBase
     {
         try
         {
-            bool isDeleted = rowDAO.DeleteRow(id);
+            bool isDeleted = _rowDAO.DeleteRow(id);
             if (isDeleted)
             {
                 return Ok(id);

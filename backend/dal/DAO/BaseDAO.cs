@@ -1,5 +1,5 @@
 using Npgsql;
-namespace backend.dal.DAO;
+namespace _5thSemesterProject.Backend.DAL.DAO;
 
 public abstract class BaseDAO
 {

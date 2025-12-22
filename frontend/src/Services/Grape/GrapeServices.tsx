@@ -1,8 +1,8 @@
-const baseUrl = 'http://localhost:8081/api/grapes';
+const baseUrl = 'http://localhost:8081/api/v1/grapes';
 
 export type Grape = {
-  id: number;
-  name: string;
+  GrapeId: number;
+  GrapeName: string;
 };
 
 export async function fetchGrapes(): Promise<Grape[]> {
@@ -12,10 +12,10 @@ export async function fetchGrapes(): Promise<Grape[]> {
     }
     return response.json();
 }
-export async function fetchGrapeById(id: number): Promise<Grape> {
-    const response = await fetch(`${baseUrl}/${id}`);
+export async function fetchGrapeById(GrapeId: number): Promise<Grape> {
+    const response = await fetch(`${baseUrl}/${GrapeId}`);
     if (!response.ok) {
-        throw new Error(`Failed to fetch grape with id ${id}`);
+        throw new Error(`Failed to fetch grape with id ${GrapeId}`);
     }
     return response.json();
 }

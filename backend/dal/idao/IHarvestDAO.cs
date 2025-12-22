@@ -1,5 +1,6 @@
-namespace _5thSemesterProject.backend.dal;
+using _5thSemesterProject.Backend.DAL.Model;
 
+namespace _5thSemesterProject.Backend.DAL.IDAO;
 public interface IHarvestDAO
 {
     IEnumerable<Harvest> GetHarvests();

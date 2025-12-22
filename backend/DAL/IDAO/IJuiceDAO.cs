@@ -1,6 +1,6 @@
-using _5thSemesterProject.Backend.DAO.Models;
 
-namespace _5thSemesterProject.Backend.DAO;
+using _5thSemesterProject.Backend.DAL.Model;
+namespace _5thSemesterProject.Backend.DAL.IDAO;
 
 
 public interface IJuiceDAO

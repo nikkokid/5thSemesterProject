@@ -1,4 +1,4 @@
-import type { TasteProfile } from "../TasteProfile/tasteProfileService";
+import type { TasteProfile } from "../TasteProfile/TasteProfileService";
 
 export type Juice = {
   id: number;
@@ -7,7 +7,7 @@ export type Juice = {
   juiceTypeId: number; //1 pressed, 2 = unpressed;
   grapeId: number;
   tasteProfile?: TasteProfile[];
-  //additives to be implemented
+  //additives to be implemented 
 };
 
 const JUICE_API_URL = "http://localhost:8081/api/v1/juices"; 

@@ -1,7 +1,7 @@
-using _5thSemesterProject.Backend.DAO.Models;
-using Microsoft.AspNetCore.Mvc;
+using _5thSemesterProject.Backend.DAL.Model;
 
-namespace _5thSemesterProject.Backend.DAO;
+
+namespace _5thSemesterProject.Backend.DAL.IDAO;
 
 public interface ITasteProfileDAO
 {

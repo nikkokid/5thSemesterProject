@@ -1,5 +1,7 @@
-namespace Dal.DAO;
-using Dal.Model;
+using _5thSemesterProject.Backend.DAL.IDAO;
+using _5thSemesterProject.Backend.DAL.Model;
+
+namespace _5thSemesterProject.Backend.DAL.DAO;
 
 public class GrapeDAO : IGrapeDAO
 {
@@ -7,13 +9,13 @@ public class GrapeDAO : IGrapeDAO
     {
         return new List<Grape>
         {
-            new Grape { Id = 1, Name = "Pinot Noir" },
-            new Grape { Id = 2, Name = "Riesling" },
-            new Grape { Id = 3, Name = "Chardonnay" }
+            new Grape { GrapeId = 1, GrapeName = "Pinot Noir" },
+            new Grape { GrapeId = 2, GrapeName = "Riesling" },
+            new Grape { GrapeId = 3, GrapeName = "Chardonnay" }
         };
     }
     public Grape? GetGrapeById(int id)
     {
-        return GetAllGrapes().FirstOrDefault(g => g.Id == id);
+        return GetAllGrapes().FirstOrDefault(g => g.GrapeId == id);
     }
 }

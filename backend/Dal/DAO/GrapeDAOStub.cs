@@ -1,17 +1,18 @@
-namespace Dal.DAO;
-using Dal.Model;
+using _5thSemesterProject.Backend.DAL.IDAO;
+using _5thSemesterProject.Backend.DAL.Model;
 
+namespace _5thSemesterProject.Backend.DAL.DAO;
 public class GrapeDAOStub : IGrapeDAO
 {
     private static readonly List<Grape> _grapes =
     [
         // New Product explicit in the List above which only takes Products.
-        new() { Id = 1, Name = "Pinot Noir" },
-        new() { Id = 2, Name = "Riesling" },
-        new() { Id = 3, Name = "Chardonnay" },
-        new() { Id = 4, Name = "Merlot" },
-        new() { Id = 5, Name = "Sauvignon Blanc" },
-        new() { Id = 6, Name = "Syrah" }
+        new() { GrapeId = 1, GrapeName = "Pinot Noir" },
+        new() { GrapeId = 2, GrapeName = "Riesling" },
+        new() { GrapeId = 3, GrapeName = "Chardonnay" },
+        new() { GrapeId = 4, GrapeName = "Merlot" },
+        new() { GrapeId = 5, GrapeName = "Sauvignon Blanc" },
+        new() { GrapeId = 6, GrapeName = "Syrah" }
     ];
     public IEnumerable<Grape> GetAllGrapes()
     {
@@ -20,6 +21,6 @@ public class GrapeDAOStub : IGrapeDAO
 
     public Grape? GetGrapeById(int id)
     {
-        return _grapes.FirstOrDefault(g => g.Id == id);
+        return _grapes.FirstOrDefault(g => g.GrapeId == id);
     }
 }

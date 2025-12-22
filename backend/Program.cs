@@ -1,7 +1,5 @@
-using Npgsql;
-using _5thSemesterProject.Backend.DAO;
-using Microsoft.OpenApi;
-
+using _5thSemesterProject.Backend.DAL.IDAO;
+using _5thSemesterProject.Backend.DAL.DAO;
 
 var builder = WebApplication.CreateBuilder(args);
 

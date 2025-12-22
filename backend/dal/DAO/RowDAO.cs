@@ -1,8 +1,8 @@
 using Dapper;
-using Npgsql;
-using backend.dal.Models;
-namespace backend.dal.DAO;
+using _5thSemesterProject.Backend.DAL.Model;
+using _5thSemesterProject.Backend.DAL.IDAO;
 
+namespace _5thSemesterProject.Backend.DAL.DAO;
 public class RowDAO : BaseDAO, IRowDAO
 {
     /*
@@ -17,14 +17,14 @@ public class RowDAO : BaseDAO, IRowDAO
     Method for getting a Row by its ID.
     returns a empty placeholder if not found.
     */
-    public Row GetRowById(int id)
+    public GrapeRow GetRowById(int id)
     {
-        Row placeholderRow = null;
+        GrapeRow placeholderRow = null;
         try
         {
-            var parameters = new { RowId = id };
-            var sql = "SELECT * FROM Row WHERE RowId = @RowId";
-            var result = _connection.Query<Row>(sql, parameters);
+            var parameters = new { GrapeRowId = id };
+            var sql = "SELECT * FROM GrapeRow WHERE GrapeRowId = @GrapeRowId";
+            var result = _connection.Query<GrapeRow>(sql, parameters);
             if (result != null && result.Any())
             {
                 placeholderRow = result.First();
@@ -40,13 +40,13 @@ public class RowDAO : BaseDAO, IRowDAO
     Method for getting all Rows.
     returns an empty list if none are found.
     */
-    public IEnumerable<Row> GetAllRows()
+    public IEnumerable<GrapeRow> GetAllRows()
     {
-        List<Row> rows = new List<Row>();
+        List<GrapeRow> rows = new List<GrapeRow>();
         try
         {
-            var sql = "SELECT * FROM Row";
-            var result = _connection.Query<Row>(sql);
+            var sql = "SELECT * FROM GrapeRow";
+            var result = _connection.Query<GrapeRow>(sql);
             if (result != null && result.Any())
             {
                 rows = result.ToList();
@@ -63,22 +63,22 @@ public class RowDAO : BaseDAO, IRowDAO
     Using parameters to prevent SQL injection.
     returns the ID of the created Row.
     */
-    public int CreateRow(Row row)
+    public int CreateRow(GrapeRow row)
     {
         int createdRowId = -1;
         try
         {
             var parameters = new
             {
-                NoOfVines = row.noOfVines,
-                Length = row.length,
-                DistanceBetweenVines = row.distanceBetweenVines,
-                DistanceToNextRow = row.distanceToNextRow,
-                GrapeId = row.grapeId
+                NoOfVines = row.NoOfVines,
+                LengthOfRow = row.LengthOfRow,
+                DistanceBetweenVines = row.DistanceBetweenVines,
+                DistanceToNextRow = row.DistanceToNextRow,
+                GrapeId = row.GrapeId
             };
-            var sql = "INSERT INTO Row (NoOfVines, Length, DistanceBetweenVines, DistanceToNextRow, GrapeId) " +
-                      "VALUES (@NoOfVines, @Length, @DistanceBetweenVines, @DistanceToNextRow, @GrapeId) " +
-                      "RETURNING RowId";
+            var sql = "INSERT INTO GrapeRow (NoOfVines, LengthOfRow, DistanceBetweenVines, DistanceToNextRow, GrapeId) " +
+                      "VALUES (@NoOfVines, @LengthOfRow, @DistanceBetweenVines, @DistanceToNextRow, @GrapeId) " +
+                      "RETURNING GrapeRowId";
             createdRowId = _connection.ExecuteScalar<int>(sql, parameters);
         }
         catch (Exception ex)
@@ -92,7 +92,7 @@ public class RowDAO : BaseDAO, IRowDAO
     Using parameters to prevent SQL injection.
     Returns true or false based on the success.
     */
-    public bool UpdateRow(Row row, int id)
+    public bool UpdateRow(GrapeRow row, int id)
     {
         bool isUpdated = false;
         try
@@ -100,11 +100,11 @@ public class RowDAO : BaseDAO, IRowDAO
             var parameters = new
             {
                 RowId = id,
-                NoOfVines = row.noOfVines,
-                Length = row.length,
-                DistanceBetweenVines = row.distanceBetweenVines,
-                DistanceToNextRow = row.distanceToNextRow,
-                GrapeId = row.grapeId
+                NoOfVines = row.NoOfVines,
+                Length = row.LengthOfRow,
+                DistanceBetweenVines = row.DistanceBetweenVines,
+                DistanceToNextRow = row.DistanceToNextRow,
+                GrapeId = row.GrapeId
             };
             var sql = "UPDATE Row SET NoOfVines = @NoOfVines, Length = @Length, " +
                       "DistanceBetweenVines = @DistanceBetweenVines, DistanceToNextRow = @DistanceToNextRow, " +

@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Mvc; 
-using Dal.DAO;
 
+using _5thSemesterProject.Backend.DAL.IDAO;
+
+
+namespace _5thSemesterProject.Backend.Controllers;
 [ApiController]
-[Route("api/grapes")]
+[Route("api/v1/[Controller]")]
 public class GrapesController : ControllerBase
 {
     private readonly IGrapeDAO _grapeDAOStub;

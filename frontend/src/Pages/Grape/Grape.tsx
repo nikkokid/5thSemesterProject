@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import grapeImage from "../assets/grapesvg.svg"
-import {fetchGrapes, type Grape} from "../services/GrapeServices"
-import ButtonCard from "../components/ButtonCard"
+import grapeImage from "../../assets/grapesvg.svg"
+import {fetchGrapes, type Grape} from "../../Services/Grape/GrapeServices"
+import ButtonCard from "../../Components/ButtonCard"
 
 
 export default function Grape() {
@@ -25,11 +25,11 @@ export default function Grape() {
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-25 p-2">
         {grapes.map((grape) => (
           <ButtonCard
-            key={grape.id}
+            key={grape.GrapeId}
             image={grapeImage}
-            title={grape.name}
+            title={grape.GrapeName}
             description="Klik for detaljer"
-            onClick={() => navigate(`/grape/${grape.id}`)}
+            onClick={() => navigate(`/grape/${grape.GrapeId}`)}
           />
         ))}
       </div>

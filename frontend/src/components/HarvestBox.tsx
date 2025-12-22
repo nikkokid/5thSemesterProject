@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deleteHarvestByHarvestId, type HarvestView} from "../servicesNikolai/HarvestServices";
+import { deleteHarvestByHarvestId, type HarvestView} from "../Services/Harvest/HarvestServices";
 
 type HarvestBoxProps = {
     harvests: HarvestView;
@@ -9,10 +9,10 @@ type HarvestBoxProps = {
 
 export default function HarvestBox({harvests, reloadState, setReloadState} : HarvestBoxProps) {
     const [editingHarvest, setEditingHarvest] = useState(false);
-    const [submittedRowNames, setSubmittedRowNames] = useState(harvests.rowName);
-    const [submittedNoOfVines, setSubmittedNoOfVines] = useState(harvests.noOfVines);
-    const [submittedWeight, setSubmittedWeight] = useState(harvests.weight);
-    const [submittedHarvestDate, setSubmittedHarvestDate] = useState(harvests.harvestDate);
+    const [submittedRowNames, setSubmittedRowNames] = useState(harvests.GrapeRowName);
+    const [submittedNoOfVines, setSubmittedNoOfVines] = useState(harvests.NoOfVines);
+    const [submittedWeight, setSubmittedWeight] = useState(harvests.HarvestWeight);
+    const [submittedHarvestDate, setSubmittedHarvestDate] = useState(harvests.HarvestDate);
 
     function handleEdit () {
         setEditingHarvest(!editingHarvest);
@@ -33,11 +33,11 @@ export default function HarvestBox({harvests, reloadState, setReloadState} : Har
     if (!editingHarvest) {
         return(
         <div className="flex flex-col p-4 border-3 rounded border-[rgb(77,16,39)] bg-gray-200 text-black">
-            <h2>{harvests.rowName}</h2>
+            <h2>{harvests.GrapeRowName}</h2>
             <button onClick={() => handleEdit()}>Rediger høst</button>
-            <p>Antal Stokke: {harvests.noOfVines}</p>
-            <p>Vægt: {harvests.weight} kg</p>
-            <p>Høstet: {harvests.harvestDate}</p>
+            <p>Antal Stokke: {harvests.NoOfVines}</p>
+            <p>Vægt: {harvests.HarvestWeight} kg</p>
+            <p>Høstet: {harvests.HarvestDate}</p>
             <p>{reloadState.toString()}</p>
         </div>
     )
@@ -46,13 +46,13 @@ export default function HarvestBox({harvests, reloadState, setReloadState} : Har
        return(
        <form action={handleSubmit}>
         <div className="flex flex-col p-4 border-3 rounded border-[rgb(77,16,39)] bg-gray-200 text-black">
-            <h2>{harvests.rowName}</h2>
+            <h2>{harvests.GrapeRowName}</h2>
             <button type="submit"> Gem Ændringer</button>
             <p>Antal stokke: <input min="0" max="99999" name="submittedNoOfVines" type="number" defaultValue={submittedNoOfVines} /></p>
             <p>Vægt: <input min="0" max="99999" name="submittedWeight" type="number" defaultValue={submittedWeight} /> kg</p>
             <p>Høstet: <input min="0" name="submittedHarvestDate" type="date" defaultValue={submittedHarvestDate} /></p>
-            <p>Harvest Id: {harvests.harvestId}</p>
-            <button onClick={() => handleDelete(harvests.harvestId)}>Slet høst</button>
+            <p>Harvest Id: {harvests.HarvestId}</p>
+            <button onClick={() => handleDelete(harvests.HarvestId)}>Slet høst</button>
         </div>
         </form>
     )

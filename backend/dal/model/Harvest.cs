@@ -1,8 +1,8 @@
-namespace _5thSemesterProject.backend.dal;
+namespace _5thSemesterProject.Backend.DAL.Model;
 
 public class Harvest
 {
     public int HarvestID { get; set; }
-    public int Weight { get; set; }
-    public DateOnly Date { get; set; }
+    public int HarvestWeight { get; set; }
+    public DateOnly HarvestDate { get; set; }
 }

@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
-using Dapper;
-using Npgsql;
-using _5thSemesterProject.backend.dal;
 
-namespace backend.controllers
-{
+
+using _5thSemesterProject.Backend.DAL.IDAO;
+
+namespace _5thSemesterProject.Backend.Controllers;
+
     [ApiController]
     [Route("api/v1/[controller]")]
     public class HarvestsController : ControllerBase
@@ -46,4 +46,3 @@ namespace backend.controllers
         }
         
     }
-}

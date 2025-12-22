@@ -1,6 +1,5 @@
-import Harvest from "../pages/harvest/Harvest";
 import { useState, useEffect } from "react";
-import { type HarvestView} from "../servicesNikolai/HarvestServices";
+import { type HarvestView} from "../Services/Harvest/HarvestServices";
 
 type HarvestOverallProps = {
     allHarvests: HarvestView[];
@@ -21,8 +20,8 @@ export default function HarvestOverall({allHarvests, selectedYearsHarvests, setS
     function getYearsWithHarvestData (harvest : HarvestView[]) {
         let tempYearsWithHarvest = [1];
         for (let i = 0; i < harvest.length; i++){
-            if (!tempYearsWithHarvest.includes(Number(harvest[i].harvestDate.slice(0, 4)), 0)) {
-                tempYearsWithHarvest.push(Number(harvest[i].harvestDate.slice(0, 4)))
+            if (!tempYearsWithHarvest.includes(Number(harvest[i].HarvestDate.slice(0, 4)), 0)) {
+                tempYearsWithHarvest.push(Number(harvest[i].HarvestDate.slice(0, 4)))
             }
         }
         setYearsWithHarvest(tempYearsWithHarvest.slice(1))
@@ -53,7 +52,7 @@ export default function HarvestOverall({allHarvests, selectedYearsHarvests, setS
 function getOverallWeight (harvests : HarvestView[]) {
     let total = 0;
     for (let i = 0; i < harvests.length; i++){
-        total = total + harvests[i].weight
+        total = total + harvests[i].HarvestWeight
     }
     return total;
 }

@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
 using Dapper;
 using Npgsql;
-
-namespace _5thSemesterProject.backend.dal;
+using _5thSemesterProject.Backend.DAL.IDAO;
+using _5thSemesterProject.Backend.DAL.Model;
+namespace _5thSemesterProject.Backend.DAL.DAO;
 
 public class HarvestDAO : IHarvestDAO
 {
@@ -18,7 +18,7 @@ public class HarvestDAO : IHarvestDAO
 
         using var connection = new NpgsqlConnection(connectionString);
         
-        var sql = "SELECT HarvestId, Weight, Date FROM Harvest LIMIT 3;";
+        var sql = "SELECT HarvestId, HarvestWeight, HarvestDate FROM Harvest LIMIT 3;";
 
         var result = connection.Query<Harvest>(sql).ToList();
 

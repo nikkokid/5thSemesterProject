@@ -1,4 +1,4 @@
-namespace _5thSemesterProject.Backend.DAO.Models;
+namespace _5thSemesterProject.Backend.DAL.Model;
 
 public class CreateJuiceDTO()
 {

@@ -1,7 +1,6 @@
-
-using System.Collections;
-
-namespace _5thSemesterProject.backend.dal;
+using _5thSemesterProject.Backend.DAL.IDAO;
+using _5thSemesterProject.Backend.DAL.Model;
+namespace _5thSemesterProject.Backend.DAL.DAO;
 
 public class HarvestDAOStub : IHarvestDAO
 {
@@ -13,25 +12,25 @@ public class HarvestDAOStub : IHarvestDAO
             new Harvest
             {
                 HarvestID = 1,
-                Weight = 110,
+                HarvestWeight = 110,
                 //Date = "Date1"
-                Date = new DateOnly(2025, 6, 7)
+                HarvestDate = new DateOnly(2025, 6, 7)
             },
 
             new Harvest
             {
                 HarvestID = 2,
-                Weight = 120,
+                HarvestWeight = 120,
                 //Date = "Date2"
-                Date = new DateOnly(2025, 6, 7)
+                HarvestDate = new DateOnly(2025, 6, 7)
             },
             
             new Harvest
             {
                 HarvestID = 3,
-                Weight = 130,
+                HarvestWeight = 130,
                 //Date = "Date3"
-                Date = new DateOnly(2025, 6, 7)
+                HarvestDate = new DateOnly(2025, 6, 7)
             },
         };
         

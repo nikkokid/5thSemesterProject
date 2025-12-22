@@ -1,13 +1,13 @@
 const baseUrl = "http://localhost:8081/api/v1/harvests"
 
 export type HarvestView = {
-    harvestId: number;
-    weight: number;
-    harvestDate: string;
-    rowName: string;
-    noOfVines: number;
-    grapeId: number;
-    grapeName: string;
+    HarvestId: number;
+    HarvestWeight: number;
+    HarvestDate: string;
+    GrapeRowName: string;
+    NoOfVines: number;
+    GrapeId: number;
+    GrapeName: string;
 }
 
 export async function getHarvestsByGrapeIdAndYear(grapeId : number, year : number): Promise<HarvestView[]> {
