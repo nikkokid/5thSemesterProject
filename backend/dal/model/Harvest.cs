@@ -4,5 +4,5 @@ public class Harvest
 {
     public int HarvestID { get; set; }
     public int Weight { get; set; }
-    public string Date { get; set; }
+    public DateOnly Date { get; set; }
 }

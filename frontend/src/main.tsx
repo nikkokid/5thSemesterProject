@@ -31,7 +31,7 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
     <Routes>
 
-      <Route path="/harvest" element={<Harvest/>} />
+      <Route path="/harvest" element={<Harvest grapeId={1}/>} />
     </Routes>
     
     </BrowserRouter>
