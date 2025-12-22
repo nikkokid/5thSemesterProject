@@ -44,7 +44,7 @@ export default function FrontPage() {
   const navigate = useNavigate();
 
   const buttons = [
-  { image: grape, title: "Druesort", description: "Se druedata her", onClick: () => navigate('/grape-type')},
+  { image: grape, title: "Druesort", description: "Se druedata her", onClick: () => navigate('/grape')},
   { image: statistics, title: "Statistik", description: "Se statistik her", onClick: () => navigate('/statistics')},
   { image: wine, title: "Vin", description: "Se vindata her", onClick: () => navigate('/wine')}
 ];
