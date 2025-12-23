@@ -9,16 +9,12 @@ public class JuiceDAO : IJuiceDAO
 {
     private readonly IConfiguration _connectionString;
 
-    // NOTE 1: This is for getting tasteprofiles directly onto juices. If this is bad architecture, remove 
-    // NOTE 1 elements and execute another query fetching the taste profiles inside the GetJuicesByGrapeId method
-    // If this is good architecture, remove the notes :D
     private ITasteProfileDAO _tasteProfileDAO;
 
 
     public JuiceDAO(IConfiguration config, ITasteProfileDAO tasteProfileDAO) // NOTE 1
     {
         _connectionString = config;
-        //NOTE 1
         _tasteProfileDAO = tasteProfileDAO;
     }
 
@@ -29,13 +25,14 @@ public class JuiceDAO : IJuiceDAO
             var connectionString = _connectionString.GetConnectionString("DefaultConnection");
             using var conn = new NpgsqlConnection(connectionString);
             
-            var sql = @"INSERT INTO Juice (Volume, PressedDate, GrapeId)
-                      VALUES(@Volume, @PressedDate, @GrapeId)";
+            var sql = @"INSERT INTO Juice (Volume, PressedDate, GrapeId, JuiceTypeId)
+                      VALUES(@Volume, @PressedDate, @GrapeId, @JuiceTypeId)";
             int affectedRows = conn.Execute(sql, new
             {
                 Volume = juiceDTO.Volume,
                 PressedDate = juiceDTO.PressedDate, 
-                GrapeId = grapeId 
+                GrapeId = grapeId,
+                JuiceTypeId = juiceDTO.JuiceTypeId 
             });
             
             bool success = affectedRows > 0;
@@ -57,9 +54,8 @@ public class JuiceDAO : IJuiceDAO
             using var conn = new NpgsqlConnection(connectionString);
 
             // Fetch all juices for a given grape
-            var sql = @" SELECT * FROM Juice WHERE GrapeId = @grapeId ORDER BY pressed_date DESC";
+            var sql = @" SELECT * FROM Juice WHERE GrapeId = @grapeId ORDER BY PressedDate DESC";
             var juices = conn.Query<Juice>(sql, new { grapeId }).ToList();
-            //NOTE 1
             // Populate taste profiles for each juice
             foreach (var juice in juices)
             {
@@ -81,9 +77,31 @@ public class JuiceDAO : IJuiceDAO
     }
 
 
-    public bool UpdateJuiceById()
+    public bool UpdateJuiceById(int id, CreateJuiceDTO juiceDTO)
     {
-        return true;
+        try
+        {
+            var connectionString = _connectionString.GetConnectionString("DefaultConnection");
+            using var conn = new NpgsqlConnection(connectionString);
+
+            var sql = @"UPDATE Juice
+                        SET Volume=@Volume, PressedDate=@PressedDate, JuiceTypeId=@JuiceTypeId
+                        WHERE JuiceId=@JuiceId";
+            int affectedRows = conn.Execute(sql, new
+            {
+                Volume = juiceDTO.Volume,
+                PressedDate = juiceDTO.PressedDate,
+                JuiceTypeId = juiceDTO.JuiceTypeId,
+                JuiceId = id
+            });
+
+            bool success = affectedRows > 0;
+            return success;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Juice with id: {id} could not be updated. {ex.Message}", ex);
+        }
     }
 
     public bool DeleteJuiceById(int juiceId)
