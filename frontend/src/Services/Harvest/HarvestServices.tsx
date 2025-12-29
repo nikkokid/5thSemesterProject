@@ -10,6 +10,13 @@ export type HarvestView = {
     GrapeName: string;
 }
 
+export type Harvest = {
+    HarvestWeight: number;
+    HarvestDate: string;
+    GrapeRowId: number;
+    GrapeId: number;
+}
+
 export async function getHarvestsByGrapeIdAndYear(grapeId : number, year : number): Promise<HarvestView[]> {
     const response = await fetch(`${baseUrl}?grapeId=${grapeId}&year=${year}`)
     if (!response.ok) {
@@ -34,5 +41,35 @@ export async function deleteHarvestByHarvestId(harvestId : number): Promise<void
     );
     if(!response.ok) {
         throw new Error("Failed to delete harvest")
+    }
+};
+
+export async function updateHarvestByHarvestId(harvestId : number, harvest : Harvest): Promise<void> {
+    const response = await fetch(`${baseUrl}?harvestId=${harvestId}`,
+        {
+            method: "PATCH",
+            headers: {
+                "CONTENT-TYPE" : "application/json"
+            },
+            body: JSON.stringify(harvest)
+        }
+    );
+    if (!response.ok) {
+        throw new Error("Failed to update harvest");
+    }
+};
+
+export async function createHarvest(harvest : Harvest): Promise<void> {
+    const response = await fetch(`${baseUrl}`,
+        {
+            method: "POST",
+            headers: {
+                "CONTENT-TYPE" : "application/json"
+            },
+            body: JSON.stringify(harvest)
+        }
+    );
+    if (!response.ok) {
+        throw new Error("Failed to create harvest");
     }
 };

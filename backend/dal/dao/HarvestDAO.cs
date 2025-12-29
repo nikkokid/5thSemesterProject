@@ -60,6 +60,34 @@ public class HarvestDAO : IHarvestDAO
         var sql ="DELETE FROM Harvest WHERE HarvestId = @harvestId;";
 
         var result = connection.Execute(sql, new {harvestId});
+
+        return result;
+    }
+
+    public int UpdateHarvestByHarvestId(int harvestId, HarvestDTO harvest)
+    {
+        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+        using var connection = new NpgsqlConnection(connectionString);
+
+        var sql = "UPDATE Harvest SET GrapeRowId = @grapeRowId, HarvestWeight = @harvestWeight, HarvestDate = @harvestDate WHERE HarvestId = @harvestId;";
+
+        var result = connection.Execute(sql, new {harvestId, grapeRowId = harvest.GrapeRowId, harvestWeight = harvest.HarvestWeight, harvestDate = harvest.HarvestDate} );
+
+        return result;
+
+    }
+
+    public int CreateHarvest(HarvestDTO harvest)
+    {
+        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+        using var connection = new NpgsqlConnection(connectionString);
+
+        var sql = "INSERT INTO Harvest (GrapeRowId, GrapeId, HarvestWeight, HarvestDate) VALUES (@grapeRowId, @grapeId, @harvestWeight, @harvestDate);";
+
+        var result = connection.Execute(sql, new {grapeRowId = harvest.GrapeRowId, grapeId = harvest.GrapeId, harvestWeight = harvest.HarvestWeight, harvestDate = harvest.HarvestDate});
+        
         return result;
     }
 }

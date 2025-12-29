@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 
 
 using _5thSemesterProject.Backend.DAL.IDAO;
+using _5thSemesterProject.Backend.DAL.Model;
 
 namespace _5thSemesterProject.Backend.Controllers;
 
@@ -43,6 +44,18 @@ namespace _5thSemesterProject.Backend.Controllers;
         public IActionResult Delete([FromQuery] int harvestId)
         {
             return Ok(_harvestDAO.DeleteHarvestByHarvestId(harvestId));
+        }
+
+        [HttpPatch]
+        public IActionResult Update([FromQuery] int harvestId, [FromBody] HarvestDTO harvest)
+        {
+            return Ok(_harvestDAO.UpdateHarvestByHarvestId(harvestId, harvest));
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] HarvestDTO harvest)
+        {
+            return Ok(_harvestDAO.CreateHarvest(harvest));
         }
         
     }
