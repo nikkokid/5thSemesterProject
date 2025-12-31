@@ -35,12 +35,12 @@ public class TasteProfilesController : ControllerBase
 
     
 
-    [HttpGet("{id}")]
-    public ActionResult<TasteProfile[]> GetTasteProfilesByJuiceId(int id)
+    [HttpGet("{juiceId}")]
+    public ActionResult<TasteProfile[]> GetTasteProfilesByJuiceId(int juiceId)
     {
         try
         {
-            var tasteProfiles = _tasteProfileDAO.GetTasteProfilesByJuiceId(id).ToArray();
+            var tasteProfiles = _tasteProfileDAO.GetTasteProfilesByJuiceId(juiceId).ToArray();
             
             //returning an empty array is fine in this context.
             return Ok(tasteProfiles);   

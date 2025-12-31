@@ -19,7 +19,7 @@ public class JuiceDAO : IJuiceDAO
     }
 
     
-    public bool CreateJuiceWithGrapeId(CreateJuiceDTO juiceDTO ,int grapeId)
+    public bool CreateJuiceWithGrapeId(CreateJuiceDTO juiceDTO, int grapeId)
     {
         try{
             var connectionString = _connectionString.GetConnectionString("DefaultConnection");
@@ -54,12 +54,21 @@ public class JuiceDAO : IJuiceDAO
             using var conn = new NpgsqlConnection(connectionString);
 
             // Fetch all juices for a given grape
-            var sql = @" SELECT * FROM Juice WHERE GrapeId = @grapeId ORDER BY PressedDate DESC";
+            var sql = @" SELECT 
+                         JuiceId,
+                         GrapeId,
+                         JuiceTypeId,
+                         Volume,
+                         PressedDate::timestamp AS PressedDate
+                         FROM Juice 
+                         WHERE GrapeId = @grapeId 
+                         ORDER BY PressedDate DESC";
             var juices = conn.Query<Juice>(sql, new { grapeId }).ToList();
             // Populate taste profiles for each juice
             foreach (var juice in juices)
             {
                 juice.TasteProfiles = _tasteProfileDAO.GetTasteProfilesByJuiceId(juice.JuiceId).ToList();
+                //juice.Additives = _additiveDAO.GetAdditivesByJuiceId(juice.JuiceId).ToList();
             }
 
             return juices;
@@ -70,6 +79,40 @@ public class JuiceDAO : IJuiceDAO
         }
     }
 
+    public IEnumerable<Juice> GetJuicesByGrapeIdAndYear(int grapeId, int year)
+    {
+        try
+        {
+            var connectionString = _connectionString.GetConnectionString("DefaultConnection");
+
+            using var conn = new NpgsqlConnection(connectionString);
+
+            // Fetch all juices for a given grape and year
+            var sql = @" SELECT 
+                         JuiceId,
+                         GrapeId,
+                         JuiceTypeId,
+                         Volume,
+                         PressedDate::timestamp AS PressedDate
+                         FROM Juice 
+                         WHERE GrapeId = @grapeId 
+                         AND EXTRACT(YEAR FROM PressedDate) = @year
+                         ORDER BY PressedDate DESC";
+            var juices = conn.Query<Juice>(sql, new { grapeId, year }).ToList();
+            // Populate taste profiles for each juice AND ADDITIVES
+            foreach (var juice in juices)
+            {
+                juice.TasteProfiles = _tasteProfileDAO.GetTasteProfilesByJuiceId(juice.JuiceId).ToList();
+                //juice.Additives = _additiveDAO.GetAdditivesByJuiceId(juice.JuiceId).ToList();
+            }
+
+            return juices;
+        }   
+        catch (Exception ex)
+        {
+            throw new Exception($"Juices with grape id {grapeId} for year {year} could not be fetched. {ex.Message}", ex);
+        }
+    }
 
       public Juice GetJuiceById(int id)
     {
@@ -83,15 +126,13 @@ public class JuiceDAO : IJuiceDAO
         {
             var connectionString = _connectionString.GetConnectionString("DefaultConnection");
             using var conn = new NpgsqlConnection(connectionString);
-
             var sql = @"UPDATE Juice
-                        SET Volume=@Volume, PressedDate=@PressedDate, JuiceTypeId=@JuiceTypeId
+                        SET Volume=@Volume, PressedDate=@PressedDate
                         WHERE JuiceId=@JuiceId";
             int affectedRows = conn.Execute(sql, new
             {
                 Volume = juiceDTO.Volume,
-                PressedDate = juiceDTO.PressedDate,
-                JuiceTypeId = juiceDTO.JuiceTypeId,
+                PressedDate = juiceDTO.PressedDate?.Date,
                 JuiceId = id
             });
 

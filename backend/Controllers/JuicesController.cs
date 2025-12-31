@@ -50,15 +50,17 @@ public class JuicesController : ControllerBase
         }
     }
 
-    [HttpGet("{id}/Juices")]
-    public ActionResult<Juice[]> GetJuicesByGrapeId([FromRoute]int id)
+    [HttpGet("{id}/{year}")]
+    public ActionResult<Juice[]> GetJuicesByGrapeIdAndYear([FromRoute]int id, [FromRoute]int? year)
     {
         try
         {
-            var juices = _juiceDAO.GetJuicesByGrapeId(id).ToArray();
-            //no if( juices != null) check because .ToArray never returns null
+            if (year.HasValue)
+            {
+                return Ok(_juiceDAO.GetJuicesByGrapeIdAndYear(id, year.Value).ToArray());    
+            }
             
-            return Ok(juices);
+            return Ok(_juiceDAO.GetJuicesByGrapeId(id).ToArray());
             
         }
         catch(Exception ex)
@@ -67,11 +69,12 @@ public class JuicesController : ControllerBase
         }
     }
 
-    [HttpPatch("{id}/Juice")]
+    [HttpPatch("{id}")]
     public ActionResult UpdateJuiceById([FromRoute]int id, [FromBody]CreateJuiceDTO juiceDTO)
     {
         try
         {
+
             bool success = _juiceDAO.UpdateJuiceById(id, juiceDTO);
             if (!success) return StatusCode(500, $"Juice could not be updated with Juice Id: {id}");
 
@@ -82,7 +85,8 @@ public class JuicesController : ControllerBase
             return StatusCode(500, ex.Message);
         }
     }
-    [HttpDelete("{id}/Juice")]
+                
+    [HttpDelete("{id}")]
     public ActionResult DeleteJuiceById([FromRoute]int id)
     {
         try

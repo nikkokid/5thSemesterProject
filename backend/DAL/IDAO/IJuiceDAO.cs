@@ -9,6 +9,8 @@ public interface IJuiceDAO
     public Juice GetJuiceById(int id);
     public IEnumerable<Juice> GetJuicesByGrapeId(int id);
 
+    public IEnumerable<Juice> GetJuicesByGrapeIdAndYear(int grapeId, int year);
+
     public bool UpdateJuiceById(int juiceId, CreateJuiceDTO juiceDTO);
 
     public bool DeleteJuiceById(int juiceId);

@@ -31,7 +31,7 @@ CREATE TABLE JuiceType(
 CREATE TABLE Juice (
     JuiceId SERIAL PRIMARY KEY,
     Volume NUMERIC NOT NULL,
-    PressedDate TEXT NOT NULL,
+    PressedDate DATE,
     GrapeId INT REFERENCES Grape(GrapeId),
     JuiceTypeId INT REFERENCES JuiceType(JuiceTypeId)
 );
@@ -46,8 +46,8 @@ CREATE TABLE TasteProfile (
     Color INT,
     TasteProfileDescription TEXT,
     Rating INT,
-    TasteProfileDate TEXT,
-    JuiceId INT REFERENCES Juice(JuiceId)
+    TasteProfileDate DATE,
+    JuiceId INT REFERENCES Juice(JuiceId) ON DELETE CASCADE
 );
 
 
@@ -70,15 +70,15 @@ INSERT INTO JuiceType (JuiceTypeName) VALUES ('pressed'), ('unpressed');
 
 INSERT INTO Juice (
     Volume,
-    PressedDate,
+    PressedDate,    
     GrapeId,
     JuiceTypeId
 ) VALUES (2.1, '2025-12-10', 1, 1), 
          (5.0, '2025-12-09', 1, 2),
          (6.1, '2025-07-10', 2, 1),
          (1.5, '2025-07-11', 2, 2), 
-         (4.0, '2025-03-03', 3, 1),
-         (3.0, '2025-03-02', 3, 2);
+         (4.0, '2024-03-03', 3, 1),
+         (3.0, '2024-03-02', 3, 2);
 
 
 INSERT INTO TasteProfile (Sweetness, Acidity, Aroma, Dryness, Color, TasteProfileDescription, Rating, TasteProfileDate, JuiceId) 

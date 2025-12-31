@@ -10,6 +10,6 @@ public class TasteProfile
     public int? Color { get; set; }
     public string? TasteProfileDescription { get; set; }
     public int? Rating { get; set; }
-    public string? TasteProfileDate { get; set; }
+    public DateTime? TasteProfileDate { get; set; }
     public int JuiceId { get; set; }       // foreign key to Juice
 }

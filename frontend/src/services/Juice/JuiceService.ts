@@ -10,13 +10,33 @@ export type Juice = {
   //additives to be implemented 
 };
 
+export type CreateJuice = {
+  pressedDate: string; 
+  volume: number;
+  juiceTypeId: number; //1 pressed, 2 = unpressed;
+  grapeId: number;
+}
+
 const JUICE_API_URL = "http://localhost:8081/api/v1/juices"; 
 
+export async function createJuice(data: CreateJuice) {
+  const res = await fetch(`${JUICE_API_URL}/${data.grapeId}/Juice`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
 
+  if (!res.ok) { 
+    throw new Error("Failed to create juice.");
+  }
+  
+  return true;
+}
 
-
-export async function getJuicesByGrapeId(grapeId: number): Promise<Juice[]> {
-  const res = await fetch(`${JUICE_API_URL}/Grape/${grapeId}/Juices`);
+export async function getJuicesByGrapeIdAndYear(grapeId: number, year: number): Promise<Juice[]> {
+  const res = await fetch(`${JUICE_API_URL}/${grapeId}/${year}`);
   
   if(!res.ok) throw new Error("Failed to fetch juice.");
 
@@ -24,22 +44,23 @@ export async function getJuicesByGrapeId(grapeId: number): Promise<Juice[]> {
 
   // Map PascalCase to camelCase
   return data.map((j: any) => ({
-    id: j.Id,
+    id: j.JuiceId,
     volume: j.Volume,
     pressedDate: j.PressedDate,
     juiceTypeId: j.JuiceTypeId,
     grapeId: j.GrapeId,
     tasteProfile: j.TasteProfiles?.map((t: any) => ({
-      id: t.Id,
-      sweetness: t.Sweetness,
-      acidity: t.Acidity,
-      aroma: t.Aroma,
-      dryness: t.Dryness,
-      color: t.Color,
-      description: t.Description,
-      rating: t.Rating,
-      date: t.Date,
-    })) || [],
+  id: t.TasteProfileId,
+  sweetness: t.Sweetness,
+  acidity: t.Acidity,
+  aroma: t.Aroma,
+  dryness: t.Dryness,
+  color: t.Color,
+  rating: t.Rating,
+  description: t.TasteProfileDescription,
+  date: t.TasteProfileDate,
+}))
+
   }));
     
 }
@@ -55,3 +76,35 @@ export async function getJuiceById(id: number): Promise<Juice> {
     throw new Error("Failed to fetch juice.")
   }
 }
+
+export async function updateJuiceById(
+  id: number,
+  data: CreateJuice
+) {
+  const res = await fetch(`${JUICE_API_URL}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to update juice.");
+  }
+
+  return true;
+}
+
+
+
+export async function deleteJuiceById(id: number) {
+  const res = await fetch(`${JUICE_API_URL}/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) {
+    throw new Error("Failed to delete juice.");
+  }
+  return true;
+}
+

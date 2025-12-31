@@ -13,25 +13,6 @@ public class TasteProfileDAO : ITasteProfileDAO
         _connectionString = config;
     }
 
-    public IEnumerable<TasteProfile> GetTasteProfilesByJuiceId(int juiceId)
-    {
-        try
-        {
-            var connectionString = _connectionString.GetConnectionString("DefaultConnection");
-            using var conn = new NpgsqlConnection(connectionString);
-
-            var sql = @"SELECT * FROM TasteProfile WHERE JuiceId = @juiceId ORDER BY TasteProfileDate";
-
-            var tasteProfiles = conn.Query<TasteProfile>(sql, new { juiceId });
-            return tasteProfiles;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"Taste Profiles for Juice id {juiceId} could not be fetched. {ex.Message}", ex);
-        }
-}
-
-
     public bool CreateTasteProfileForJuice(CreateTasteProfileDTO tasteProfileDTO, int juiceId)
     {
         try
@@ -49,9 +30,9 @@ public class TasteProfileDAO : ITasteProfileDAO
                 Aroma = tasteProfileDTO.Aroma,
                 Dryness = tasteProfileDTO.Dryness,
                 Color = tasteProfileDTO.Color,
-                Description = tasteProfileDTO.TasteProfileDescription,
+                TasteProfileDescription = tasteProfileDTO.TasteProfileDescription,
                 Rating = tasteProfileDTO.Rating,
-                Date = tasteProfileDTO.TasteProfileDate,
+                TasteProfileDate = tasteProfileDTO.TasteProfileDate,
                 JuiceId = juiceId
             });
 
@@ -65,6 +46,36 @@ public class TasteProfileDAO : ITasteProfileDAO
         }
         
     }
+    public IEnumerable<TasteProfile> GetTasteProfilesByJuiceId(int juiceId)
+    {
+        try
+        {
+            var connectionString = _connectionString.GetConnectionString("DefaultConnection");
+            using var conn = new NpgsqlConnection(connectionString);
+
+            var sql = @"SELECT 
+                        TasteProfileId,
+                        Sweetness,
+                        Acidity,
+                        Aroma,
+                        Dryness,
+                        Color,
+                        TasteProfileDescription,
+                        Rating,
+                        TasteProfileDate::timestamp AS TasteProfileDate,
+                        JuiceId
+                        FROM TasteProfile WHERE JuiceId = @juiceId ORDER BY TasteProfileDate";
+
+            var tasteProfiles = conn.Query<TasteProfile>(sql, new { juiceId });
+            return tasteProfiles;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception($"Taste Profiles for Juice id {juiceId} could not be fetched. {ex.Message}", ex);
+        }
+    }
+
+
 
     public bool UpdateTasteProfileById(int id, CreateTasteProfileDTO tasteProfileToUpdate)
     {
@@ -73,22 +84,23 @@ public class TasteProfileDAO : ITasteProfileDAO
             var connectionString = _connectionString.GetConnectionString("DefaultConnection");
             using var conn = new NpgsqlConnection(connectionString);
 
-            var sql = @"UPDATE TasteProfiles
+            var sql = @"UPDATE TasteProfile
                 SET Sweetness=@Sweetness, Acidity=@Acidity, Aroma=@Aroma, Dryness=@Dryness,
                 Color=@Color, TasteProfileDescription=@TasteProfileDescription, Rating=@Rating, TasteProfileDate=@TasteProfileDate
-                WHERE TasteProfiledId=@TasteProfiledId";
-            int affectedRows = conn.Execute(sql, new
-            {
-                Sweetness = tasteProfileToUpdate.Sweetness,
-                Acidity = tasteProfileToUpdate.Acidity,
-                Aroma = tasteProfileToUpdate.Aroma,
-                Dryness = tasteProfileToUpdate.Dryness,
-                Color = tasteProfileToUpdate.Color,
-                Description = tasteProfileToUpdate.TasteProfileDescription,
-                Rating = tasteProfileToUpdate.Rating,
-                Date = tasteProfileToUpdate.TasteProfileDate,
-                TasteProfiledId = id
-            });
+                WHERE TasteProfileId=@TasteProfileId";
+                
+                int affectedRows = conn.Execute(sql, new
+                {
+                    Sweetness = tasteProfileToUpdate.Sweetness,
+                    Acidity = tasteProfileToUpdate.Acidity,
+                    Aroma = tasteProfileToUpdate.Aroma,
+                    Dryness = tasteProfileToUpdate.Dryness,
+                    Color = tasteProfileToUpdate.Color,
+                    TasteProfileDescription = tasteProfileToUpdate.TasteProfileDescription,
+                    Rating = tasteProfileToUpdate.Rating,
+                    TasteProfileDate = tasteProfileToUpdate.TasteProfileDate?.Date,
+                    TasteProfileId = id
+                });
 
             bool success = affectedRows > 0;
             
@@ -109,9 +121,9 @@ public class TasteProfileDAO : ITasteProfileDAO
             var connectionString = _connectionString.GetConnectionString("DefaultConnection");
             using var conn = new NpgsqlConnection(connectionString);
 
-            var sql = @"DELETE FROM TasteProfile WHERE TasteProfiledId=@TasteProfiledId";
+            var sql = @"DELETE FROM TasteProfile WHERE TasteProfileId=@TasteProfileId";
 
-            int affectedRows = conn.Execute(sql, new {TasteProfiledId = id});
+            int affectedRows = conn.Execute(sql, new {TasteProfileId = id});
             //is it better to do afftectedRows == 1; ? hmm
             bool success = affectedRows > 0;
             
