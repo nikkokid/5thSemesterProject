@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import HarvestBox from "../../Components/HarvestBox";
-import HarvestOverall from "../../Components/HarvestOverall";
+import HarvestBox from "../../components/HarvestBox";
+import HarvestOverall from "../../components/HarvestOverall";
 import { getHarvestsByGrapeId, getHarvestsByGrapeIdAndYear , type HarvestView} from "../../Services/Harvest/HarvestServices";
 
 

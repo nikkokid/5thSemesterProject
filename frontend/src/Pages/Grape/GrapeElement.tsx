@@ -2,7 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {fetchGrapeById, type Grape} from "../../Services/Grape/GrapeServices"
 import grapeImage from "../../assets/grapesvg.svg"
-import ButtonCard from "../../Components/ButtonCard";
+import ButtonCard from "../../components/ButtonCard";
 
 export default function GrapeElement() {
     const { grapeId } = useParams<{ grapeId: string }>();
