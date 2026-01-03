@@ -49,4 +49,12 @@ public class JuicesController : ControllerBase
             return StatusCode(500, ex.Message);
         }
     }
+
+    [HttpGet]
+    public IActionResult GetJuicesByGrapes([FromQuery] int[] grapeIds)
+    {
+    var juices = _juiceDAO.GetJuicesByGrapeIds(grapeIds);
+    return Ok(juices);
+    }
+
 }

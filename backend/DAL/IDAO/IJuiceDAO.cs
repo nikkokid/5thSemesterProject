@@ -1,4 +1,5 @@
 
+using System.ComponentModel;
 using _5thSemesterProject.Backend.DAL.Model;
 namespace _5thSemesterProject.Backend.DAL.IDAO;
 
@@ -12,6 +13,7 @@ public interface IJuiceDAO
     public bool UpdateJuiceById();
 
     public bool DeleteJuiceById(int juiceId);
+    public List<Juice> GetJuicesByGrapeIds(int[] grapeIds);
 
 
 }

@@ -8,7 +8,8 @@ import Grape from './Pages/Grape/Grape.tsx';
 import GrapeElement from "./Pages/Grape/GrapeElement.tsx";
 // import GrapeType from "./pages/grape/GrapeType.tsx";
 // import Statistics from "./pages/statistics/Statistics.tsx";
-// import Wine from "./pages/wine/Wine.tsx";
+import Wine from "./pages/wine/Wine.tsx";
+import WineElement from "./pages/wine/WineElement.tsx";
 // import Juice from "./pages/juice/Juice.tsx";
 import Harvest from "./Pages/Harvest/Harvest.tsx";
 // import Plants from "./pages/plants/Plants.tsx";
@@ -24,8 +25,9 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/grape" element={<Grape />} />
           <Route path="/grape/:grapeId/" element={<GrapeElement/>} />
           <Route path="/grape/:grapeId/harvest" element={<Harvest/>} />
+          <Route path="/wine" element={<Wine />} />
+          <Route path="/wine/:wineId" element={<WineElement />} />
       {/*<Route path="/statistics" element={<Statistics />} />
-      <Route path="/wine" element={<Wine />} />
       <Route path="/statistics" element={<Statistics />} />
        {/*Specific grape type such as "Rondo" - see Druesort 2 in prototypes}
       <Route path="/grape-type/:grapeId/juice" element={<Juice/>} />
