@@ -32,22 +32,22 @@ public class WineDAOStub : IWineDAO
         _wines.Add(newWine);
         return newWineId;
     }
-    public bool UpdateWineById(int id, WineDTO wineDTO)
+    public int UpdateWineById(int WineId, WineDTO wineDTO)
     {
-        var wine = _wines.FirstOrDefault(w => w.WineId == id);
-        if (wine == null) return false;
+        var wine = _wines.FirstOrDefault(w => w.WineId == WineId);
+        if (wine == null) return 0;
 
         wine.WineName = wineDTO.WineName;
         wine.VintageYear = wineDTO.VintageYear;
-        return true;
+        return WineId;
     }
-    public bool DeleteWineById(int id)
+    public int DeleteWineById(int WineId)
     {
-        var wine = _wines.FirstOrDefault(w => w.WineId == id);
-        if (wine == null) return false;
+        var wine = _wines.FirstOrDefault(w => w.WineId == WineId);
+        if (wine == null) return 0;
 
         _wines.Remove(wine);
-        return true;
+        return WineId;
     }
 
 

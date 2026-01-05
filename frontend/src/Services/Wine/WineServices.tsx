@@ -20,7 +20,7 @@ export type WineDetail = {
   GrapeName: string;
   JuiceId: number;
   JuiceVolume: number;
-  WineJuicePercentage: number;
+  Percentage: number;
   PressedDate: string;
 };
 
@@ -53,4 +53,23 @@ export async function createWine(wineData: WineDTO): Promise<number> {
     }
     const responseData = await response.json();
     return responseData.wineId;
+}
+export async function updateWine(wineId: number, wineDTO: WineDTO): Promise<void> {
+  const res = await fetch(`${baseUrl}/${wineId}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(wineDTO),
+  });
+  if (!res.ok) { throw new Error("Failed to update wine with id " + wineId);
+  }
+  return;
+}
+
+export async function deleteWine(wineId: number): Promise<void> {
+  const res = await fetch(`${baseUrl}/${wineId}`, {
+    method: "DELETE",
+  });
+  if (!res.ok) { throw new Error("Failed to delete wine with id " + wineId);
+  }
+  return;
 }

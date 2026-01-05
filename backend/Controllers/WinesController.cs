@@ -43,4 +43,25 @@ public class WinesController : ControllerBase
         }
         return CreatedAtAction(nameof(GetById), new { id = wineId }, wineId);
     }
+
+    [HttpPatch("{id}")]
+    public IActionResult UpdateWine(int id, WineDTO wineDTO)
+    {
+        var wineId = _wineDAO.UpdateWineById(id, wineDTO);
+        if (wineId == 0)
+        {
+            return BadRequest("Invalid wine data or percentage sum is not 100.");
+        }
+        return Ok(wineId);
+    }
+    [HttpDelete("{id}")]
+    public IActionResult DeleteWine(int id)
+    {
+        var result = _wineDAO.DeleteWineById(id);
+        if (result == 0)
+        {
+            return NotFound();
+        }
+        return NoContent();
+    }
 }

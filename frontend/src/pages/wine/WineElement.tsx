@@ -56,7 +56,7 @@ export default function WineElementPage() {
                 <tr key={j.JuiceId}>
                   <td className="border px-2 py-1">{j.JuiceId}</td>
                   <td className="border px-2 py-1">{j.JuiceVolume}</td>
-                  <td className="border px-2 py-1">{j.WineJuicePercentage}</td>
+                  <td className="border px-2 py-1">{j.Percentage}</td>
                   <td className="border px-2 py-1">{j.PressedDate}</td>
                 </tr>
               ))}

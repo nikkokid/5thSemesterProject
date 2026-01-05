@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import WineImage from "../../assets/winesvg.svg";
 import { useNavigate } from "react-router-dom";
-import { fetchWines, type Wine } from "../../Services/Wine/WineServices";
+import wineImage from "../../assets/winesvg.svg"; // use your wine image
+import settingsSvg from "../../assets/settings-svgrepo-com.svg";
+import {fetchWines, type Wine,} from "../../Services/Wine/WineServices";
 import ButtonCard from "../../components/ButtonCard";
 import Dialog from "../../components/Dialog";
-import CreateWineDialogContent from "../../components/CreateWineDialogContent"; 
+import CreateWineDialogContent from "../../components/CreateWineDialogContent";
+import EditWineDialogContent from "../../components/EditWineDialogContent";
 
-export default function WinePage() {
+export default function Wine() {
   const [wines, setWines] = useState<Wine[]>([]);
   const [dialogContent, setDialogContent] = useState<React.ReactNode>(null);
 
@@ -31,42 +33,67 @@ export default function WinePage() {
   }
 
   return (
-    <div className="p-4">
+    <>
+      {/* Header */}
       <div className="flex items-center mb-4">
         <h2 className="text-2xl font-semibold">Vine</h2>
 
-        {/* 1️⃣ Create Wine button */}
         <button
           onClick={() => {
             setDialogContent(
               <CreateWineDialogContent
                 onClose={toggleDialog}
-                onCreated={(newWineId: number) => navigate(`/wine/${newWineId}`)}
+                onCreated={loadWines}
               />
             );
             toggleDialog();
           }}
-          className="ml-auto bg-green-600 text-white px-4 py-2 rounded-lg"
+          className="ml-auto bg-green-600! text-white px-4 py-2 rounded-lg"
         >
-          + Opret vin
+          + Tilføj vin
         </button>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 p-2">
         {wines.map((wine) => (
-          <ButtonCard
-            key={wine.WineId}
-            image={WineImage}
-            title={wine.WineName}
-            description={`Årgang: ${wine.VintageYear}`}
-            onClick={() => navigate(`/wine/${wine.WineId}`)}
-          />
+          <div key={wine.WineId} className="relative group">
+            <ButtonCard
+              image={wineImage}
+              title={wine.WineName}
+              description={`Årgang ${wine.VintageYear}`}
+              onClick={() => navigate(`/wine/${wine.WineId}`)}
+            />
+
+            {/* Settings icon */}
+            <button
+              onClick={() => {
+                setDialogContent(
+                  <EditWineDialogContent
+                    wineId={wine.WineId}
+                    onClose={toggleDialog}
+                    onUpdated={loadWines}
+                    onDeleted={loadWines}
+                  />
+                );
+                toggleDialog();
+              }}
+              className="absolute top-2 right-2 w-6 h-6 opacity-0 group-hover:opacity-100 transition"
+            >
+              <img
+                src={settingsSvg}
+                alt="Edit wine"
+                className="w-full h-full object-contain"
+              />
+            </button>
+          </div>
         ))}
       </div>
 
+      {/* Dialog */}
       <Dialog ref={dialogRef} toggleDialog={toggleDialog}>
         {dialogContent}
       </Dialog>
-    </div>
+    </>
   );
 }

@@ -43,7 +43,7 @@ CREATE TABLE Wine (
 );
 
 CREATE TABLE WineJuice (
-    WineId INT REFERENCES Wine(WineId),
+    WineId INT REFERENCES Wine(WineId) ON DELETE CASCADE,
     JuiceId INT REFERENCES Juice(JuiceId),
     WineJuicePercentage INT NOT NULL,
     PRIMARY KEY (WineId, JuiceId)
@@ -119,7 +119,7 @@ SELECT
     w.WineId,
     w.WineName,
     w.VintageYear,
-    wj.WineJuicePercentage,
+    wj.WineJuicePercentage AS Percentage,
     j.JuiceId,
     j.Volume,
     j.PressedDate,

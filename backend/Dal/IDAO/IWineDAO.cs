@@ -7,6 +7,6 @@ public interface IWineDAO
     IEnumerable<Wine> GetAllWines();
     IEnumerable<WineView> GetWineById(int WineId);
     int CreateWine(WineDTO wineDTO);
-    bool UpdateWineById(int id, WineDTO wineDTO);
-    bool DeleteWineById(int id);
+    int UpdateWineById(int WineId, WineDTO wineDTO);
+    int DeleteWineById(int WineId);
 }

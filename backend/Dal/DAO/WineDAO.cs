@@ -38,18 +38,11 @@ public class WineDAO : IWineDAO
 
     public int CreateWine(WineDTO wineDTO)
 {
-    if (wineDTO.Juices == null || wineDTO.Juices.Count == 0)
-        return 0;
-
-    if (wineDTO.Juices.Sum(j => j.Percentage) != 100)
-        return 0;
-
     var connectionString = _configuration.GetConnectionString("DefaultConnection");
 
-    using var connection = new NpgsqlConnection(connectionString);
-    connection.Open();
-    using var transaction = connection.BeginTransaction();
-
+        using var connection = new NpgsqlConnection(connectionString);
+        connection.Open();
+        using var transaction = connection.BeginTransaction();
     try
     {
         const string insertWineSql = @"
@@ -98,13 +91,78 @@ public class WineDAO : IWineDAO
 }
 
 
-    public bool UpdateWineById(int id, WineDTO wineDTO)
+    public int UpdateWineById(int WineId, WineDTO wineDTO)
     {
-        throw new NotImplementedException();
+        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+        using var connection = new NpgsqlConnection(connectionString);
+        connection.Open();
+        using var transaction = connection.BeginTransaction();
+        try
+        {
+            const string updateWineSql = @"
+            UPDATE Wine
+            SET WineName = @WineName,
+                VintageYear = @VintageYear
+            WHERE WineId = @WineId;
+            ";
+
+            connection.Execute(
+                updateWineSql,
+                new
+                {
+                    WineId,
+                    wineDTO.WineName,
+                    wineDTO.VintageYear
+                },
+                transaction
+            );
+
+            const string deleteWineJuicesSql = @"
+            DELETE FROM WineJuice
+            WHERE WineId = @WineId;
+            ";
+
+            connection.Execute(
+                deleteWineJuicesSql,
+                new { WineId },
+                transaction
+            );
+
+            const string insertWineJuiceSql = @"
+            INSERT INTO WineJuice (WineId, JuiceId, WineJuicePercentage)
+            VALUES (@WineId, @JuiceId, @Percentage);
+            ";
+
+            foreach (var juice in wineDTO.Juices)
+            {
+                connection.Execute(
+                    insertWineJuiceSql,
+                    new
+                    {
+                        WineId,
+                        JuiceId = juice.JuiceId,
+                        Percentage = juice.Percentage
+                    },
+                    transaction
+                );
+            }
+
+            transaction.Commit();
+            return WineId;
+        }
+        catch
+        {
+            transaction.Rollback();
+            throw;
+        }
     }
 
-    public bool DeleteWineById(int id)
+    public int DeleteWineById(int WineId)
     {
-        throw new NotImplementedException();
+        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+        using var connection = new NpgsqlConnection(connectionString);
+        var sql = "DELETE FROM Wine WHERE WineId = @WineId;";
+        var result = connection.Execute(sql, new { WineId });
+        return result;
     }
 }
