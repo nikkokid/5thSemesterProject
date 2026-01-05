@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import grape from "../assets/grapesvg.svg"; 
 import statistics from "../assets/statisticssvg.svg";
 import wine from "../assets/winesvg.svg";
-
+import grapeLeaf from "../assets/grapeLeaf.svg";
 
 
 
@@ -46,7 +46,8 @@ export default function FrontPage() {
   const buttons = [
   { image: grape, title: "Druesort", description: "Se druedata her", onClick: () => navigate('/grape')},
   { image: statistics, title: "Statistik", description: "Se statistik her", onClick: () => navigate('/statistics')},
-  { image: wine, title: "Vin", description: "Se vindata her", onClick: () => navigate('/wine')}
+  { image: wine, title: "Vin", description: "Se vindata her", onClick: () => navigate('/wine')},
+  { image: grapeLeaf, title: "Rækker", description: "Se rækkedata her", onClick: () => navigate('/grape-row')}
 ];
 
   return (

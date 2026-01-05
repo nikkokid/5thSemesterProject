@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import grapeImage from "../../assets/grapesvg.svg"
 import {fetchGrapes, type Grape} from "../../Services/Grape/GrapeServices"
-import ButtonCard from "../../Components/ButtonCard"
+import ButtonCard from "../../components/ButtonCard"
 
 
 export default function Grape() {
