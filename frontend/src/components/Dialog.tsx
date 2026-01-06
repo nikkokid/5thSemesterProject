@@ -1,5 +1,4 @@
 import { forwardRef } from "react";
-import closeIcon from "../assets/x-symbol.svg";
 
 type Props = {
   children: React.ReactNode;
