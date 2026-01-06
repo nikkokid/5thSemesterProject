@@ -170,7 +170,13 @@ public class JuiceDAO : IJuiceDAO
     {
         var connectionString = _connectionString.GetConnectionString("DefaultConnection");
         using var conn = new NpgsqlConnection(connectionString);
-        var sql = @"SELECT * FROM Juice WHERE GrapeId = ANY(@grapeIds)";
+        var sql = @"SELECT
+                    JuiceId,
+                    Volume,
+                    PressedDate::timestamp AS PressedDate,
+                    GrapeId,
+                    JuiceTypeId
+                    FROM Juice WHERE GrapeId = ANY(@grapeIds)";
         return conn.Query<Juice>(sql, new { grapeIds }).ToList();
     }
 

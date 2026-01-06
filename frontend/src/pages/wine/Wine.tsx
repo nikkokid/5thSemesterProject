@@ -78,7 +78,7 @@ export default function Wine() {
                 );
                 toggleDialog();
               }}
-              className="absolute top-2 right-2 w-6 h-6 opacity-0 group-hover:opacity-100 transition"
+              className="absolute top-2 right-2 w-6 h-6 opacity-0 p-0! group-hover:opacity-100 transition"
             >
               <img
                 src={settingsSvg}
