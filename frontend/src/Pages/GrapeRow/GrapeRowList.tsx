@@ -22,7 +22,7 @@ export default function GrapeRowList() {
     })
     return (
         <div>
-            <div className="text-center">
+            <div className="text-center mb-12">
                 <h2>Rækker</h2>
             </div>
 

@@ -35,6 +35,6 @@ createRoot(document.getElementById('root')!).render(
         </div>
       </div>
     
-    </StrictMode>,
+    </StrictMode>
   </BrowserRouter>
 )
