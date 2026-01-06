@@ -2,8 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './index.css'
-import Header from './Components/Header.tsx'
-import FrontPage from "./Pages/FrontPage.tsx"
+import Header from './components/Header.tsx'
+import FrontPage from "./pages/FrontPage.tsx"
 import Grape from './Pages/Grape/Grape.tsx';
 import GrapeElement from "./Pages/Grape/GrapeElement.tsx";
 // import GrapeType from "./pages/grape/GrapeType.tsx";
@@ -12,6 +12,9 @@ import GrapeElement from "./Pages/Grape/GrapeElement.tsx";
 import Juice from "./Pages/Juice/Juice.tsx";
 import Harvest from "./Pages/harvest/Harvest.tsx";
 // import Plants from "./pages/plants/Plants.tsx";
+import GrapeRowList from './pages/GrapeRow/GrapeRowList.tsx';
+import GrapeRowCreate from './pages/GrapeRow/GrapeRowCreate.tsx';
+import GrapeRowRead from './pages/GrapeRow/GrapeRowRead.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
