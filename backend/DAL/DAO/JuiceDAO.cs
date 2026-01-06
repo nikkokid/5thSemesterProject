@@ -9,13 +9,15 @@ public class JuiceDAO : IJuiceDAO
 {
     private readonly IConfiguration _connectionString;
 
-    private ITasteProfileDAO _tasteProfileDAO;
+    private ITasteProfileDAO _tasteProfileDAO;   
+    private IAdditiveDAO _additiveDAO;
 
 
-    public JuiceDAO(IConfiguration config, ITasteProfileDAO tasteProfileDAO) // NOTE 1
+    public JuiceDAO(IConfiguration config, ITasteProfileDAO tasteProfileDAO, IAdditiveDAO additiveDAO)
     {
         _connectionString = config;
         _tasteProfileDAO = tasteProfileDAO;
+        _additiveDAO = additiveDAO;
     }
 
     
@@ -68,7 +70,7 @@ public class JuiceDAO : IJuiceDAO
             foreach (var juice in juices)
             {
                 juice.TasteProfiles = _tasteProfileDAO.GetTasteProfilesByJuiceId(juice.JuiceId).ToList();
-                //juice.Additives = _additiveDAO.GetAdditivesByJuiceId(juice.JuiceId).ToList();
+                juice.Additives = _additiveDAO.GetAdditivesByJuiceId(juice.JuiceId).ToList();
             }
 
             return juices;
@@ -103,7 +105,7 @@ public class JuiceDAO : IJuiceDAO
             foreach (var juice in juices)
             {
                 juice.TasteProfiles = _tasteProfileDAO.GetTasteProfilesByJuiceId(juice.JuiceId).ToList();
-                //juice.Additives = _additiveDAO.GetAdditivesByJuiceId(juice.JuiceId).ToList();
+                juice.Additives = _additiveDAO.GetAdditivesByJuiceId(juice.JuiceId).ToList();
             }
 
             return juices;

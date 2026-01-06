@@ -36,7 +36,7 @@ public class TasteProfilesController : ControllerBase
     
 
     [HttpGet("{juiceId}")]
-    public ActionResult<TasteProfile[]> GetTasteProfilesByJuiceId(int juiceId)
+    public ActionResult<TasteProfile[]> GetTasteProfilesByJuiceId([FromRoute] int juiceId)
     {
         try
         {

@@ -1,5 +1,3 @@
-
-
 //for read
 export type TasteProfile = {
     id: number;
@@ -13,7 +11,7 @@ export type TasteProfile = {
     date: string;
 }
 
-//for create
+//for write
 export type CreateTasteProfile = {
     sweetness: number;
     acidity: number;
@@ -47,7 +45,7 @@ if (!res.ok) throw new Error("Failed to create taste profile.");
 return true;
 }
 
-  export async function getTasteProfileByJuiceId(juiceId: number): Promise<TasteProfile[]> {
+  export async function getTasteProfilesByJuiceId(juiceId: number): Promise<TasteProfile[]> {
     const res = await fetch(`${TASTEPROFILE_API_URL}/${juiceId}`);
     if (!res.ok) throw new Error("Failed to fetch taste profile.");
 
@@ -67,7 +65,7 @@ return true;
     }));
   }
 
-  export async function editTasteProfile(
+  export async function updateTasteProfile(
     tasteProfileId: number,
     data: CreateTasteProfile
     ) {
@@ -95,14 +93,10 @@ return true;
   } 
 
 
-  export async function deleteTasteProfile(
-  tasteProfileId: number,
-  ) {
-  const res = await fetch(
-    `${TASTEPROFILE_API_URL}/${tasteProfileId}`,{
+export async function deleteTasteProfile(tasteProfileId: number,) {
+  const res = await fetch(`${TASTEPROFILE_API_URL}/${tasteProfileId}`, {
       method: "DELETE"
-    }
-  );
+  });
   if (!res.ok) {
     throw new Error("Failed to delete taste profile.");
   }

@@ -124,7 +124,7 @@ public class TasteProfileDAO : ITasteProfileDAO
             var sql = @"DELETE FROM TasteProfile WHERE TasteProfileId=@TasteProfileId";
 
             int affectedRows = conn.Execute(sql, new {TasteProfileId = id});
-            //is it better to do afftectedRows == 1; ? hmm
+            
             bool success = affectedRows > 0;
             
             return success;

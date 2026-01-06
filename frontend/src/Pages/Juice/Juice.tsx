@@ -6,7 +6,7 @@ import { getJuicesByGrapeIdAndYear, type Juice } from "../../Services/Juice/Juic
 
 export default function Juice() {
   const { grapeId } = useParams();
-  const years = [2023, 2024, 2025];
+  const years = [2023, 2024, 2025, 2026];
 
   const [selectedYear, setSelectedYear] = useState(
     new Date().getFullYear()
@@ -39,7 +39,7 @@ export default function Juice() {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-12 md:gap-24 lg:gap-40 mt-12">
+      <div className="grid grid-cols-2 gap-12 md:gap-18 lg:gap-20 mt-12">
         {juiceTypes.map(type => (
           <JuiceColumn
             key={type.typeId}

@@ -50,6 +50,16 @@ CREATE TABLE TasteProfile (
     JuiceId INT REFERENCES Juice(JuiceId) ON DELETE CASCADE
 );
 
+CREATE TABLE Additive (
+    AdditiveId SERIAL PRIMARY KEY,
+    AdditiveName TEXT NOT NULL,
+    AdditiveAmount NUMERIC,
+    AdditiveDescription TEXT,
+    AdditiveDate DATE,
+    JuiceId INT REFERENCES Juice(JuiceId) ON DELETE CASCADE
+);
+
+
 
 INSERT INTO Grape (GrapeName) VALUES ('Rondo'), ('Solaris'), ('Cabernet Noir');
 
@@ -86,6 +96,11 @@ VALUES (1, 1, 1, 1, 1, 'test smagsprofil1', 1,'2025-01-01', 1),
          (2, 2, 2, 2, 2, 'test smagsprofil2', 2, '2025-02-02', 2),
          (3, 3, 3, 3, 3, 'test smagsprofil3', 3, '2025-04-04', 3),
          (2, 2, 2, 2, 2, 'test smagsprofil4', 2, '2025-05-05', 1);
+
+INSERT INTO Additive (AdditiveName, AdditiveAmount, AdditiveDescription, AdditiveDate, JuiceId) 
+VALUES ('Sugar', 1.5, 'testUsed as sweetenertest', '2025-12-15', 1),
+       ('Acid', 0.5, 'testUsed to increase aciditytest', '2026-01-02', 1);
+
 
 
 CREATE VIEW HarvestView AS

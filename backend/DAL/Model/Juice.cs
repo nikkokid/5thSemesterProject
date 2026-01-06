@@ -8,4 +8,5 @@ public class Juice
     public int GrapeId { get; set; }
     public int JuiceTypeId { get; set; }
     public List<TasteProfile>? TasteProfiles { get; set; }
+    public List<Additive>? Additives { get; set; }
 }

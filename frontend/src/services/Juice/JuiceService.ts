@@ -1,4 +1,5 @@
 import type { TasteProfile } from "../TasteProfile/TasteProfileService";
+import type { Additive } from "../Additive/AdditiveService";
 
 export type Juice = {
   id: number;
@@ -7,7 +8,7 @@ export type Juice = {
   juiceTypeId: number; //1 pressed, 2 = unpressed;
   grapeId: number;
   tasteProfile?: TasteProfile[];
-  //additives to be implemented 
+  additive?: Additive[]; 
 };
 
 export type CreateJuice = {
@@ -50,16 +51,23 @@ export async function getJuicesByGrapeIdAndYear(grapeId: number, year: number): 
     juiceTypeId: j.JuiceTypeId,
     grapeId: j.GrapeId,
     tasteProfile: j.TasteProfiles?.map((t: any) => ({
-  id: t.TasteProfileId,
-  sweetness: t.Sweetness,
-  acidity: t.Acidity,
-  aroma: t.Aroma,
-  dryness: t.Dryness,
-  color: t.Color,
-  rating: t.Rating,
-  description: t.TasteProfileDescription,
-  date: t.TasteProfileDate,
-}))
+      id: t.TasteProfileId,
+      sweetness: t.Sweetness,
+      acidity: t.Acidity,
+      aroma: t.Aroma,
+      dryness: t.Dryness,
+      color: t.Color,
+      rating: t.Rating,
+      description: t.TasteProfileDescription,
+      date: t.TasteProfileDate,
+    })),
+    additive: j.Additives?.map((a: any) => ({
+      id: a.AdditiveId,
+      name: a.AdditiveName,
+      amount: a.AdditiveAmount,
+      description: a.AdditiveDescription,
+      date: a.AdditiveDate,
+    })),
 
   }));
     
@@ -86,7 +94,10 @@ export async function updateJuiceById(
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify({
+      PressedDate: data.pressedDate,
+      Volume: data.volume
+    }),
   });
 
   if (!res.ok) {
