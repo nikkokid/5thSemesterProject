@@ -41,14 +41,14 @@ export default function WineElementPage() {
 
       {Object.entries(grapesMap).map(([grapeId, juices]) => (
         <div key={grapeId} className="mb-4 border p-4 rounded shadow-sm">
-          <h2 className="text-xl font-semibold mb-2">Grape: {juices[0].GrapeName}</h2>
+          <h2 className="text-xl font-semibold mb-2">Drue: {juices[0].GrapeName}</h2>
           <table className="w-full table-auto border-collapse border border-gray-300">
             <thead>
               <tr className="bg-gray-100">
                 <th className="border px-2 py-1 text-left">Juice ID</th>
                 <th className="border px-2 py-1 text-left">Volume (L)</th>
-                <th className="border px-2 py-1 text-left">Percentage (%)</th>
-                <th className="border px-2 py-1 text-left">Pressed Date</th>
+                <th className="border px-2 py-1 text-left">Procent (%)</th>
+                <th className="border px-2 py-1 text-left">Pressedato</th>
               </tr>
             </thead>
             <tbody>

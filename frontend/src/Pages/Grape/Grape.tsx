@@ -75,9 +75,9 @@ export default function Grape() {
       );
       toggleDialog();
     }}
-    className="absolute top-2 right-2 w-6 h-6 opacity-0 group-hover:opacity-100 transition"
+    className="mb-2 p-0!"
 >
-  <img src={settingsSvg} alt="Edit grape" className="w-full h-full object-contain"/>
+  <img src={settingsSvg} alt="Edit grape" className="w-6 h-6"/>
 </button>
 </div>
 

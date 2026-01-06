@@ -157,7 +157,7 @@ export default function EditWineDialogContent({
         0
       );
 
-      if (total !== 100) {
+      if (total < 99 || total > 100) {
         alert("Juice percentages must add up to 100%");
         return;
       }
@@ -200,10 +200,10 @@ export default function EditWineDialogContent({
   // ----------------------------------
   return (
     <div className="flex flex-col gap-4 p-4 min-width-[400px]">
-      <h2 className="text-xl font-semibold">Edit Wine</h2>
+      <h2 className="text-xl font-semibold">Redigér Vin</h2>
 
       <label>
-        Wine Name:
+        Vin Navn:
         <input
           className="border p-1 rounded w-full"
           value={wineName}
@@ -212,7 +212,7 @@ export default function EditWineDialogContent({
       </label>
 
       <label>
-        Vintage Year:
+        Årgang:
         <input
           type="number"
           className="border p-1 rounded w-full"
@@ -221,7 +221,7 @@ export default function EditWineDialogContent({
         />
       </label>
 
-      <h3 className="font-semibold">Select Grapes</h3>
+      <h3 className="font-semibold">Vælg Druer</h3>
       <div className="flex flex-wrap gap-2">
         {grapes.map(g => (
           <button
@@ -229,7 +229,7 @@ export default function EditWineDialogContent({
             onClick={() => toggleGrapeSelection(g.GrapeId)}
             className={`px-3 py-1 border rounded ${
               selectedGrapeIds.includes(g.GrapeId)
-                ? "bg-green-600 text-white"
+                ? "bg-green-600! text-white"
                 : "bg-gray-200"
             }`}
           >
@@ -240,7 +240,7 @@ export default function EditWineDialogContent({
 
       {juices.length > 0 && (
         <>
-          <h3 className="font-semibold">Select Juices</h3>
+          <h3 className="font-semibold">Vælg Saft</h3>
 
           {juices.map(juice => {
             const selected = selectedJuiceIds.includes(juice.id);
@@ -257,7 +257,7 @@ export default function EditWineDialogContent({
                 />
 
                 <span className="flex-1">
-                  Grape:{juice.grapeId} · {juice.volume}L
+                  Drue:{juice.grapeId} · {juice.volume}L
                 </span>
 
                 {selected && (
@@ -286,9 +286,9 @@ export default function EditWineDialogContent({
       <div className="flex justify-between mt-4">
         <button
           onClick={handleDelete}
-          className="px-4 py-2 bg-red-600 text-white rounded"
+          className="px-4 py-2 bg-red-600! text-white rounded"
         >
-          Delete
+          Slet
         </button>
 
         <div className="flex gap-2">
@@ -301,9 +301,9 @@ export default function EditWineDialogContent({
           <button
             onClick={handleUpdate}
             disabled={loading}
-            className="px-4 py-2 bg-blue-600 text-white rounded"
+            className="px-4 py-2 bg-blue-600! text-white rounded"
           >
-            {loading ? "Saving..." : "Save changes"}
+            {loading ? "Gemmer..." : "Gem Ændringer"}
           </button>
         </div>
       </div>

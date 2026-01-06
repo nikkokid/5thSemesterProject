@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import closeIcon from "../assets/x-symbol.svg";
 
 type Props = {
   children: React.ReactNode;
@@ -16,9 +17,17 @@ const Dialog = forwardRef<HTMLDialogElement, Props>(
           }
         }}
       >
-        <div>
+        <div className="relative p-6">
           {children}
-          <button onClick={toggleDialog}>Anuller</button>
+          <button
+            onClick={toggleDialog}
+            className="absolute top-1 right-1 w-7 h-7 p-0 
+            bg-transparent border-0 shadow-none flex items-center 
+            justify-center rounded-full hover:bg-gray-200/50 transition-colors"
+            aria-label="Close dialog"
+          >
+            <span className="text-black text-xl font-bold">&times;</span>
+          </button>
         </div>
       </dialog>
     );

@@ -166,10 +166,10 @@ export default function CreateWineDialogContent({
   // -------------------------------
   return (
     <div className="flex flex-col gap-4 p-4 min-width[400px]">
-      <h2 className="text-xl font-semibold">Create Wine</h2>
+      <h2 className="text-xl font-semibold">Opret Vin</h2>
 
       <label>
-        Wine Name:
+        Vin Navn:
         <input
           className="border p-1 rounded w-full"
           value={wineName}
@@ -178,7 +178,7 @@ export default function CreateWineDialogContent({
       </label>
 
       <label>
-        Vintage Year:
+        Årgang:
         <input
           type="number"
           className="border p-1 rounded w-full"
@@ -187,7 +187,7 @@ export default function CreateWineDialogContent({
         />
       </label>
 
-      <h3 className="font-semibold">Select Grapes</h3>
+      <h3 className="font-semibold">Vælg Druer</h3>
       <div className="flex flex-wrap gap-2">
         {grapes.map(g => (
           <button
@@ -195,7 +195,7 @@ export default function CreateWineDialogContent({
             onClick={() => toggleGrapeSelection(g.GrapeId)}
             className={`px-3 py-1 border rounded ${
               selectedGrapeIds.includes(g.GrapeId)
-                ? "bg-green-600 text-white"
+                ? "bg-green-600! text-white"
                 : "bg-gray-200"
             }`}
           >
@@ -206,7 +206,7 @@ export default function CreateWineDialogContent({
 
       {juices.length > 0 && (
         <>
-          <h3 className="font-semibold">Select Juices</h3>
+          <h3 className="font-semibold">Vælg Saft</h3>
 
           {juices.map(juice => {
             const selected = selectedJuiceIds.includes(juice.id);
@@ -223,7 +223,7 @@ export default function CreateWineDialogContent({
                 />
 
                 <span className="flex-1">
-                  Grape:{juice.grapeId} · {juice.volume}L · Type:{juice.juiceTypeId}
+                  Drue:{juice.grapeId} · {juice.volume}L · Type:{juice.juiceTypeId}
                 </span>
 
                 {selected && (
@@ -256,9 +256,9 @@ export default function CreateWineDialogContent({
         <button
           onClick={handleSubmit}
           disabled={loading}
-          className="px-4 py-2 bg-green-600 text-white rounded"
+          className="px-4 py-2 bg-green-600! text-white rounded"
         >
-          {loading ? "Creating..." : "Create Wine"}
+          {loading ? "Opretter..." : "Opret Vin"}
         </button>
       </div>
     </div>
