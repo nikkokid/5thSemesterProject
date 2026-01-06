@@ -70,7 +70,7 @@ export default function GrapeRowRead () {
                     <button onClick={() => setEditingGrapeRow(true)}>Rediger Række</button>
                 </div>
                 <div>
-                    <GrapeRowOverall selectedGrapeRowsPlantings={selectedGrapeRowsPlantings} selectedGrapeRow={selectedGrapeRow[0]}/>
+                    <GrapeRowOverall selectedGrapeRowsPlantings={selectedGrapeRowsPlantings} selectedGrapeRow={selectedGrapeRow[0]} grapes={grapes}/>
                 </div>
                 <div className="flex flex-wrap gap-2">
                     <PlantingBoxCreate grapeRowId={selectedGrapeRowId} setReloadNeeded={setReloadNeeded} grapes={grapes}/>

@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import type { GrapeRow } from "../services/GrapeRow/GrapeRowService";
-import type { Planting } from "../services/Planting/PlantingService";
+import type { GrapeRow } from "../Services/GrapeRow/GrapeRowService";
+import type { Planting } from "../Services/Planting/PlantingService";
 
 type GrapeRowOverallProps = {
-    selectedGrapeRowsPlantings: Planting[];
-    selectedGrapeRow: GrapeRow;
+    selectedGrapeRowsPlantings: Planting[],
+    selectedGrapeRow: GrapeRow,
+    grapes: Record<number, string>
 };
 
-export default function GrapeRowOverall({selectedGrapeRowsPlantings, selectedGrapeRow} : GrapeRowOverallProps) {
+export default function GrapeRowOverall({selectedGrapeRowsPlantings, selectedGrapeRow, grapes} : GrapeRowOverallProps) {
     const [liveGrapeVines, setLiveGrapeVines] = useState(0);
     const [deadGrapeVines, setDeadGrapeVines] = useState(0);
     const [liveVinesPerGrape, setLiveVinesPerGrape] = useState<Record<number, number>>({});
@@ -58,7 +59,7 @@ export default function GrapeRowOverall({selectedGrapeRowsPlantings, selectedGra
                 <p>Samlet: {liveGrapeVines} stokke</p>
                 {Object.entries(liveVinesPerGrape).map(([grapeId, liveVines]) => (
                     <p key={grapeId}>
-                        Grape Id: {grapeId} levende stokke:{liveVines}
+                        {grapes[Number(grapeId)]}: {liveVines} stokke
                     </p>
                 ))}
             </div>
@@ -67,7 +68,7 @@ export default function GrapeRowOverall({selectedGrapeRowsPlantings, selectedGra
                 <p>Samlet: {deadGrapeVines} stokke</p>
                 {Object.entries(deadVinesPerGrape).map(([grapeId, deadVines]) => (
                     <p key={grapeId}>
-                        Grape Id: {grapeId} døde stokke: {deadVines}
+                        {grapes[Number(grapeId)]}: {deadVines} stokke
                     </p>
                 ))}
             </div>

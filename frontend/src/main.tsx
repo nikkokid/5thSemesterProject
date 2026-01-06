@@ -6,8 +6,8 @@ import Header from './Components/Header.tsx'
 import FrontPage from "./Pages/FrontPage.tsx"
 import Grape from './Pages/Grape/Grape.tsx';
 import GrapeElement from "./Pages/Grape/GrapeElement.tsx";
-import Wine from "./Pages/wine/Wine.tsx";
-import WineElement from "./Pages/wine/WineElement.tsx";
+import Wine from "./Pages/Wine/Wine.tsx";
+import WineElement from "./Pages/Wine/WineElement.tsx";
 import Harvest from "./Pages/Harvest/Harvest.tsx";
 import Juice from "./Pages/Juice/Juice.tsx";
 import GrapeRowList from './Pages/GrapeRow/GrapeRowList.tsx';

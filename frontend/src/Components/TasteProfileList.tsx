@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import {createTasteProfileForJuice, getTasteProfilesByJuiceId, updateTasteProfile, deleteTasteProfile,
   type CreateTasteProfile, type TasteProfile}
   from "../Services/TasteProfile/TasteProfileService";
-import settingssvg from "./../Assets/settings-svgrepo-com.svg";
-import trashsvg from "./../Assets/trashsvg.svg";
+import settingssvg from "./../assets/settings-svgrepo-com.svg";
+import trashsvg from "./../assets/trashsvg.svg";
 
   type TasteProfileListProps = {
     juiceId: number;

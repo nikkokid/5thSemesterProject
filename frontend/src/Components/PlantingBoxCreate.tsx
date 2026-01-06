@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createPlanting, type PlantingDTO } from "../services/Planting/PlantingService";
+import { createPlanting, type PlantingDTO } from "../Services/Planting/PlantingService";
 
 type PlantingBoxCreateProps = {
     grapeRowId: number,

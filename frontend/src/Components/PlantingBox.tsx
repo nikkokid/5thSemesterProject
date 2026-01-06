@@ -1,11 +1,11 @@
-import { useEffect, useState} from "react";
-import { deletePlanting, updatePlanting, type Planting, type PlantingDTO } from "../services/Planting/PlantingService";
+import { useState} from "react";
+import { deletePlanting, updatePlanting, type Planting, type PlantingDTO } from "../Services/Planting/PlantingService";
 
 type PlantingBoxProps = {
-    planting : Planting;
+    planting : Planting,
     setReloadNeeded: React.Dispatch<React.SetStateAction<boolean>>,
-    grapes: Record<number, string>;
-    }
+    grapes: Record<number, string>
+    };
 
 
 export default function PlantingBox({planting, grapes, setReloadNeeded} : PlantingBoxProps) {
@@ -36,7 +36,7 @@ export default function PlantingBox({planting, grapes, setReloadNeeded} : Planti
                 <div className="flex flex-col p-4 border-3 rounded border-[rgb(77,16,39)] bg-gray-200 text-black">
                     <h2>Plantning {planting.PlantingId}</h2>
                     <button onClick={() => setEditingPlanting(true)}>Rediger plantning</button>
-                    <p>Drue: Rondo</p>
+                    <p>Drue: {grapes[planting.GrapeId]}</p>
                     <p>Plantede stokke: {planting.NumberOfVinesPlanted}</p>
                     <p>Døde stokke: {planting.NumberOfVinesDead}</p>
                     <p>Plantet: {planting.PlantingDate}</p>

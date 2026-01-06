@@ -1,8 +1,8 @@
 import { createAdditiveForJuice, getAdditivesByJuiceId, updateAdditiveById, deleteAdditiveById} from "../Services/Additive/AdditiveService";
 import type { Additive, CreateAdditive } from "../Services/Additive/AdditiveService";
 import { useEffect, useState } from "react";
-import settingssvg from "./../Assets/settings-svgrepo-com.svg";
-import trashsvg from "./../Assets/trashsvg.svg";
+import settingssvg from "./../assets/settings-svgrepo-com.svg";
+import trashsvg from "./../assets/trashsvg.svg";
 
 
 type AdditiveListProps = {

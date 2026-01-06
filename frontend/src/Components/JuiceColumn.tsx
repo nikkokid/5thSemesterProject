@@ -2,8 +2,8 @@ import { useState } from "react";
 import { createJuice, updateJuiceById, deleteJuiceById, type Juice, type CreateJuice } from "../Services/Juice/JuiceService";
 import AdditiveList from "./AdditiveList";
 import TasteProfileList from "./TasteProfileList";
-import settingssvg from "./../Assets/settings-svgrepo-com.svg";
-import trashsvg from "./../Assets/trashsvg.svg";
+import settingssvg from "./../assets/settings-svgrepo-com.svg";
+import trashsvg from "./../assets/trashsvg.svg";
 
 type Props = {
   title: string;
