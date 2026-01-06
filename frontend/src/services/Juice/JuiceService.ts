@@ -119,3 +119,34 @@ export async function deleteJuiceById(id: number) {
   return true;
 }
 
+
+
+export async function fetchJuicesByGrapes(grapeIds: number[]): Promise<Juice[]> {
+  const query = grapeIds.map(id => `grapeIds=${id}`).join('&');
+  const response = await fetch(`${JUICE_API_URL}/?${query}`);
+  if (!response.ok) {
+    console.error('Error response:', response.statusText);
+    throw new Error('Failed to fetch juices');
+  }
+  const data = await response.json();
+
+  // Map PascalCase to camelCase
+  return data.map((j: any) => ({
+    id: j.JuiceId,
+    volume: j.Volume,
+    pressedDate: j.PressedDate,
+    juiceTypeId: j.JuiceTypeId,
+    grapeId: j.GrapeId,
+    tasteProfile: j.TasteProfiles?.map((t: any) => ({
+      id: t.Id,
+      sweetness: t.Sweetness,
+      acidity: t.Acidity,
+      aroma: t.Aroma,
+      dryness: t.Dryness,
+      color: t.Color,
+      description: t.Description,
+      rating: t.Rating,
+      date: t.Date,
+    })) || [],
+  }));
+}

@@ -4,5 +4,8 @@ namespace _5thSemesterProject.Backend.DAL.IDAO;
 public interface IGrapeDAO
 {
     IEnumerable<Grape> GetAllGrapes();
-    Grape? GetGrapeById(int id);
+    Grape? GetGrapeById(int GrapeId);
+    int DeleteGrapeById(int GrapeId);
+    int UpdateGrapeById(GrapeDTO grapeDTO, int GrapeId);
+    int CreateGrape(GrapeDTO grapeDTO);
 }

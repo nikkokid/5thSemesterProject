@@ -23,4 +23,36 @@ public class GrapeDAOStub : IGrapeDAO
     {
         return _grapes.FirstOrDefault(g => g.GrapeId == id);
     }
+    public int DeleteGrapeById(int GrapeId)
+    {
+        var grape = _grapes.FirstOrDefault(g => g.GrapeId == GrapeId);
+        if (grape != null)
+        {
+            _grapes.Remove(grape);
+            return 1; // Indicate success
+        }
+        return 0; // Indicate failure
+    }
+    public int UpdateGrapeById(GrapeDTO grapeDTO, int GrapeId)
+    {
+        var grape = _grapes.FirstOrDefault(g => g.GrapeId == GrapeId);
+        if (grape != null)
+        {
+            grape.GrapeName = grapeDTO.GrapeName;
+            return 1; // Indicate success
+        }
+        return 0; // Indicate failure
+    }
+    public int CreateGrape(GrapeDTO grapeDTO)
+    {
+        var newGrapeId = _grapes.Max(g => g.GrapeId) + 1;
+        var newGrape = new Grape
+        {
+            GrapeId = newGrapeId,
+            GrapeName = grapeDTO.GrapeName
+        };
+        _grapes.Add(newGrape);
+        return 1; // Indicate success
+    }
+    
 }

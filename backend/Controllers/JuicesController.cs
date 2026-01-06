@@ -103,4 +103,12 @@ public class JuicesController : ControllerBase
     }
     
     
+
+    [HttpGet]
+    public IActionResult GetJuicesByGrapes([FromQuery] int[] grapeIds)
+    {
+    var juices = _juiceDAO.GetJuicesByGrapeIds(grapeIds);
+    return Ok(juices);
+    }
+
 }

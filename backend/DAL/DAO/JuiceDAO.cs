@@ -166,7 +166,12 @@ public class JuiceDAO : IJuiceDAO
         }
     }
 
-
-
+    public List<Juice> GetJuicesByGrapeIds(int[] grapeIds)
+    {
+        var connectionString = _connectionString.GetConnectionString("DefaultConnection");
+        using var conn = new NpgsqlConnection(connectionString);
+        var sql = @"SELECT * FROM Juice WHERE GrapeId = ANY(@grapeIds)";
+        return conn.Query<Juice>(sql, new { grapeIds }).ToList();
+    }
 
 }

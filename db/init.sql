@@ -37,6 +37,19 @@ CREATE TABLE Juice (
     JuiceTypeId INT REFERENCES JuiceType(JuiceTypeId)
 );
 
+CREATE TABLE Wine (
+    WineId SERIAL PRIMARY KEY,
+    WineName TEXT NOT NULL,
+    VintageYear INT NOT NULL
+);
+
+CREATE TABLE WineJuice (
+    WineId INT REFERENCES Wine(WineId) ON DELETE CASCADE,
+    JuiceId INT REFERENCES Juice(JuiceId),
+    WineJuicePercentage INT NOT NULL,
+    PRIMARY KEY (WineId, JuiceId)
+);
+
 
 CREATE TABLE TasteProfile (
     TasteProfileId SERIAL PRIMARY KEY,
@@ -116,3 +129,19 @@ SELECT
 FROM Harvest h
 JOIN GrapeRow gr ON h.GrapeRowId = gr.GrapeRowId
 JOIN Grape g ON gr.GrapeId = g.GrapeId;
+
+CREATE VIEW WineView AS
+SELECT 
+    w.WineId,
+    w.WineName,
+    w.VintageYear,
+    wj.WineJuicePercentage AS Percentage,
+    j.JuiceId,
+    j.Volume,
+    j.PressedDate,
+    g.GrapeId,
+    g.GrapeName
+FROM Wine w
+JOIN WineJuice wj ON w.WineId = wj.WineId
+JOIN Juice j ON wj.JuiceId = j.JuiceId
+JOIN Grape g ON j.GrapeId = g.GrapeId;

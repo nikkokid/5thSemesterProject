@@ -1,3 +1,5 @@
+using Dapper;
+using Npgsql;
 using _5thSemesterProject.Backend.DAL.IDAO;
 using _5thSemesterProject.Backend.DAL.Model;
 
@@ -5,17 +7,73 @@ namespace _5thSemesterProject.Backend.DAL.DAO;
 
 public class GrapeDAO : IGrapeDAO
 {
+    private readonly IConfiguration _configuration;
+
+    public GrapeDAO (IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
     public IEnumerable<Grape> GetAllGrapes()
     {
-        return new List<Grape>
-        {
-            new Grape { GrapeId = 1, GrapeName = "Pinot Noir" },
-            new Grape { GrapeId = 2, GrapeName = "Riesling" },
-            new Grape { GrapeId = 3, GrapeName = "Chardonnay" }
-        };
+        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+        using var connection = new NpgsqlConnection(connectionString);
+        
+        var sql = "SELECT GrapeId, GrapeName FROM Grape;";
+
+        var result = connection.Query<Grape>(sql).ToList();
+
+        return result;
     }
-    public Grape? GetGrapeById(int id)
+    public Grape? GetGrapeById(int GrapeId)
     {
-        return GetAllGrapes().FirstOrDefault(g => g.GrapeId == id);
+        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+        using var connection = new NpgsqlConnection(connectionString);
+
+        var sql = "SELECT GrapeId, GrapeName FROM Grape WHERE GrapeId = @GrapeId;";
+
+        var result = connection.QuerySingleOrDefault<Grape>(sql, new { GrapeId });
+
+        return result; 
     }
+
+    public int DeleteGrapeById(int GrapeId)
+    {
+        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+        using var connection = new NpgsqlConnection(connectionString);
+
+        var sql = "DELETE FROM Grape WHERE GrapeId = @GrapeId;";
+
+        var result = connection.Execute(sql, new { GrapeId });
+
+        return result;
+    }
+
+    public int UpdateGrapeById(GrapeDTO grapeDTO, int GrapeId)
+    {
+        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+        using var connection = new NpgsqlConnection(connectionString);
+
+        var sql = "UPDATE Grape SET GrapeName = @GrapeName WHERE GrapeId = @GrapeId;";
+
+        var result = connection.Execute(sql, new { GrapeId, grapeDTO.GrapeName });
+
+        return result; 
+    }
+    public int CreateGrape(GrapeDTO grapeDTO)
+    {
+        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+        using var connection = new NpgsqlConnection(connectionString);
+
+        var sql = "INSERT INTO Grape (GrapeName) VALUES (@GrapeName);";
+
+        var result = connection.Execute(sql, new { grapeDTO.GrapeName }); 
+
+        return result;
+    }   
+
 }
