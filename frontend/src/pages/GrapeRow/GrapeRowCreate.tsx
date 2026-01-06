@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { createGrapeRow, type GrapeRowDTO } from '../../services/GrapeRow/GrapeRowService';
+import { createGrapeRow, type GrapeRowDTO } from '../../Services/GrapeRow/GrapeRowService';
 
 
 export default function GrapeRowCreate() {

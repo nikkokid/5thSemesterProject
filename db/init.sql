@@ -5,9 +5,7 @@ CREATE TABLE Grape (
 
 CREATE TABLE GrapeRow (
     GrapeRowId SERIAL PRIMARY KEY,
-    GrapeId INT REFERENCES Grape(GrapeId),
     GrapeRowName TEXT,
-    NoOfVines INT,
     LengthOfRow INT,
     DistanceBetweenVines INT,
     DistanceToNextRow INT
@@ -15,7 +13,6 @@ CREATE TABLE GrapeRow (
 
 CREATE TABLE Harvest (
     HarvestId SERIAL PRIMARY KEY,
-    GrapeId INT REFERENCES Grape(GrapeId),
     GrapeRowId INT REFERENCES GrapeRow(GrapeRowId),
     HarvestWeight INT,
     HarvestDate DATE
@@ -73,21 +70,30 @@ CREATE TABLE Additive (
     JuiceId INT REFERENCES Juice(JuiceId) ON DELETE CASCADE
 );
 
+CREATE TABLE Planting (
+    PlantingId SERIAL PRIMARY KEY,
+    NumberOfVinesPlanted INT,
+    NumberOfVinesDead INT,
+    PlantingDate DATE,
+    GrapeRowId INT REFERENCES GrapeRow(GrapeRowId) ON DELETE CASCADE,
+    GrapeId INT REFERENCES Grape(GrapeId) ON DELETE CASCADE
+);
+
 
 
 INSERT INTO Grape (GrapeName) VALUES ('Rondo'), ('Solaris'), ('Cabernet Noir');
 
 INSERT INTO GrapeRow
-(GrapeId, GrapeRowName, NoOfVines, LengthOfRow, DistanceBetweenVines, DistanceToNextRow) VALUES(1, 'Række 1', 50, 50, 2, 2), (1, 'Række 2', 51, 50, 2, 2),(1, 'Række 3', 52, 50, 2, 2), 
-(2, 'Række 4', 50, 50, 2, 2), (2, 'Række 5', 51, 50, 2, 2), (3, 'Række 6', 50, 50, 2, 2), (3, 'Række 7', 51, 50, 2, 2), (3, 'Række 8', 52, 50, 2, 2);
+(GrapeRowName, LengthOfRow, DistanceBetweenVines, DistanceToNextRow) VALUES('Række 1', 50, 2, 2), ('Række 2', 50, 2, 2),('Række 3', 50, 2, 2), 
+('Række 4', 50, 2, 2), ('Række 5', 50, 2, 2), ('Række 6', 50, 2, 2), ('Række 7', 50, 2, 2), ('Række 8', 50, 2, 2);
 
 
 INSERT INTO Harvest
-(GrapeId, GrapeRowId, HarvestWeight, HarvestDate) 
-VALUES(1, 1, 110, '2023-06-10'),(1, 2, 120, '2023-06-10'),(1, 3, 130, '2023-06-10'),(1, 4, 140, '2023-06-10'),(1, 5, 150, '2023-06-10'),(1, 6, 160, '2023-06-10'),
-(1, 7, 170, '2023-06-10'),(1, 8, 180, '2023-06-10'),(1, 1, 110, '2024-05-10'),(1, 2, 120, '2024-05-10'),(1, 3, 130, '2024-05-10'),(1, 4, 140, '2024-05-10'),
-(1, 5, 150, '2024-05-10'),(1, 6, 160, '2024-05-10'),(1, 7, 170, '2024-05-10'),(1, 8, 180, '2024-05-10'),(1, 1, 110, '2025-06-07'),(1, 2, 120, '2025-06-07'),
-(1, 3, 130, '2025-06-07'),(1, 4, 140, '2025-06-07'),(1, 5, 150, '2025-06-07'),(1, 6, 160, '2025-06-07'),(1, 7, 170, '2025-06-07'),(1, 8, 180, '2025-06-07');
+(GrapeRowId, HarvestWeight, HarvestDate) 
+VALUES(1, 110, '2023-06-10'),(2, 120, '2023-06-10'),(3, 130, '2023-06-10'),(4, 140, '2023-06-10'),(5, 150, '2023-06-10'),(6, 160, '2023-06-10'),
+(7, 170, '2023-06-10'),(8, 180, '2023-06-10'),(1, 110, '2024-05-10'),(2, 120, '2024-05-10'),(3, 130, '2024-05-10'),(4, 140, '2024-05-10'),
+(5, 150, '2024-05-10'),(6, 160, '2024-05-10'),(7, 170, '2024-05-10'),(8, 180, '2024-05-10'),(1, 110, '2025-06-07'),(2, 120, '2025-06-07'),
+(3, 130, '2025-06-07'),(4, 140, '2025-06-07'),(5, 150, '2025-06-07'),(6, 160, '2025-06-07'),(7, 170, '2025-06-07'),(8, 180, '2025-06-07');
 
 
 INSERT INTO JuiceType (JuiceTypeName) VALUES ('pressed'), ('unpressed');
@@ -116,19 +122,10 @@ VALUES ('Sugar', 1.5, 'testUsed as sweetenertest', '2025-12-15', 1),
        ('Acid', 0.5, 'testUsed to increase aciditytest', '2026-01-02', 1);
 
 
+INSERT INTO Planting (NumberOfVinesPlanted, NumberOfVinesDead, PlantingDate, GrapeRowId, GrapeId)
+VALUES (50, 0, '2023-06-10', 1, 1), (50, 0, '2023-06-10', 1, 1);
 
-CREATE VIEW HarvestView AS
-SELECT 
-    h.HarvestId,
-    h.HarvestDate,
-    h.HarvestWeight,
-    gr.GrapeRowName,
-    gr.NoOfVines,
-    g.GrapeId,
-    g.GrapeName
-FROM Harvest h
-JOIN GrapeRow gr ON h.GrapeRowId = gr.GrapeRowId
-JOIN Grape g ON gr.GrapeId = g.GrapeId;
+
 
 CREATE VIEW WineView AS
 SELECT 

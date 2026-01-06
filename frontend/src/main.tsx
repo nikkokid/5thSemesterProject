@@ -2,22 +2,17 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './index.css'
-import Header from './components/Header.tsx'
-import FrontPage from "./pages/FrontPage.tsx"
+import Header from './Components/Header.tsx'
+import FrontPage from "./Pages/FrontPage.tsx"
 import Grape from './Pages/Grape/Grape.tsx';
 import GrapeElement from "./Pages/Grape/GrapeElement.tsx";
-// import GrapeType from "./pages/grape/GrapeType.tsx";
-// import Statistics from "./pages/statistics/Statistics.tsx";
-import Wine from "./pages/wine/Wine.tsx";
-import WineElement from "./pages/wine/WineElement.tsx";
-// import Juice from "./pages/juice/Juice.tsx";
+import Wine from "./Pages/wine/Wine.tsx";
+import WineElement from "./Pages/wine/WineElement.tsx";
 import Harvest from "./Pages/Harvest/Harvest.tsx";
-// import Wine from "./pages/wine/Wine.tsx";
 import Juice from "./Pages/Juice/Juice.tsx";
-// import Plants from "./pages/plants/Plants.tsx";
-import GrapeRowList from './pages/GrapeRow/GrapeRowList.tsx';
-import GrapeRowCreate from './pages/GrapeRow/GrapeRowCreate.tsx';
-import GrapeRowRead from './pages/GrapeRow/GrapeRowRead.tsx';
+import GrapeRowList from './Pages/GrapeRow/GrapeRowList.tsx';
+import GrapeRowCreate from './Pages/GrapeRow/GrapeRowCreate.tsx';
+import GrapeRowRead from './Pages/GrapeRow/GrapeRowRead.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
@@ -33,11 +28,9 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/wine" element={<Wine />} />
           <Route path="/wine/:wineId" element={<WineElement />} />
           <Route path="/grape/:grapeId/juice" element={<Juice/>} />
-      {/*<Route path="/statistics" element={<Statistics />} />
-      <Route path="/statistics" element={<Statistics />} />
-       {/*Specific grape type such as "Rondo" - see Druesort 2 in prototypes}
-      <Route path="/grape-type/:grapeId/harvest" element={<Harvest/>} />
-      <Route path="/grape-type/:grapeId/plants" element={<Plants/>} /> */}
+          <Route path="/grape-row" element={<GrapeRowList/>} />
+          <Route path="/grape-row/:grapeRowId" element={<GrapeRowRead/>} />
+          <Route path="/grape-row/create" element={<GrapeRowCreate/>} />
         </Routes>
         </div>
       </div>

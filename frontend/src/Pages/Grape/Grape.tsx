@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import grapeImage from "../../assets/grapesvg.svg";
 import settingsSvg from "../../assets/settings-svgrepo-com.svg";
-import EditGrapeDialogContent from "../../components/EditGrapeDialogContent";
+import EditGrapeDialogContent from "../../Components/EditGrapeDialogContent";
 import { fetchGrapes, type Grape } from "../../Services/Grape/GrapeServices";
-import ButtonCard from "../../components/ButtonCard";
-import Dialog from "../../components/Dialog";
-import AddGrapeDialogContent from "../../components/AddGrapeDialogContent";
+import ButtonCard from "../../Components/ButtonCard";
+import Dialog from "../../Components/Dialog";
+import AddGrapeDialogContent from "../../Components/AddGrapeDialogContent";
 
 export default function Grape() {
   const [grapes, setGrapes] = useState<Grape[]>([]);

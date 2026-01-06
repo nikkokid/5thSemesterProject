@@ -1,52 +1,52 @@
-CREATE TABLE Grape (
-    GrapeId SERIAL PRIMARY KEY,
-    GrapeName TEXT NOT NULL
-);
+-- CREATE TABLE Grape (
+--     GrapeId SERIAL PRIMARY KEY,
+--     GrapeName TEXT NOT NULL
+-- );
 
-CREATE TABLE GrapeRow (
-    GrapeRowId SERIAL PRIMARY KEY,
-    GrapeRowName TEXT,
-    LengthOfRow INT,
-    DistanceBetweenVines INT,
-    DistanceToNextRow INT
-);
+-- CREATE TABLE GrapeRow (
+--     GrapeRowId SERIAL PRIMARY KEY,
+--     GrapeRowName TEXT,
+--     LengthOfRow INT,
+--     DistanceBetweenVines INT,
+--     DistanceToNextRow INT
+-- );
 
-CREATE TABLE Harvest (
-    HarvestId SERIAL PRIMARY KEY,
-    GrapeRowId INT REFERENCES GrapeRow(GrapeRowId),
-    HarvestWeight INT,
-    HarvestDate DATE
-);
-
-
-CREATE TYPE JuicePressType AS ENUM('pressed','unpressed');
-
-CREATE TABLE JuiceType(
-    JuiceTypeId SERIAL PRIMARY KEY,
-    JuiceTypeName JuicePressType NOT NULL
-);
-
-CREATE TABLE Juice (
-    JuiceId SERIAL PRIMARY KEY,
-    Volume NUMERIC NOT NULL,
-    PressedDate TEXT NOT NULL,
-    GrapeId INT REFERENCES Grape(GrapeId),
-    JuiceTypeId INT REFERENCES JuiceType(JuiceTypeId)
-);
+-- CREATE TABLE Harvest (
+--     HarvestId SERIAL PRIMARY KEY,
+--     GrapeRowId INT REFERENCES GrapeRow(GrapeRowId),
+--     HarvestWeight INT,
+--     HarvestDate DATE
+-- );
 
 
-CREATE TABLE TasteProfile (
-    TasteProfileId SERIAL PRIMARY KEY,
-    Sweetness INT,
-    Acidity INT,
-    Aroma INT,
-    Dryness INT,
-    Color INT,
-    TasteProfileDescription TEXT,
-    Rating INT,
-    TasteProfileDate TEXT,
-    JuiceId INT REFERENCES Juice(JuiceId)
-);
+-- CREATE TYPE JuicePressType AS ENUM('pressed','unpressed');
+
+-- CREATE TABLE JuiceType(
+--     JuiceTypeId SERIAL PRIMARY KEY,
+--     JuiceTypeName JuicePressType NOT NULL
+-- );
+
+-- CREATE TABLE Juice (
+--     JuiceId SERIAL PRIMARY KEY,
+--     Volume NUMERIC NOT NULL,
+--     PressedDate TEXT NOT NULL,
+--     GrapeId INT REFERENCES Grape(GrapeId),
+--     JuiceTypeId INT REFERENCES JuiceType(JuiceTypeId)
+-- );
+
+
+-- CREATE TABLE TasteProfile (
+--     TasteProfileId SERIAL PRIMARY KEY,
+--     Sweetness INT,
+--     Acidity INT,
+--     Aroma INT,
+--     Dryness INT,
+--     Color INT,
+--     TasteProfileDescription TEXT,
+--     Rating INT,
+--     TasteProfileDate TEXT,
+--     JuiceId INT REFERENCES Juice(JuiceId)
+-- );
 
 CREATE TABLE Planting (
     PlantingId SERIAL PRIMARY KEY,

@@ -1,10 +1,10 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { getPlantingsByGrapeRowId, type Planting } from "../../services/Planting/PlantingService";
+import { getPlantingsByGrapeRowId, type Planting } from "../../Services/Planting/PlantingService";
 import { useEffect, useState } from "react";
-import PlantingBox from "../../components/PlantingBox";
-import { deleteGrapeRow, getGrapeRowByGrapeRowId, updateGrapeRow, type GrapeRow, type GrapeRowDTO } from "../../services/GrapeRow/GrapeRowService";
-import GrapeRowOverall from "../../components/GrapeRowOverall";
-import PlantingBoxCreate from "../../components/PlantingBoxCreate";
+import PlantingBox from "../../Components/PlantingBox";
+import { deleteGrapeRow, getGrapeRowByGrapeRowId, updateGrapeRow, type GrapeRow, type GrapeRowDTO } from "../../Services/GrapeRow/GrapeRowService";
+import GrapeRowOverall from "../../Components/GrapeRowOverall";
+import PlantingBoxCreate from "../../Components/PlantingBoxCreate";
 import { fetchGrapes } from "../../Services/Grape/GrapeServices";
 
 export default function GrapeRowRead () {

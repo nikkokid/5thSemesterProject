@@ -2,14 +2,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {fetchGrapeById, type Grape} from "../../Services/Grape/GrapeServices"
 import grapeImage from "../../assets/grapesvg.svg"
-import ButtonCard from "../../components/ButtonCard";
+import ButtonCard from "../../Components/ButtonCard";
 
 export default function GrapeElement() {
     const { grapeId } = useParams<{ grapeId: string }>();
     const [grape, setGrape] = useState<Grape | null>(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    useEffect(() => { 
         async function loadGrape() {
             if (grapeId) {
                 const data = await fetchGrapeById(Number(grapeId));
@@ -46,8 +46,8 @@ export default function GrapeElement() {
 
         <ButtonCard
           image={grapeImage}
-          title="Vin"
-          description="Se vinproduktion"
+          title="Most"
+          description="Se most"
           onClick={() => navigate(`/grape/${grape.GrapeId}/juice`)}
         />
       </div>

@@ -1,6 +1,6 @@
-import ButtonCard from "../../components/ButtonCard";
+import ButtonCard from "../../Components/ButtonCard";
 import grapeLeaf from "../../assets/grapeLeaf.svg";
-import { getAllGrapeRows, type GrapeRow } from "../../services/GrapeRow/GrapeRowService";
+import { getAllGrapeRows, type GrapeRow } from "../../Services/GrapeRow/GrapeRowService";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 

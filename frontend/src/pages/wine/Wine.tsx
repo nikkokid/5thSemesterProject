@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import wineImage from "../../assets/winesvg.svg"; // use your wine image
 import settingsSvg from "../../assets/settings-svgrepo-com.svg";
 import {fetchWines, type Wine,} from "../../Services/Wine/WineServices";
-import ButtonCard from "../../components/ButtonCard";
-import Dialog from "../../components/Dialog";
-import CreateWineDialogContent from "../../components/CreateWineDialogContent";
-import EditWineDialogContent from "../../components/EditWineDialogContent";
+import ButtonCard from "../../Components/ButtonCard";
+import Dialog from "../../Components/Dialog";
+import CreateWineDialogContent from "../../Components/CreateWineDialogContent";
+import EditWineDialogContent from "../../Components/EditWineDialogContent";
 
 export default function Wine() {
   const [wines, setWines] = useState<Wine[]>([]);
