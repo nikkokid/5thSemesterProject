@@ -11,11 +11,7 @@ type HarvestOverallProps = {
 export default function HarvestOverall({allHarvests, selectedYearsHarvests, setSelectedYear, selectedYear} : HarvestOverallProps) {
     const [yearsWithHarvest, setYearsWithHarvest] = useState([1]);
     
-    useEffect(() => {
-        if (allHarvests.length > 0){
-            getYearsWithHarvestData(allHarvests);
-        }
-    }, [allHarvests]);
+
 
     function getYearsWithHarvestData (harvest : HarvestView[]) {
         let tempYearsWithHarvest = [1];
@@ -32,10 +28,16 @@ export default function HarvestOverall({allHarvests, selectedYearsHarvests, setS
         setSelectedYear(Number(event.target.value));
     }
 
+    useEffect(() => {
+        if (allHarvests.length > 0){
+            getYearsWithHarvestData(allHarvests);
+        }
+    }, [allHarvests]);
+
     return(
         <div className="flex flex-row justify-between items-center p-1 gap-10 border-3 rounded border-[rgb(77,16,39)] bg-gray-200 text-black">
             <div>
-                <p>Samlet høst for {selectedYear}: {getOverallWeight(selectedYearsHarvests)} kg</p>
+                Samlet høst for {selectedYear}: {getOverallWeight(selectedYearsHarvests)} kg
             </div>
             <div>
                 Vælg Årstal: <select className="border rounded p-1"value={selectedYear} onChange={handleSelect} name="selectedYear" id="selectedYear">
@@ -44,7 +46,6 @@ export default function HarvestOverall({allHarvests, selectedYearsHarvests, setS
                     ))}
                 </select>
             </div>
-     
         </div>
     )
 }
