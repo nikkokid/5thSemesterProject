@@ -6,13 +6,10 @@ using _5thSemesterProject.Backend.DAL.Model;
 namespace _5thSemesterProject.Backend.DAL.DAO;
 
 
-public class AdditiveDAO : IAdditiveDAO
+public class AdditiveDAO : BaseDAO, IAdditiveDAO
 {
-    private readonly IConfiguration _connectionString;
-
-    public AdditiveDAO(IConfiguration config)
+    public AdditiveDAO(IConfiguration configuration) : base(configuration)
     {
-        _connectionString = config;
     }
 
     public bool CreateAdditiveForJuice(CreateAdditiveDTO additiveDTO, int juiceId)
@@ -20,12 +17,12 @@ public class AdditiveDAO : IAdditiveDAO
         try
         {
             
-        var connectionString = _connectionString.GetConnectionString("DefaultConnection");
-        using var conn = new NpgsqlConnection(connectionString);
+        using var connection = CreateConnection();
+
             var sql = @"INSERT INTO Additive (AdditiveName, AdditiveAmount, AdditiveDescription, AdditiveDate, JuiceId)
                         VALUES (@AdditiveName, @AdditiveAmount, @AdditiveDescription, @AdditiveDate, @JuiceId)";
         
-        int affectedRows = conn.Execute(sql, new
+        int affectedRows = connection.Execute(sql, new
         {
             AdditiveName = additiveDTO.AdditiveName,
             AdditiveAmount = additiveDTO.AdditiveAmount,
@@ -47,8 +44,7 @@ public class AdditiveDAO : IAdditiveDAO
     {
         try
         {
-            var connectionString = _connectionString.GetConnectionString("DefaultConnection");
-            using var conn = new NpgsqlConnection(connectionString);
+            using var connection = CreateConnection();
 
             var sql = @"SELECT
                         AdditiveId,
@@ -58,7 +54,7 @@ public class AdditiveDAO : IAdditiveDAO
                         AdditiveDate::timestamp AS AdditiveDate,
                         JuiceId
                         FROM Additive WHERE JuiceId = @juiceId ORDER BY AdditiveDate";
-            var additives = conn.Query<Additive>(sql, new {juiceId});
+            var additives = connection.Query<Additive>(sql, new {juiceId});
             return additives;
 
         }catch(Exception ex)
@@ -71,13 +67,13 @@ public class AdditiveDAO : IAdditiveDAO
     {
         try
         {
-            var connectionString = _connectionString.GetConnectionString("DefaultConnection");
-            using var conn = new NpgsqlConnection(connectionString);
+            using var connection = CreateConnection();
+
 
             var sql = @"UPDATE Additive
                         SET AdditiveName = @AdditiveName, AdditiveAmount = @AdditiveAmount, AdditiveDescription = @AdditiveDescription, AdditiveDate = @AdditiveDate
                         WHERE AdditiveId = @AdditiveId";
-            int affectedRows = conn.Execute(sql, new
+            int affectedRows = connection.Execute(sql, new
             {
                 AdditiveName = additiveDTO.AdditiveName,
                 AdditiveAmount = additiveDTO.AdditiveAmount,
@@ -98,11 +94,11 @@ public class AdditiveDAO : IAdditiveDAO
     {
         try
         {
-            var connectionString = _connectionString.GetConnectionString("DefaultConnection");
-            using var conn = new NpgsqlConnection(connectionString);
+            using var connection = CreateConnection();
+
 
             var sql = @"DELETE FROM Additive WHERE AdditiveId = @AdditiveId";
-            int affectedRows = conn.Execute(sql, new
+            int affectedRows = connection.Execute(sql, new
             {
                 AdditiveId = id
             });

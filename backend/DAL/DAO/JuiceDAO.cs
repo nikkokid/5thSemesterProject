@@ -5,17 +5,15 @@ using _5thSemesterProject.Backend.DAL.IDAO;
 
 namespace _5thSemesterProject.Backend.DAL.DAO;
 
-public class JuiceDAO : IJuiceDAO
+public class JuiceDAO : BaseDAO, IJuiceDAO
 {
-    private readonly IConfiguration _connectionString;
 
     private ITasteProfileDAO _tasteProfileDAO;   
     private IAdditiveDAO _additiveDAO;
 
 
-    public JuiceDAO(IConfiguration config, ITasteProfileDAO tasteProfileDAO, IAdditiveDAO additiveDAO)
+    public JuiceDAO(IConfiguration configuration, ITasteProfileDAO tasteProfileDAO, IAdditiveDAO additiveDAO) : base(configuration)
     {
-        _connectionString = config;
         _tasteProfileDAO = tasteProfileDAO;
         _additiveDAO = additiveDAO;
     }
@@ -24,12 +22,12 @@ public class JuiceDAO : IJuiceDAO
     public bool CreateJuiceWithGrapeId(CreateJuiceDTO juiceDTO, int grapeId)
     {
         try{
-            var connectionString = _connectionString.GetConnectionString("DefaultConnection");
-            using var conn = new NpgsqlConnection(connectionString);
+            using var connection = CreateConnection();
+
             
             var sql = @"INSERT INTO Juice (Volume, PressedDate, GrapeId, JuiceTypeId)
                       VALUES(@Volume, @PressedDate, @GrapeId, @JuiceTypeId)";
-            int affectedRows = conn.Execute(sql, new
+            int affectedRows = connection.Execute(sql, new
             {
                 Volume = juiceDTO.Volume,
                 PressedDate = juiceDTO.PressedDate, 
@@ -51,9 +49,8 @@ public class JuiceDAO : IJuiceDAO
     {
         try
         {
-            var connectionString = _connectionString.GetConnectionString("DefaultConnection");
+            using var connection = CreateConnection();
 
-            using var conn = new NpgsqlConnection(connectionString);
 
             // Fetch all juices for a given grape
             var sql = @" SELECT 
@@ -65,7 +62,7 @@ public class JuiceDAO : IJuiceDAO
                          FROM Juice 
                          WHERE GrapeId = @grapeId 
                          ORDER BY PressedDate DESC";
-            var juices = conn.Query<Juice>(sql, new { grapeId }).ToList();
+            var juices = connection.Query<Juice>(sql, new { grapeId }).ToList();
             // Populate taste profiles for each juice
             foreach (var juice in juices)
             {
@@ -85,9 +82,8 @@ public class JuiceDAO : IJuiceDAO
     {
         try
         {
-            var connectionString = _connectionString.GetConnectionString("DefaultConnection");
+            using var connection = CreateConnection();
 
-            using var conn = new NpgsqlConnection(connectionString);
 
             // Fetch all juices for a given grape and year
             var sql = @" SELECT 
@@ -100,7 +96,7 @@ public class JuiceDAO : IJuiceDAO
                          WHERE GrapeId = @grapeId 
                          AND EXTRACT(YEAR FROM PressedDate) = @year
                          ORDER BY PressedDate DESC";
-            var juices = conn.Query<Juice>(sql, new { grapeId, year }).ToList();
+            var juices = connection.Query<Juice>(sql, new { grapeId, year }).ToList();
             // Populate taste profiles for each juice AND ADDITIVES
             foreach (var juice in juices)
             {
@@ -126,12 +122,12 @@ public class JuiceDAO : IJuiceDAO
     {
         try
         {
-            var connectionString = _connectionString.GetConnectionString("DefaultConnection");
-            using var conn = new NpgsqlConnection(connectionString);
+            using var connection = CreateConnection();
+
             var sql = @"UPDATE Juice
                         SET Volume=@Volume, PressedDate=@PressedDate
                         WHERE JuiceId=@JuiceId";
-            int affectedRows = conn.Execute(sql, new
+            int affectedRows = connection.Execute(sql, new
             {
                 Volume = juiceDTO.Volume,
                 PressedDate = juiceDTO.PressedDate?.Date,
@@ -151,12 +147,11 @@ public class JuiceDAO : IJuiceDAO
     {
         try
         {
-            var connectionString = _connectionString.GetConnectionString("DefaultConnection");
+        using var connection = CreateConnection();
 
-            using var conn = new NpgsqlConnection(connectionString);
 
             var sql = @"DELETE FROM Juice WHERE Juiceid = @juiceId";
-            int affectedRows = conn.Execute(sql, new {Juiceid = juiceId});
+            int affectedRows = connection.Execute(sql, new {Juiceid = juiceId});
             bool success = affectedRows > 0;
             return success;
         }
@@ -168,8 +163,8 @@ public class JuiceDAO : IJuiceDAO
 
     public List<Juice> GetJuicesByGrapeIds(int[] grapeIds)
     {
-        var connectionString = _connectionString.GetConnectionString("DefaultConnection");
-        using var conn = new NpgsqlConnection(connectionString);
+        using var connection = CreateConnection();
+
         var sql = @"SELECT
                     JuiceId,
                     Volume,
@@ -177,7 +172,7 @@ public class JuiceDAO : IJuiceDAO
                     GrapeId,
                     JuiceTypeId
                     FROM Juice WHERE GrapeId = ANY(@grapeIds)";
-        return conn.Query<Juice>(sql, new { grapeIds }).ToList();
+        return connection.Query<Juice>(sql, new { grapeIds }).ToList();
     }
 
 }

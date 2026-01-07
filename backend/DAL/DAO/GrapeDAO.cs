@@ -5,19 +5,16 @@ using _5thSemesterProject.Backend.DAL.Model;
 
 namespace _5thSemesterProject.Backend.DAL.DAO;
 
-public class GrapeDAO : IGrapeDAO
+public class GrapeDAO : BaseDAO, IGrapeDAO
 {
-    private readonly IConfiguration _configuration;
 
-    public GrapeDAO (IConfiguration configuration)
+    public GrapeDAO (IConfiguration configuration) : base(configuration)
     {
-        _configuration = configuration;
     }
     public IEnumerable<Grape> GetAllGrapes()
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+        using var connection = CreateConnection();
 
-        using var connection = new NpgsqlConnection(connectionString);
         
         var sql = "SELECT GrapeId, GrapeName FROM Grape;";
 
@@ -27,9 +24,8 @@ public class GrapeDAO : IGrapeDAO
     }
     public Grape? GetGrapeById(int GrapeId)
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+        using var connection = CreateConnection();
 
-        using var connection = new NpgsqlConnection(connectionString);
 
         var sql = "SELECT GrapeId, GrapeName FROM Grape WHERE GrapeId = @GrapeId;";
 
@@ -40,9 +36,8 @@ public class GrapeDAO : IGrapeDAO
 
     public int DeleteGrapeById(int GrapeId)
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+        using var connection = CreateConnection();
 
-        using var connection = new NpgsqlConnection(connectionString);
 
         var sql = "DELETE FROM Grape WHERE GrapeId = @GrapeId;";
 
@@ -53,9 +48,8 @@ public class GrapeDAO : IGrapeDAO
 
     public int UpdateGrapeById(GrapeDTO grapeDTO, int GrapeId)
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+        using var connection = CreateConnection();
 
-        using var connection = new NpgsqlConnection(connectionString);
 
         var sql = "UPDATE Grape SET GrapeName = @GrapeName WHERE GrapeId = @GrapeId;";
 
@@ -65,9 +59,8 @@ public class GrapeDAO : IGrapeDAO
     }
     public int CreateGrape(GrapeDTO grapeDTO)
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+        using var connection = CreateConnection();
 
-        using var connection = new NpgsqlConnection(connectionString);
 
         var sql = "INSERT INTO Grape (GrapeName) VALUES (@GrapeName);";
 
