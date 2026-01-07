@@ -102,7 +102,7 @@ export default function WineElementPage() {
               {juices.map((j) => (
                 <tr key={j.JuiceId}>
                   <td className="border px-2 py-1">{j.JuiceId}</td>
-                  <td className="border px-2 py-1">{j.JuiceVolume}</td>
+                  <td className="border px-2 py-1">{j.VolumeUsed}</td>
                   <td className="border px-2 py-1">{j.Percentage}</td>
                   <td className="border px-2 py-1">{j.PressedDate.split(" ")[0]}</td>
                 </tr>
