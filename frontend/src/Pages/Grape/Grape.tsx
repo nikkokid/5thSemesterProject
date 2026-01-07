@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import grapeImage from "../../assets/grapesvg.svg";
-import settingsSvg from "../../assets/settings-svgrepo-com.svg";
-import EditGrapeDialogContent from "../../Components/EditGrapeDialogContent";
 import { fetchGrapes, type Grape } from "../../Services/Grape/GrapeServices";
 import ButtonCard from "../../Components/ButtonCard";
 import Dialog from "../../Components/Dialog";
 import AddGrapeDialogContent from "../../Components/AddGrapeDialogContent";
+import grapeImage from "../../assets/grapesvg.svg";
+import addsvg from "../../assets/add-create-new-plus-svgrepo-com.svg";
 
 export default function Grape() {
   const [grapes, setGrapes] = useState<Grape[]>([]);
@@ -34,10 +33,11 @@ export default function Grape() {
 
   return (
     <>
-      <div className="flex items-center mb-4">
-        <h2 className="text-2xl font-semibold">Druesorter</h2>
-
-        <button
+      <h2 className="text-2xl font-semibold">Druesorter</h2>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 p-2">
+        <ButtonCard
+          image={addsvg}
+          title="Opret ny druesort"
           onClick={() => {
             setDialogContent(
               <AddGrapeDialogContent
@@ -46,40 +46,18 @@ export default function Grape() {
               />
             );
             toggleDialog();
-          }}
-          className="ml-auto bg-green-600! text-white px-4 py-2 rounded-lg"
-        >
-          + Tilføj druesort
-        </button>
-      </div>
-
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 p-2">
-        {grapes.map((grape) => (
-          <div key={grape.GrapeId} className="relative group">
-  <ButtonCard
-    image={grapeImage}
-    title={grape.GrapeName}
-    description="Klik for detaljer"
-    onClick={() => navigate(`/grape/${grape.GrapeId}`)}
-  />
-
-  {/* Settings icon */}
-  <button
-    onClick={() => {
-      setDialogContent(
-        <EditGrapeDialogContent
-          grape={grape}
-          onClose={toggleDialog}
-          onUpdated={loadGrapes}
+          }}              
         />
-      );
-      toggleDialog();
-    }}
-    className="mb-2 p-0!"
->
-  <img src={settingsSvg} alt="Edit grape" className="w-6 h-6"/>
-</button>
-</div>
+        {grapes.map((grape) => (
+          <div key={grape.GrapeId}>
+            <ButtonCard
+              image={grapeImage}
+              title={grape.GrapeName}
+              description="Klik for detaljer"
+              onClick={() => navigate(`/grape/${grape.GrapeId}`)}
+            />
+
+          </div>
 
         ))}
       </div>

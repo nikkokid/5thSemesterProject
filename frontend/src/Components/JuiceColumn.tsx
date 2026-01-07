@@ -112,7 +112,6 @@ export default function JuiceColumn({
               </div>
             ) : (
               <div>
-                <p className="">Most Id: {juice.id}</p>
                 <p className="">Volumen: {juice.volume} L</p>
                 <p className="">Presset Dato: {juice.pressedDate.split("T")[0]}</p>
               </div>

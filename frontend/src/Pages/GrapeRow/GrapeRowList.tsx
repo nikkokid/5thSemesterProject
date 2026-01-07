@@ -22,13 +22,13 @@ export default function GrapeRowList() {
     })
     return (
         <div>
-            <div className="text-center">
+            <div className="text-center mb-12">
                 <h2>Rækker</h2>
             </div>
 
             <div className="flex justify-center flex-wrap gap-3">
                 <div>
-                    <ButtonCard image={addsvg} title={"Opret"} onClick={() => navigate(`/grape-row/create`)}/>
+                    <ButtonCard image={addsvg} title={"Opret ny række"} onClick={() => navigate(`/grape-row/create`)}/>
                 </div>
                 {allGrapeRows.map(grapeRow => 
                     <div key={grapeRow.GrapeRowId}>

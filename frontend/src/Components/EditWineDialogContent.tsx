@@ -182,8 +182,6 @@ export default function EditWineDialogContent({
   // Delete
   // ----------------------------------
   async function handleDelete() {
-    if (!confirm("Are you sure you want to delete this wine?")) return;
-
     try {
       await deleteWine(wineId);
       onDeleted();
@@ -283,29 +281,30 @@ export default function EditWineDialogContent({
         </>
       )}
 
-      <div className="flex justify-between mt-4">
-        <button
-          onClick={handleDelete}
-          className="px-4 py-2 bg-red-600! text-white rounded"
-        >
-          Slet
-        </button>
+      <div className="flex justify-between mt-10">
 
         <div className="flex gap-2">
           <button
             onClick={onClose}
             className="px-4 py-2 bg-gray-300 rounded"
           >
-            Cancel
+            Annuller
           </button>
           <button
             onClick={handleUpdate}
             disabled={loading}
-            className="px-4 py-2 bg-blue-600! text-white rounded"
+            className="px-4 py-2 bg-green-600! text-white rounded"
           >
-            {loading ? "Gemmer..." : "Gem Ændringer"}
+            {loading ? "Gemmer..." : "Gem"}
           </button>
         </div>
+        <button
+          onClick={handleDelete}
+          className="px-4 py-2 bg-red-600! text-white rounded"
+        >
+          Slet
+        </button>
+        
       </div>
     </div>
   );

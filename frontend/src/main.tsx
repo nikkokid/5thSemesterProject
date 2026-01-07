@@ -25,16 +25,16 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/grape" element={<Grape />} />
           <Route path="/grape/:grapeId/" element={<GrapeElement/>} />
           <Route path="/grape/:grapeId/harvest" element={<Harvest/>} />
-          <Route path="/wine" element={<Wine />} />
-          <Route path="/wine/:wineId" element={<WineElement />} />
           <Route path="/grape/:grapeId/juice" element={<Juice/>} />
           <Route path="/grape-row" element={<GrapeRowList/>} />
           <Route path="/grape-row/:grapeRowId" element={<GrapeRowRead/>} />
           <Route path="/grape-row/create" element={<GrapeRowCreate/>} />
+          <Route path="/wine" element={<Wine />} />
+          <Route path="/wine/:wineId" element={<WineElement />} />
         </Routes>
         </div>
       </div>
     
-    </StrictMode>,
+    </StrictMode>
   </BrowserRouter>
 )

@@ -6,6 +6,7 @@ import { deleteGrapeRow, getGrapeRowByGrapeRowId, updateGrapeRow, type GrapeRow,
 import GrapeRowOverall from "../../Components/GrapeRowOverall";
 import PlantingBoxCreate from "../../Components/PlantingBoxCreate";
 import { fetchGrapes } from "../../Services/Grape/GrapeServices";
+import settingsSvg from "../../assets/settings-svgrepo-com.svg";
 
 export default function GrapeRowRead () {
     const navigate = useNavigate();
@@ -65,9 +66,11 @@ export default function GrapeRowRead () {
     if(!editingGrapeRow) {
         return (
             <div>
-                <div className="flex flex-wrap justify-evenly">
+                <div className="flex flex-wrap justify-between">
                     <h1>{selectedGrapeRow[0]?.GrapeRowName}</h1>
-                    <button onClick={() => setEditingGrapeRow(true)}>Rediger Række</button>
+                    <button
+                        className="w-12 h-12 p-0! mt-2" 
+                        onClick={() => setEditingGrapeRow(true)}><img src={settingsSvg}/></button>
                 </div>
                 <div>
                     <GrapeRowOverall selectedGrapeRowsPlantings={selectedGrapeRowsPlantings} selectedGrapeRow={selectedGrapeRow[0]} grapes={grapes}/>
@@ -92,10 +95,12 @@ export default function GrapeRowRead () {
                 <p>Rækkens længde: <input className="bg-white" min="0" max="99999" name="submittedLengthOfRow" type="number" defaultValue={selectedGrapeRow[0].LengthOfRow}/> m</p>
                 <p>Afstand mellem stokke: <input className="bg-white" min="0" max="99999" name="submittedDistanceBetweenVines" type="number" defaultValue={selectedGrapeRow[0].DistanceBetweenVines}/> m</p>
                 <p>Afstand til andre rækker: <input className="bg-white" min="0" max="99999" name="submittedDistanceToNextRow" type="number" defaultValue={selectedGrapeRow[0].DistanceToNextRow}/> m</p>
-                <div className="flex flex-wrap justify-evenly">
-                    <button onClick={() => setEditingGrapeRow(false) }>Gå tilbage</button>
-                    <button className="bg-red-300!" onClick={() => handleDelete()}>Slet Række</button>
-                    <button className="bg-green-300!" type="submit">Gem Ændringer</button>
+                <div className="flex flex-wrap justify-between">
+                    <div className="flex gap-2">
+                        <button onClick={() => setEditingGrapeRow(false) }>Annuller</button>
+                        <button className="bg-green-500!" type="submit">Gem</button>
+                    </div>
+                    <button className="bg-red-500!" onClick={() => handleDelete()}>Slet Række</button>
                 </div>
             </div>
         </form>

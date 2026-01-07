@@ -45,16 +45,13 @@ export default function FrontPage() {
 
   const buttons = [
   { image: grape, title: "Druesort", description: "Se druedata her", onClick: () => navigate('/grape')},
-  { image: statistics, title: "Statistik", description: "Se statistik her", onClick: () => navigate('/statistics')},
   { image: wine, title: "Vin", description: "Se vindata her", onClick: () => navigate('/wine')},
-  { image: plantsvg, title: "Rækker", description: "Se rækkedata her", onClick: () => navigate('/grape-row')}
+  { image: plantsvg, title: "Rækker", description: "Se rækkedata her", onClick: () => navigate('/grape-row')},
+  { image: statistics, title: "Statistik", description: "Kommer senere..."}
 ];
 
   return (
     <>
-      <h2 className="text-center">
-        Forside
-      </h2>
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-25 p-2 "> 
 
         {buttons.map((btn, index) => (

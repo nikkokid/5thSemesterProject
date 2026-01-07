@@ -29,7 +29,7 @@ public class WineDAO : IWineDAO
 
         using var connection = new NpgsqlConnection(connectionString);
 
-        var sql = "SELECT * FROM WineView WHERE WineId = @WineId;";
+        var sql = "SELECT WineId, WineName, VintageYear, Percentage, JuiceId, Volume, PressedDate::timestamp AS PressedDate, GrapeId, GrapeName FROM WineView WHERE WineId = @WineId;";
 
         var result = connection.Query<WineView>(sql, new { WineID = WineId }).ToList();
 
