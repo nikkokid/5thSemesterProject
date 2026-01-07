@@ -1,13 +1,21 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { YearDropdown } from "../../Components/YearDropdown";
 import JuiceColumn from "../../Components/JuiceColumn";
 import { getJuicesByGrapeIdAndYear, type Juice } from "../../Services/Juice/JuiceService";
 
 export default function Juice() {
-  const { grapeId } = useParams();
-  const years = [2023, 2024, 2025, 2026];
 
+  type JuiceRouteState = {
+    grapeName: string;
+  };
+
+  const { grapeId } = useParams();
+  const location = useLocation();
+
+  const {grapeName} = (location.state as { grapeName: string } | null) ?? {};
+
+  const years = [2023, 2024, 2025, 2026];
   const [selectedYear, setSelectedYear] = useState(
     new Date().getFullYear()
   );
@@ -30,7 +38,7 @@ export default function Juice() {
   return (
     <div className="">
       <div>
-        <h1>Most for Vindrue ID: {grapeId}</h1>
+        <h1>Most for {grapeName}</h1>
 
         <YearDropdown
           years={years}

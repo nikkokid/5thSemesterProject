@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom";
 
+type NavigationListProps = {
+  onNavigate: () => void;
+};
 
-
-export default function NavigationList() {
+export default function NavigationList({onNavigate}: NavigationListProps) {
   return (
     <div className="flex flex-col gap-2">
-      <Link to="/grape" className="p-2 rounded">
+      <Link className="p-2! rounded" to="/grape" onClick={onNavigate}>
         Druesort
       </Link>
-      <Link to="/wine" className="p-2 rounded">
+      <Link className="p-2 rounded" to="/wine" onClick={onNavigate}>
         Vine
       </Link>
-      <Link to="/grape-row" className="p-2 rounded">
+      <Link className="p-2 rounded" to="/grape-row" onClick={onNavigate}>
         Rækker
       </Link>
     </div>

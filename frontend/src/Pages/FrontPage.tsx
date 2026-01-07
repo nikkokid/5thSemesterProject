@@ -52,9 +52,6 @@ export default function FrontPage() {
 
   return (
     <>
-      <h2 className="text-center">
-        Forside
-      </h2>
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-25 p-2 "> 
 
         {buttons.map((btn, index) => (

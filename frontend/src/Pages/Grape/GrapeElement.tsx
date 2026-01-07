@@ -86,7 +86,7 @@ export default function GrapeElement() {
           image={grapeImage}
           title="Most"
           description="Se most"
-          onClick={() => navigate(`/grape/${grape.GrapeId}/juice`)}
+          onClick={() => navigate(`/grape/${grape.GrapeId}/juice`, {state: { grapeName: grape.GrapeName}})}
         />
       </div>
       <Dialog ref={dialogRef} toggleDialog={toggleDialog}>

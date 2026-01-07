@@ -13,7 +13,7 @@ export default function HamburgerComponent(){
             toggle={setOpen}         
         /> 
         {open && <div className ="absolute top-20 left-0 w-screen lg:w-64 h-screen p-4 bg-[rgb(77,16,49)]">
-        <NavigationList/>
+        <NavigationList onNavigate={() => setOpen(false)}/>
         </div>}
       </div>
     )
