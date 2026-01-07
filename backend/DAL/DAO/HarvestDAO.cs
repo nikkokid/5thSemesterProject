@@ -4,19 +4,15 @@ using _5thSemesterProject.Backend.DAL.IDAO;
 using _5thSemesterProject.Backend.DAL.Model;
 namespace _5thSemesterProject.Backend.DAL.DAO;
 
-public class HarvestDAO : IHarvestDAO
+public class HarvestDAO : BaseDAO, IHarvestDAO
 {
-    private readonly IConfiguration _configuration;
 
-    public HarvestDAO (IConfiguration configuration)
+    public HarvestDAO (IConfiguration configuration) : base(configuration)
     {
-        _configuration = configuration;
     }
        public IEnumerable<Harvest> GetHarvests()
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-        using var connection = new NpgsqlConnection(connectionString);
+        using var connection = CreateConnection();
         
         var sql = "SELECT HarvestId, HarvestWeight, HarvestDate FROM Harvest LIMIT 3;";
 
@@ -25,37 +21,31 @@ public class HarvestDAO : IHarvestDAO
         return result;
     }
 
-    public IEnumerable<HarvestView> GetHarvestsByGrapeId(int grapeId)
+    public IEnumerable<Harvest> GetHarvestsByGrapeId(int grapeId)
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+        using var connection = CreateConnection();
 
-        using var connection = new NpgsqlConnection(connectionString);
+        var sql ="SELECT * FROM Harvest WHERE GrapeId = @grapeIdLookup;";
 
-        var sql ="SELECT * FROM HarvestView WHERE GrapeId = @grapeIdLookup;";
-
-        var result = connection.Query<HarvestView>(sql, new { grapeIdLookup = grapeId}).ToList();
+        var result = connection.Query<Harvest>(sql, new { grapeIdLookup = grapeId}).ToList();
 
         return result;
     }
 
-    public IEnumerable<HarvestView> GetHarvestsByGrapeIdAndYear(int grapeId, int year)
+    public IEnumerable<Harvest> GetHarvestsByGrapeIdAndYear(int grapeId, int year)
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
+        using var connection = CreateConnection();
 
-        using var connection = new NpgsqlConnection(connectionString);
+        var sql ="SELECT * FROM Harvest WHERE GrapeId = @grapeId AND EXTRACT(YEAR FROM HarvestDate) = @year;";
 
-        var sql ="SELECT * FROM HarvestView WHERE GrapeId = @grapeId AND EXTRACT(YEAR FROM HarvestDate) = @year;";
-
-        var result = connection.Query<HarvestView>(sql, new {grapeId, year}).ToList();
+        var result = connection.Query<Harvest>(sql, new {grapeId, year}).ToList();
 
         return result;
     }
 
     public int DeleteHarvestByHarvestId(int harvestId)
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-        using var connection = new NpgsqlConnection(connectionString);
+        using var connection = CreateConnection();
 
         var sql ="DELETE FROM Harvest WHERE HarvestId = @harvestId;";
 
@@ -66,13 +56,11 @@ public class HarvestDAO : IHarvestDAO
 
     public int UpdateHarvestByHarvestId(int harvestId, HarvestDTO harvest)
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-        using var connection = new NpgsqlConnection(connectionString);
+        using var connection = CreateConnection();
 
         var sql = "UPDATE Harvest SET GrapeRowId = @grapeRowId, HarvestWeight = @harvestWeight, HarvestDate = @harvestDate WHERE HarvestId = @harvestId;";
 
-        var result = connection.Execute(sql, new {harvestId, grapeRowId = harvest.GrapeRowId, harvestWeight = harvest.HarvestWeight, harvestDate = harvest.HarvestDate} );
+        var result = connection.Execute(sql, new {harvestId, grapeRowId = harvest.GrapeRowId, harvestWeight = harvest.HarvestWeight, harvestDate = harvest.HarvestDate.ToDateTime(TimeOnly.MinValue)} );
 
         return result;
 
@@ -80,13 +68,11 @@ public class HarvestDAO : IHarvestDAO
 
     public int CreateHarvest(HarvestDTO harvest)
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-        using var connection = new NpgsqlConnection(connectionString);
+        using var connection = CreateConnection();
 
         var sql = "INSERT INTO Harvest (GrapeRowId, GrapeId, HarvestWeight, HarvestDate) VALUES (@grapeRowId, @grapeId, @harvestWeight, @harvestDate);";
 
-        var result = connection.Execute(sql, new {grapeRowId = harvest.GrapeRowId, grapeId = harvest.GrapeId, harvestWeight = harvest.HarvestWeight, harvestDate = harvest.HarvestDate});
+        var result = connection.Execute(sql, new {grapeRowId = harvest.GrapeRowId, grapeId = harvest.GrapeId, harvestWeight = harvest.HarvestWeight, harvestDate = harvest.HarvestDate.ToDateTime(TimeOnly.MinValue)});
         
         return result;
     }

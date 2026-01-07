@@ -1,23 +1,21 @@
-const baseUrl = "http://localhost:8081/api/v1/harvests"
-
-export type HarvestView = {
-    HarvestId: number;
-    HarvestWeight: number;
-    HarvestDate: string;
-    GrapeRowName: string;
-    NoOfVines: number;
-    GrapeId: number;
-    GrapeName: string;
-}
+const baseUrl = "http://localhost:8081/api/v1/Harvests"
 
 export type Harvest = {
+    HarvestId: number;
     HarvestWeight: number;
     HarvestDate: string;
     GrapeRowId: number;
     GrapeId: number;
 }
 
-export async function getHarvestsByGrapeIdAndYear(grapeId : number, year : number): Promise<HarvestView[]> {
+export type HarvestDTO = {
+    HarvestWeight: number;
+    HarvestDate: string;
+    GrapeRowId: number;
+    GrapeId: number;
+}
+
+export async function getHarvestsByGrapeIdAndYear(grapeId : number, year : number): Promise<Harvest[]> {
     const response = await fetch(`${baseUrl}?grapeId=${grapeId}&year=${year}`)
     if (!response.ok) {
         throw new Error("Failed to fetch harvests");
@@ -25,7 +23,7 @@ export async function getHarvestsByGrapeIdAndYear(grapeId : number, year : numbe
     return response.json();
 };
 
-export async function getHarvestsByGrapeId(grapeId : number): Promise<HarvestView[]> {
+export async function getHarvestsByGrapeId(grapeId : number): Promise<Harvest[]> {
     const response = await fetch(`${baseUrl}?grapeId=${grapeId}`)
     if (!response.ok) {
         throw new Error("Failed to fetch harvests");
@@ -33,23 +31,23 @@ export async function getHarvestsByGrapeId(grapeId : number): Promise<HarvestVie
     return response.json();
 };
 
-export async function deleteHarvestByHarvestId(harvestId : number): Promise<void> {
+export async function deleteHarvestByHarvestId(harvestId : number){
     const response = await fetch(`${baseUrl}?harvestId=${harvestId}`,
-    {
-        method: "DELETE",
-    }
+        {
+            method: "DELETE",
+        }
     );
     if(!response.ok) {
         throw new Error("Failed to delete harvest")
     }
 };
 
-export async function updateHarvestByHarvestId(harvestId : number, harvest : Harvest): Promise<void> {
+export async function updateHarvestByHarvestId(harvestId : number, harvest : HarvestDTO): Promise<void> {
     const response = await fetch(`${baseUrl}?harvestId=${harvestId}`,
         {
             method: "PATCH",
             headers: {
-                "CONTENT-TYPE" : "application/json"
+                "Content-Type" : "application/json"
             },
             body: JSON.stringify(harvest)
         }
@@ -59,7 +57,7 @@ export async function updateHarvestByHarvestId(harvestId : number, harvest : Har
     }
 };
 
-export async function createHarvest(harvest : Harvest): Promise<void> {
+export async function createHarvest(harvest : HarvestDTO) {
     const response = await fetch(`${baseUrl}`,
         {
             method: "POST",

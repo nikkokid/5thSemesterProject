@@ -11,7 +11,7 @@ public class HarvestDAOStub : IHarvestDAO
         {
             new Harvest
             {
-                HarvestID = 1,
+                HarvestId = 1,
                 HarvestWeight = 110,
                 //Date = "Date1"
                 //HarvestDate = new DateOnly(2025, 6, 7)
@@ -19,7 +19,7 @@ public class HarvestDAOStub : IHarvestDAO
 
             new Harvest
             {
-                HarvestID = 2,
+                HarvestId = 2,
                 HarvestWeight = 120,
                 //Date = "Date2"
                 //HarvestDate = new DateOnly(2025, 6, 7)
@@ -27,7 +27,7 @@ public class HarvestDAOStub : IHarvestDAO
             
             new Harvest
             {
-                HarvestID = 3,
+                HarvestId = 3,
                 HarvestWeight = 130,
                 //Date = "Date3"
                 //HarvestDate = new DateOnly(2025, 6, 7)
@@ -37,32 +37,32 @@ public class HarvestDAOStub : IHarvestDAO
         return Harvests;
     }
     
-    public IEnumerable<HarvestView> GetHarvestsByGrapeId(int grapeId)
+    public IEnumerable<Harvest> GetHarvestsByGrapeId(int grapeId)
     
     {
-        List<HarvestView> HarvestViews = new List<HarvestView>
+        List<Harvest> Harvests = new List<Harvest>
         {
-            new HarvestView
+            new Harvest
             {
                 
             }
         };
         
-        return HarvestViews;
+        return Harvests;
     }
 
-    public IEnumerable<HarvestView> GetHarvestsByGrapeIdAndYear(int grapeId, int year)
+    public IEnumerable<Harvest> GetHarvestsByGrapeIdAndYear(int grapeId, int year)
     
     {
-        List<HarvestView> HarvestViews = new List<HarvestView>
+        List<Harvest> Harvests = new List<Harvest>
         {
-            new HarvestView
+            new Harvest
             {
                 
             }
         };
         
-        return HarvestViews;
+        return Harvests;
     }
 
     public int DeleteHarvestByHarvestId(int harvestId)

@@ -2,7 +2,7 @@ namespace _5thSemesterProject.Backend.DAL.Model;
 
 public class Harvest
 {
-    public int HarvestID { get; set; }
+    public int HarvestId { get; set; }
 
     public int GrapeId { get; set; }
 
@@ -10,6 +10,6 @@ public class Harvest
 
     public int HarvestWeight { get; set; }
 
-    public DateTime HarvestDate { get; set; }
+    public DateOnly HarvestDate { get; set; }
 
 }

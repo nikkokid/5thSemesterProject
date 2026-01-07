@@ -40,6 +40,7 @@ export default function PlantingBox({planting, grapes, setReloadNeeded} : Planti
                     <p>Plantede stokke: {planting.NumberOfVinesPlanted}</p>
                     <p>Døde stokke: {planting.NumberOfVinesDead}</p>
                     <p>Plantet: {planting.PlantingDate}</p>
+                    <p>{planting.PlantingId}</p>
                 </div>
             </div>
         )

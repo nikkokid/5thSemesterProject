@@ -8,6 +8,6 @@ public class HarvestDTO
 
     public int HarvestWeight { get; set; }
 
-    public DateTime HarvestDate { get; set; }
+    public DateOnly HarvestDate { get; set; }
 
 }
