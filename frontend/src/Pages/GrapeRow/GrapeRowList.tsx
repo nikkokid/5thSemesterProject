@@ -12,14 +12,14 @@ export default function GrapeRowList() {
     const navigate = useNavigate();
     const [allGrapeRows, setAllGrapeRows] = useState<GrapeRow[]>([]);
 
+    async function loadAllGrapeRows() {
+        const data = await getAllGrapeRows();
+        setAllGrapeRows(data);
+    }
     useEffect(() => {
-        async function loadAllGrapeRows() {
-            const data = await getAllGrapeRows();
-            setAllGrapeRows(data);
-        }
-
         loadAllGrapeRows();
     })
+    
     return (
         <div>
             <div className="text-center mb-12">

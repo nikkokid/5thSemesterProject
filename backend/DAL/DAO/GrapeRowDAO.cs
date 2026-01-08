@@ -57,7 +57,7 @@ public class GrapeRowDAO : BaseDAO, IGrapeRowDAO
 
     public int DeleteGrapeRow(int grapeRowId)
     {
-        var sql ="DELETE FROM GrapeRow WHERE GrapeRowId = @grapeRowId;";
+        var sql = "DELETE FROM GrapeRow WHERE GrapeRowId = @grapeRowId;";
 
         using var connection = CreateConnection();
 

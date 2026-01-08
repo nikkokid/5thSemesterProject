@@ -3,6 +3,7 @@ import grape from "../assets/grapesvg.svg";
 import statistics from "../assets/statisticssvg.svg";
 import wine from "../assets/winesvg.svg";
 import plantsvg from "../assets/plant-svgrepo-com.svg"
+import additive from "../assets/ingredients-mix-svgrepo-com.svg"
 
 
 
@@ -47,6 +48,7 @@ export default function FrontPage() {
   { image: grape, title: "Druesort", description: "Se druedata her", onClick: () => navigate('/grape')},
   { image: wine, title: "Vin", description: "Se vindata her", onClick: () => navigate('/wine')},
   { image: plantsvg, title: "Rækker", description: "Se rækkedata her", onClick: () => navigate('/grape-row')},
+  { image: additive, title: "Tilsætningsstoffer", description: "Se tilsætningsstofsdata her", onClick: () => navigate('/additive')},
   { image: statistics, title: "Statistik", description: "Kommer senere..."}
 ];
 

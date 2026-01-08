@@ -16,6 +16,9 @@ export default function NavigationList({onNavigate}: NavigationListProps) {
       <Link className="p-2 rounded" to="/grape-row" onClick={onNavigate}>
         Rækker
       </Link>
+      <Link className="p-2 rounded" to="/additive" onClick={onNavigate}>
+        Tilsætningsstoffer
+      </Link>
     </div>
   );
 }

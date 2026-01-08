@@ -6,13 +6,13 @@ export default function GrapeRowCreate() {
     const navigate = useNavigate();
 
     function handleSubmit (formData : any){
-        let grapeRow : GrapeRowDTO = {
+        let grapeRowTemp : GrapeRowDTO = {
             GrapeRowName: formData.get("submittedGrapeRowName"),
             LengthOfRow: formData.get("submittedLengthOfRow"),
             DistanceBetweenVines: formData.get("submittedDistanceBetweenVines"),
             DistanceToNextRow: formData.get("submittedDistanceToNextRow")
         };
-        createGrapeRow(grapeRow);
+        createGrapeRow(grapeRowTemp);
         navigate(`/grape-row`);
     }
     return(
@@ -20,12 +20,12 @@ export default function GrapeRowCreate() {
             <h2 className="text-center">Opret række</h2>
             <form action={handleSubmit}>
                 <div className="flex flex-col p-4 border-3 rounded border-[rgb(77,16,39)] bg-gray-200 text-black">
-                    <p>Rækkens navn: <input className="bg-white" name="submittedGrapeRowName" type="text"/></p>
-                    <p>Rækkens længde: <input className="bg-white" min="0" max="99999" name="submittedLengthOfRow" type="number"/> m</p>
-                    <p>Afstand mellem stokke: <input className="bg-white" min="0" max="99999" name="submittedDistanceBetweenVines" type="number"/> m</p>
-                    <p>Afstand til andre rækker: <input className="bg-white" min="0" max="99999" name="submittedDistanceToNextRow" type="number"/> m</p>
+                    <p>Rækkens navn: <input className="bg-white rounded" name="submittedGrapeRowName" type="text"/></p>
+                    <p>Rækkens længde: <input className="bg-white rounded" min="0" max="99999" name="submittedLengthOfRow" type="number"/> m</p>
+                    <p>Afstand mellem stokke: <input className="bg-white rounded" min="0" max="99999" name="submittedDistanceBetweenVines" type="number"/> m</p>
+                    <p>Afstand til andre rækker: <input className="bg-white rounded" min="0" max="99999" name="submittedDistanceToNextRow" type="number"/> m</p>
                     <div className="flex flex-wrap justify-evenly">
-                        <button className="bg-red-300!" onClick={() => navigate(`/grape-row`) }>Annuller</button>
+                        <button className="bg-red-300!" type="button" onClick={() => navigate(`/grape-row`) }>Annuller</button>
                         <button className="bg-green-300!" type="submit">Opret</button>
                     </div>
                 </div>
