@@ -5,19 +5,15 @@ using _5thSemesterProject.Backend.DAL.Model;
 
 namespace _5thSemesterProject.Backend.DAL.DAO;
 
-public class WineDAO : IWineDAO
+public class WineDAO : BaseDAO, IWineDAO
 {
-    private readonly IConfiguration _configuration;
-    public WineDAO(IConfiguration configuration)
+    
+    public WineDAO(IConfiguration configuration) : base(configuration)
     {
-        _configuration = configuration;
     }
     public IEnumerable<Wine> GetAllWines()
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-        using var connection = new NpgsqlConnection(connectionString);
-
+        using var connection = new CreateConnection();
         var sql = "SELECT WineId, WineName, VintageYear FROM Wine;";
         var result = connection.Query<Wine>(sql).ToList();
         return result;
@@ -25,10 +21,7 @@ public class WineDAO : IWineDAO
 
     public IEnumerable<WineView> GetWineById(int WineId)
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-        using var connection = new NpgsqlConnection(connectionString);
-
+        using var connection = CreateConnection();
         var sql = "SELECT WineId, WineName, VintageYear, Percentage, JuiceId, VolumeUsed, PressedDate::timestamp AS PressedDate, GrapeId, GrapeName FROM WineView WHERE WineId = @WineId;";
 
         var result = connection.Query<WineView>(sql, new { WineID = WineId }).ToList();
@@ -38,9 +31,7 @@ public class WineDAO : IWineDAO
 
    public int CreateWine(WineDTO wineDTO)
 {
-    var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-    using var connection = new NpgsqlConnection(connectionString);
+    using var connection = CreateConnection();
     connection.Open();
 
     using var transaction = connection.BeginTransaction();
@@ -142,9 +133,7 @@ public class WineDAO : IWineDAO
 
     public int UpdateWineById(int wineId, WineDTO wineDTO)
 {
-    var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-    using var connection = new NpgsqlConnection(connectionString);
+    using var connection = CreateConnection();
     connection.Open();
 
     using var transaction = connection.BeginTransaction();
@@ -197,7 +186,7 @@ public class WineDAO : IWineDAO
                 WHERE JuiceId = @JuiceId
                   AND Volume >= @Diff;
             ";
-
+            
             if (diff != 0)
             {
                 int rowsAffected = connection.Execute(
@@ -273,8 +262,7 @@ public class WineDAO : IWineDAO
 
     public int DeleteWineById(int WineId)
     {
-        var connectionString = _configuration.GetConnectionString("DefaultConnection");
-        using var connection = new NpgsqlConnection(connectionString);
+        using var connection = CreateConnection();
         var sql = "DELETE FROM Wine WHERE WineId = @WineId;";
         var result = connection.Execute(sql, new { WineId });
         return result;
