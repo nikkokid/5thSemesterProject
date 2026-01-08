@@ -3,197 +3,145 @@ import { fetchGrapes, type Grape } from "../Services/Grape/GrapeServices";
 import { createWine, type WineDTO } from "../Services/Wine/WineServices";
 import { fetchJuicesByGrapes, type Juice } from "../Services/Juice/JuiceService";
 
-type CreateWineDialogContentProps = {
+type Props = {
   onClose: () => void;
   onCreated: () => void;
 };
 
-type JuiceWithPercentage = Juice & { percentage: number };
+type JuiceWithVolume = Juice & {
+  usedVolume: number;
+};
 
-export default function CreateWineDialogContent({
-  onClose,
-  onCreated,
-}: CreateWineDialogContentProps) {
+export default function CreateWineDialogContent({ onClose, onCreated }: Props) {
   const [grapes, setGrapes] = useState<Grape[]>([]);
   const [selectedGrapeIds, setSelectedGrapeIds] = useState<number[]>([]);
 
-  const [juices, setJuices] = useState<JuiceWithPercentage[]>([]);
+  const [juices, setJuices] = useState<JuiceWithVolume[]>([]);
   const [selectedJuiceIds, setSelectedJuiceIds] = useState<number[]>([]);
 
   const [wineName, setWineName] = useState("");
-  const [vintageYear, setVintageYear] = useState<number>(
-    new Date().getFullYear()
-  );
+  const [vintageYear, setVintageYear] = useState(new Date().getFullYear());
   const [loading, setLoading] = useState(false);
 
-  // -------------------------------
+  // ----------------------------------
   // Fetch grapes
-  // -------------------------------
+  // ----------------------------------
   useEffect(() => {
-    async function loadGrapes() {
-      try {
-        setGrapes(await fetchGrapes());
-      } catch (err) {
-        console.error("Failed to fetch grapes", err);
-      }
-    }
-    loadGrapes();
+    fetchGrapes().then(setGrapes);
   }, []);
 
-  // -------------------------------
+  // ----------------------------------
   // Fetch juices when grapes change
-  // -------------------------------
+  // ----------------------------------
   useEffect(() => {
-    async function loadJuices() {
-      if (selectedGrapeIds.length === 0) {
-        setJuices([]);
-        setSelectedJuiceIds([]);
-        return;
-      }
-
-      try {
-        const fetched = await fetchJuicesByGrapes(selectedGrapeIds);
-        setJuices(fetched.map(j => ({ ...j, percentage: 0 })));
-        setSelectedJuiceIds([]);
-      } catch (err) {
-        console.error("Failed to fetch juices", err);
-      }
-    }
-    loadJuices();
-  }, [selectedGrapeIds]);
-
-  // -------------------------------
-  // Toggle grape
-  // -------------------------------
-  function toggleGrapeSelection(grapeId: number) {
-    setSelectedGrapeIds(prev =>
-      prev.includes(grapeId)
-        ? prev.filter(id => id !== grapeId)
-        : [...prev, grapeId]
-    );
-  }
-
-  // -------------------------------
-  // Toggle juice
-  // -------------------------------
-  function toggleJuiceSelection(juiceId: number) {
-    setSelectedJuiceIds(prev =>
-      prev.includes(juiceId)
-        ? prev.filter(id => id !== juiceId)
-        : [...prev, juiceId]
-    );
-  }
-
-  // -------------------------------
-  // Normalize percentages
-  // -------------------------------
-  useEffect(() => {
-    if (selectedJuiceIds.length === 0) {
-      setJuices(prev => prev.map(j => ({ ...j, percentage: 0 })));
+    if (selectedGrapeIds.length === 0) {
+      setJuices([]);
+      setSelectedJuiceIds([]);
       return;
     }
 
-    const equal = Math.floor(100 / selectedJuiceIds.length);
-    const remainder = 100 - equal * selectedJuiceIds.length;
-
-    let remainderGiven = false;
-
-    setJuices(prev =>
-      prev.map(j => {
-        if (!selectedJuiceIds.includes(j.id)) {
-          return { ...j, percentage: 0 };
-        }
-
-        if (!remainderGiven) {
-          remainderGiven = true;
-          return { ...j, percentage: equal + remainder };
-        }
-
-        return { ...j, percentage: equal };
-      })
+    fetchJuicesByGrapes(selectedGrapeIds).then(fetched =>
+      setJuices(fetched.map(j => ({ ...j, usedVolume: 0 })))
     );
-  }, [selectedJuiceIds]);
+  }, [selectedGrapeIds]);
 
-  // -------------------------------
-  // Manual slider change
-  // -------------------------------
-  function handleSliderChange(juiceId: number, value: number) {
+  // ----------------------------------
+  // Helpers
+  // ----------------------------------
+  function toggleGrape(id: number) {
+    setSelectedGrapeIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
+  }
+
+  function toggleJuice(id: number) {
+    setSelectedJuiceIds(prev =>
+      prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+    );
+  }
+
+  function updateVolume(juiceId: number, value: number) {
     setJuices(prev =>
       prev.map(j =>
-        j.id === juiceId ? { ...j, percentage: value } : j
+        j.id === juiceId
+          ? { ...j, usedVolume: Math.min(value, j.volume) }
+          : j
       )
     );
   }
 
-  // -------------------------------
-  // Submit
-  // -------------------------------
-  async function handleSubmit() {
-    try {
-      setLoading(true);
+  // ----------------------------------
+  // Derived values
+  // ----------------------------------
+  const totalVolume = juices
+    .filter(j => selectedJuiceIds.includes(j.id))
+    .reduce((sum, j) => sum + j.usedVolume, 0);
 
-      const selectedJuices = juices
-        .filter(j => selectedJuiceIds.includes(j.id) && j.percentage > 0)
+  function percentageOf(juice: JuiceWithVolume) {
+    if (totalVolume === 0) return 0;
+    return Math.round((juice.usedVolume / totalVolume) * 100);
+  }
+
+  // ----------------------------------
+  // Submit
+  // ----------------------------------
+  async function handleSubmit() {
+    if (!wineName || totalVolume === 0) {
+      alert("Angiv vinens navn og volumen");
+      return;
+    }
+
+    const dto: WineDTO = {
+      WineName: wineName,
+      VintageYear: vintageYear,
+      Juices: juices
+        .filter(j => selectedJuiceIds.includes(j.id) && j.usedVolume > 0)
         .map(j => ({
           JuiceId: j.id,
-          Percentage: j.percentage,
-        }));
+          VolumeUsed: j.usedVolume,
+        })),
+    };
 
-      if (!wineName || selectedJuices.length === 0) {
-        alert("Provide a wine name and select at least one juice");
-        return;
-      }
-
-      const wineDto: WineDTO = {
-        WineName: wineName,
-        VintageYear: vintageYear,
-        Juices: selectedJuices,
-      };
-
-      await createWine(wineDto);
+    try {
+      setLoading(true);
+      await createWine(dto);
       onCreated();
       onClose();
-    } catch (err) {
-      console.error(err);
-      alert("Failed to create wine");
+    } catch {
+      alert("Kunne ikke oprette vin");
     } finally {
       setLoading(false);
     }
   }
 
-  // -------------------------------
+  // ----------------------------------
   // UI
-  // -------------------------------
+  // ----------------------------------
   return (
     <div className="flex flex-col gap-4 p-4 min-width[400px]">
       <h2 className="text-xl font-semibold">Opret Vin</h2>
 
-      <label>
-        Vin Navn:
-        <input
-          className="border p-1 rounded w-full"
-          value={wineName}
-          onChange={e => setWineName(e.target.value)}
-        />
-      </label>
+      <input
+        className="border p-2 rounded"
+        placeholder="Vin navn"
+        value={wineName}
+        onChange={e => setWineName(e.target.value)}
+      />
 
-      <label>
-        Årgang:
-        <input
-          type="number"
-          className="border p-1 rounded w-full"
-          value={vintageYear}
-          onChange={e => setVintageYear(Number(e.target.value))}
-        />
-      </label>
+      <input
+        type="number"
+        className="border p-2 rounded"
+        value={vintageYear}
+        onChange={e => setVintageYear(Number(e.target.value))}
+      />
 
-      <h3 className="font-semibold">Vælg Druer</h3>
+      <h3 className="font-semibold">Druer</h3>
       <div className="flex flex-wrap gap-2">
         {grapes.map(g => (
           <button
             key={g.GrapeId}
-            onClick={() => toggleGrapeSelection(g.GrapeId)}
-            className={`px-3 py-1 border rounded ${
+            onClick={() => toggleGrape(g.GrapeId)}
+            className={`px-3 py-1 rounded ${
               selectedGrapeIds.includes(g.GrapeId)
                 ? "bg-green-600! text-white"
                 : "bg-gray-200"
@@ -206,57 +154,56 @@ export default function CreateWineDialogContent({
 
       {juices.length > 0 && (
         <>
-          <h3 className="font-semibold">Vælg Saft</h3>
+          <h3 className="font-semibold">Saft</h3>
 
-          {juices.map(juice => {
-            const selected = selectedJuiceIds.includes(juice.id);
+          {juices.map(j => {
+            const selected = selectedJuiceIds.includes(j.id);
 
             return (
-              <div
-                key={juice.id}
-                className="flex items-center gap-2 border rounded p-2"
-              >
+              <div key={j.id} className="border rounded p-2 flex gap-2 items-center">
                 <input
                   type="checkbox"
                   checked={selected}
-                  onChange={() => toggleJuiceSelection(juice.id)}
+                  onChange={() => toggleJuice(j.id)}
                 />
 
-                <span className="flex-1">
-                  Drue:{juice.grapeId} · {juice.volume}L · Type:{juice.juiceTypeId}
-                </span>
+                <div className="flex-1">
+                  {j.volume} L tilgængelig
+                </div>
 
                 {selected && (
                   <>
                     <input
-                      type="range"
+                      type="number"
                       min={0}
-                      max={100}
-                      value={juice.percentage}
+                      max={j.volume}
+                      value={j.usedVolume}
                       onChange={e =>
-                        handleSliderChange(
-                          juice.id,
-                          Number(e.target.value)
-                        )
+                        updateVolume(j.id, Number(e.target.value))
                       }
+                      className="w-20 border rounded p-1"
                     />
-                    <span>{juice.percentage}%</span>
+                    <span>{percentageOf(j)}%</span>
                   </>
                 )}
               </div>
             );
           })}
+
+          <div className="text-right font-semibold">
+            Total: {totalVolume} L
+          </div>
         </>
       )}
 
-      <div className="flex justify-end gap-2 mt-4">
-        <button onClick={onClose} className="px-4 py-2 bg-gray-300 rounded">
-          Cancel
+      <div className="flex justify-end gap-2">
+        <button onClick={onClose} className="bg-gray-300 px-4 py-2 rounded">
+          Annuller
         </button>
         <button
           onClick={handleSubmit}
           disabled={loading}
-          className="px-4 py-2 bg-green-600! text-white rounded"
+          className="bg-green-600! text-white px-4 py-2 rounded"
         >
           {loading ? "Opretter..." : "Opret Vin"}
         </button>
