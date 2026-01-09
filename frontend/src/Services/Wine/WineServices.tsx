@@ -9,7 +9,7 @@ export type Wine = {
 export type WineDTO = {
   WineName: string;
   VintageYear: number;
-  Juices: { JuiceId: number; Percentage: number }[];
+  Juices: { JuiceId: number; VolumeUsed: number;}[];
 };
 
 export type WineDetail = {
@@ -19,7 +19,7 @@ export type WineDetail = {
   GrapeId: number;
   GrapeName: string;
   JuiceId: number;
-  JuiceVolume: number;
+  VolumeUsed: number;
   Percentage: number;
   PressedDate: string;
 };

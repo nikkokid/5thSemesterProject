@@ -7,7 +7,7 @@ public class WineView
 
     public int JuiceId { get; set; }
     public int Percentage { get; set; }
-    public decimal JuiceVolume { get; set; }
+    public decimal VolumeUsed { get; set; }
     public string? PressedDate { get; set; }
 
     public int GrapeId { get; set; }
