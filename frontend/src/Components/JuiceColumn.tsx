@@ -82,7 +82,7 @@ export default function JuiceColumn({
             <div className="flex justify-between items-center">
               <h2 className="text-lg font-semibold mb-4">{title}</h2>
               <button onClick={() => toggleEditJuice(juice)} className="mb-2 p-0!">
-                <img src={settingssvg} alt="Indstillinger" className="w-6 h-6" />
+                <img src={settingssvg} alt="Indstillinger" className="w-9 h-9" />
               </button>
             </div>
 

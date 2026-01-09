@@ -35,7 +35,7 @@ export default function AdditiveLineItem ({additiveLine, additives, setReloadNee
                 <div className="flex flex-col p-4 border-b-2 bg-gray-100 text-black">
                     <div className="flex justify-between">
                         <h3>{additives[additiveLine.AdditiveId]}</h3>
-                        <button className="w-12 h-12 p-0! mt-2" onClick={() => setEditingAdditiveLine(true)}><img src={settingsSvg}/></button>
+                        <button className="w-9 h-9 p-0!" onClick={() => setEditingAdditiveLine(true)}><img src={settingsSvg}/></button>
                     </div>
                     <p><strong>Mængde: </strong>{additiveLine.AdditiveAmount}g</p>
                     <p><strong>Dato: </strong>{additiveLine.AdditiveDate}</p>

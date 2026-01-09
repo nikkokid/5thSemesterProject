@@ -106,9 +106,9 @@ export default function TasteProfileList({ juiceId }: TasteProfileListProps) {
                       ) : (
                         <>
                           <div className="flex justify-between">
-                            <h3>Smagsprofil {tasteProfile.id}</h3>
+                            <h3>Smagsprofil</h3>
                             <button
-                              className="w-8 mb-2 p-0!"
+                              className="w-9 h-9 p-0!"
                               onClick={() => toggleEditTasteProfile(tasteProfile)}
                             >
                               <img src={settingssvg} alt="Indstillinger" />
