@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createJuice, updateJuiceById, deleteJuiceById, type Juice, type CreateJuice } from "../Services/Juice/JuiceService";
 import AdditiveList from "./AdditiveList";
+import AdditiveLineList from "./AdditiveLineList";
 import TasteProfileList from "./TasteProfileList";
 import settingssvg from "./../assets/settings-svgrepo-com.svg";
 import trashsvg from "./../assets/trashsvg.svg";
@@ -122,7 +123,7 @@ export default function JuiceColumn({
           <TasteProfileList juiceId={juice.id}/>
 
           {/* Additives section */}
-          <AdditiveList juiceId={juice.id} />
+          <AdditiveLineList juiceId={juice.id}/>
         </div>
       ))}
     </div>

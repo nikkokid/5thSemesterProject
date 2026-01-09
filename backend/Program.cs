@@ -12,6 +12,7 @@ builder.Services.AddScoped<IPlantingDAO, PlantingDAO>();
 builder.Services.AddScoped<IAdditiveDAO, AdditiveDAO>();
 builder.Services.AddScoped<IWineDAO, WineDAO>();
 builder.Services.AddScoped<IAdditiveDAOV2, AdditiveDAOV2>();
+builder.Services.AddScoped<IAdditiveLineDAO, AdditiveLineDAO>();
 
 // Allow Dapper to map snake_case database columns
 // to camelCase C# property names
