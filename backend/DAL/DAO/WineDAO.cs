@@ -2,7 +2,6 @@ using Dapper;
 using Npgsql;
 using _5thSemesterProject.Backend.DAL.IDAO;
 using _5thSemesterProject.Backend.DAL.Model;
-
 namespace _5thSemesterProject.Backend.DAL.DAO;
 
 public class WineDAO : BaseDAO, IWineDAO
@@ -13,7 +12,7 @@ public class WineDAO : BaseDAO, IWineDAO
     }
     public IEnumerable<Wine> GetAllWines()
     {
-        using var connection = new CreateConnection();
+        using var connection = CreateConnection();
         var sql = "SELECT WineId, WineName, VintageYear FROM Wine;";
         var result = connection.Query<Wine>(sql).ToList();
         return result;
