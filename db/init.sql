@@ -81,6 +81,20 @@ CREATE TABLE Planting (
     GrapeId INT REFERENCES Grape(GrapeId) ON DELETE CASCADE
 );
 
+CREATE TABLE AdditiveV2 (
+    AdditiveId SERIAL PRIMARY KEY,
+    AdditiveName TEXT NOT NULL,
+    AdditiveDescription TEXT,
+    AdditiveURL TEXT
+);
+
+CREATE TABLE AdditiveLine (
+    AdditiveLineId SERIAL PRIMARY KEY,
+    AdditiveId INT REFERENCES AdditiveV2(AdditiveId) ON DELETE CASCADE,
+    JuiceId INT REFERENCES Juice(JuiceId) ON DELETE CASCADE,
+    AdditiveAmount NUMERIC,
+    AdditiveDate DATE
+);
 
 
 INSERT INTO Grape (GrapeName) VALUES ('Rondo'), ('Solaris'), ('Cabernet Noir');
@@ -127,6 +141,8 @@ VALUES ('Sugar', 1.5, 'testUsed as sweetenertest', '2025-12-15', 1),
 INSERT INTO Planting (NumberOfVinesPlanted, NumberOfVinesDead, PlantingDate, GrapeRowId, GrapeId)
 VALUES (50, 0, '2023-06-10', 1, 1), (50, 0, '2023-06-10', 1, 1);
 
+INSERT INTO AdditiveV2 (AdditiveName, AdditiveDescription, AdditiveURL)
+VALUES ('Hvidt sukker', 'Bruges til at gøre vinen sødere', 'https://www.dansukker.dk/dk/produkter/alle-produkter/sukker-1-kg'), ('Vingær, Vinoferm Cryo White', 'Bruges til at gære hvidvin', 'https://hjemmeproduktion.dk/shop/vingaer-vinoferm-cryo-4457p.html');
 
 
 CREATE VIEW WineView AS
