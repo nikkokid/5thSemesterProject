@@ -1,7 +1,4 @@
-//const baseUrl = "http://localhost:8081/api/v1/Harvests"
-const url = import.meta.env.VITE_API_BASE_URL; 
-const baseUrl = `${url}/api/v1/Harvests`;
-
+const baseUrl = "http://localhost:8081/api/v1/Harvests"
 
 export type Harvest = {
     HarvestId: number;

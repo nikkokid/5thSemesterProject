@@ -26,10 +26,6 @@ services:
     container_name: 5th_semester_frontend
     ports:
       - "5179:5179"
-    env_file:
-      - .env
-    environment:
-      VITE_API_BASE_URL: ${VITE_API_BASE_URL}
     volumes:
       - ./frontend:/app
       - /app/node_modules
