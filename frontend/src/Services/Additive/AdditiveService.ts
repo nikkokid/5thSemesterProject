@@ -1,3 +1,7 @@
+import { baseUrl } from "../baseUrl";
+
+const ADDITIVE_API_URL = `${baseUrl}/api/v1/Additives`;
+//const ADDITIVE_API_URL = "http://localhost:8081/api/v1/Additives";
 
 export type Additive = {
     id: number;
@@ -15,7 +19,6 @@ export type CreateAdditive = {
     date: string;
 }
 
-const ADDITIVE_API_URL = "http://localhost:8081/api/v1/Additives";
 
 export async function createAdditiveForJuice(juiceId: number, data: CreateAdditive) {
     const res = await fetch(`${ADDITIVE_API_URL}/${juiceId}`, {

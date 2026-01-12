@@ -1,4 +1,9 @@
-const baseUrl = "http://localhost:8081/api/v1/Harvests"
+import { baseUrl } from "../baseUrl";
+
+const HARVEST_API_URL = `${baseUrl}/api/v1/Harvests`;
+
+
+//const baseUrl = "http://localhost:8081/api/v1/Harvests"
 
 export type Harvest = {
     HarvestId: number;
@@ -16,7 +21,7 @@ export type HarvestDTO = {
 }
 
 export async function getHarvestsByGrapeIdAndYear(grapeId : number, year : number): Promise<Harvest[]> {
-    const response = await fetch(`${baseUrl}?grapeId=${grapeId}&year=${year}`)
+    const response = await fetch(`${HARVEST_API_URL}?grapeId=${grapeId}&year=${year}`)
     if (!response.ok) {
         throw new Error("Failed to fetch harvests");
     }
@@ -24,7 +29,7 @@ export async function getHarvestsByGrapeIdAndYear(grapeId : number, year : numbe
 };
 
 export async function getHarvestsByGrapeId(grapeId : number): Promise<Harvest[]> {
-    const response = await fetch(`${baseUrl}?grapeId=${grapeId}`)
+    const response = await fetch(`${HARVEST_API_URL}?grapeId=${grapeId}`)
     if (!response.ok) {
         throw new Error("Failed to fetch harvests");
     }
@@ -32,7 +37,7 @@ export async function getHarvestsByGrapeId(grapeId : number): Promise<Harvest[]>
 };
 
 export async function deleteHarvestByHarvestId(harvestId : number){
-    const response = await fetch(`${baseUrl}?harvestId=${harvestId}`,
+    const response = await fetch(`${HARVEST_API_URL}?harvestId=${harvestId}`,
         {
             method: "DELETE",
         }
@@ -43,7 +48,7 @@ export async function deleteHarvestByHarvestId(harvestId : number){
 };
 
 export async function updateHarvestByHarvestId(harvestId : number, harvest : HarvestDTO): Promise<void> {
-    const response = await fetch(`${baseUrl}?harvestId=${harvestId}`,
+    const response = await fetch(`${HARVEST_API_URL}?harvestId=${harvestId}`,
         {
             method: "PATCH",
             headers: {
@@ -58,7 +63,7 @@ export async function updateHarvestByHarvestId(harvestId : number, harvest : Har
 };
 
 export async function createHarvest(harvest : HarvestDTO) {
-    const response = await fetch(`${baseUrl}`,
+    const response = await fetch(`${HARVEST_API_URL}`,
         {
             method: "POST",
             headers: {

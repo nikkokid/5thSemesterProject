@@ -1,4 +1,9 @@
-const baseUrl = "http://localhost:8081/api/v1/GrapeRows"
+import { baseUrl } from "../baseUrl";
+
+const GRAPEROW_API_URL = `${baseUrl}/api/v1/GrapeRows`;
+
+
+//const baseUrl = "http://localhost:8081/api/v1/GrapeRows"
 
 export type GrapeRow = {
     GrapeRowId : number;
@@ -16,7 +21,7 @@ export type GrapeRowDTO = {
 }
 
 export async function getAllGrapeRows() {
-    const response = await fetch(baseUrl);
+    const response = await fetch(GRAPEROW_API_URL);
     if (!response.ok) {
         throw new Error("Failed to fetch grape rows");
     }
@@ -24,7 +29,7 @@ export async function getAllGrapeRows() {
 };
 
 export async function getGrapeRowByGrapeRowId(grapeRowId : number) {
-    const response = await fetch(`${baseUrl}?grapeRowId=${grapeRowId}`);
+    const response = await fetch(`${GRAPEROW_API_URL}?grapeRowId=${grapeRowId}`);
     if (!response.ok) {
         throw new Error("Failed to fetch grape row by grape row id");
     }
@@ -32,7 +37,7 @@ export async function getGrapeRowByGrapeRowId(grapeRowId : number) {
 };
 
 export async function createGrapeRow(grapeRow : GrapeRowDTO) {
-    const response = await fetch(`${baseUrl}`,
+    const response = await fetch(`${GRAPEROW_API_URL}`,
         {
             method: "POST",
             headers: {
@@ -47,7 +52,7 @@ export async function createGrapeRow(grapeRow : GrapeRowDTO) {
 };
 
 export async function updateGrapeRow(grapeRow : GrapeRowDTO, grapeRowId : number) {
-    const response = await fetch(`${baseUrl}?grapeRowId=${grapeRowId}`,
+    const response = await fetch(`${GRAPEROW_API_URL}?grapeRowId=${grapeRowId}`,
         {
             method: "PATCH",
             headers: {
@@ -62,7 +67,7 @@ export async function updateGrapeRow(grapeRow : GrapeRowDTO, grapeRowId : number
 };
 
 export async function deleteGrapeRow(grapeRowId : number) {
-    const response = await fetch(`${baseUrl}?grapeRowId=${grapeRowId}`,
+    const response = await fetch(`${GRAPEROW_API_URL}?grapeRowId=${grapeRowId}`,
         {
             method: "DELETE"
         }

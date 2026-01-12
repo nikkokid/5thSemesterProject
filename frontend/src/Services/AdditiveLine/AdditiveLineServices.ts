@@ -1,4 +1,8 @@
-const baseUrl = "http://localhost:8081/api/v1/AdditiveLines"
+import { baseUrl } from "../baseUrl";
+
+const ADDITIVELINE_API_URL = `${baseUrl}/api/v1/AdditiveLines`;
+
+//const baseUrl = "http://localhost:8081/api/v1/AdditiveLines"
 
 export type AdditiveLine = {
     AdditiveLineId : number,
@@ -16,7 +20,7 @@ export type AdditiveLineDTO = {
 }
 
 export async function getAllAdditiveLines() {
-    const response = await fetch(baseUrl);
+    const response = await fetch(ADDITIVELINE_API_URL);
     if (!response.ok) {
         throw new Error("Failed to fetch AdditiveLines");
     }
@@ -24,7 +28,7 @@ export async function getAllAdditiveLines() {
 };
 
 export async function getAdditiveLineByAdditiveLineId(additiveLineId : number) {
-    const response = await fetch(`${baseUrl}?additiveLineId=${additiveLineId}`);
+    const response = await fetch(`${ADDITIVELINE_API_URL}?additiveLineId=${additiveLineId}`);
     if (!response.ok) {
         throw new Error("Failed to fetch AdditiveLine by AdditiveLineId");
     }
@@ -32,7 +36,7 @@ export async function getAdditiveLineByAdditiveLineId(additiveLineId : number) {
 };
 
 export async function getAdditiveLinesByJuiceId(juiceId : number) {
-    const response = await fetch(`${baseUrl}/GetAdditiveLinesByJuiceId?juiceId=${juiceId}`);
+    const response = await fetch(`${ADDITIVELINE_API_URL}/GetAdditiveLinesByJuiceId?juiceId=${juiceId}`);
     if (!response.ok) {
         throw new Error("Failed to AdditiveLines by JuiceId");
     }
@@ -40,7 +44,7 @@ export async function getAdditiveLinesByJuiceId(juiceId : number) {
 };
 
 export async function createAdditiveLine(additiveLine : AdditiveLineDTO) {
-    const response = await fetch(`${baseUrl}`,
+    const response = await fetch(`${ADDITIVELINE_API_URL}`,
         {
             method: "POST",
             headers: {
@@ -55,7 +59,7 @@ export async function createAdditiveLine(additiveLine : AdditiveLineDTO) {
 };
 
 export async function updateAdditiveLine(additiveLine : AdditiveLineDTO, additiveLineId : number) {
-    const response = await fetch(`${baseUrl}?additiveLineId=${additiveLineId}`,
+    const response = await fetch(`${ADDITIVELINE_API_URL}?additiveLineId=${additiveLineId}`,
         {
             method: "PATCH",
             headers: {
@@ -70,7 +74,7 @@ export async function updateAdditiveLine(additiveLine : AdditiveLineDTO, additiv
 };
 
 export async function deleteAdditiveLine(additiveLineId : number) {
-    const response = await fetch(`${baseUrl}?additiveLineId=${additiveLineId}`,
+    const response = await fetch(`${ADDITIVELINE_API_URL}?additiveLineId=${additiveLineId}`,
         {
             method: "DELETE"
         }
