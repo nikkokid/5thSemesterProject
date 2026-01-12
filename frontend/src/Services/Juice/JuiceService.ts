@@ -18,7 +18,9 @@ export type CreateJuice = {
   grapeId: number;
 }
 
-const JUICE_API_URL = "http://localhost:8081/api/v1/juices"; 
+//const JUICE_API_URL = "http://localhost:8081/api/v1/juices"; 
+const url = import.meta.env.VITE_API_BASE_URL; 
+const JUICE_API_URL = `${url}/api/v1/juices`;
 
 export async function createJuice(data: CreateJuice) {
   const res = await fetch(`${JUICE_API_URL}/${data.grapeId}/Juice`, {

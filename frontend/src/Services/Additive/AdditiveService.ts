@@ -15,7 +15,10 @@ export type CreateAdditive = {
     date: string;
 }
 
-const ADDITIVE_API_URL = "http://localhost:8081/api/v1/Additives";
+// const ADDITIVE_API_URL = "http://localhost:8081/api/v1/Additives";
+const url = import.meta.env.VITE_API_BASE_URL; 
+const ADDITIVE_API_URL = `${url}/api/v1/Additives`;
+
 
 export async function createAdditiveForJuice(juiceId: number, data: CreateAdditive) {
     const res = await fetch(`${ADDITIVE_API_URL}/${juiceId}`, {

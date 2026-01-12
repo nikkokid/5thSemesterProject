@@ -1,4 +1,7 @@
-const baseUrl = "http://localhost:8081/api/v1/Plantings"
+//const baseUrl = "http://localhost:8081/api/v1/Plantings"
+const url = import.meta.env.VITE_API_BASE_URL; 
+const baseUrl = `${url}/api/v1/Plantings`;
+
 
 export type Planting = {
     PlantingId : number;

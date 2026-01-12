@@ -13,13 +13,16 @@ import Juice from "./Pages/Juice/Juice.tsx";
 import GrapeRowList from './Pages/GrapeRow/GrapeRowList.tsx';
 import GrapeRowCreate from './Pages/GrapeRow/GrapeRowCreate.tsx';
 import GrapeRowRead from './Pages/GrapeRow/GrapeRowRead.tsx';
+import StatistcsPage from './Pages/Statistics/Statistics.tsx';
 import AdditiveListV2 from './Pages/AdditiveV2/AdditiveListV2.tsx';
 import AdditiveReadV2 from './Pages/AdditiveV2/AdditiveReadV2.tsx';
 import AdditiveCreateV2 from './Pages/AdditiveV2/AdditiveCreateV2.tsx';
 
+console.log("VITE ENV:", import.meta.env);
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <StrictMode>
+
       <Header />
       <div className="flex-col items-center justify-center p-5 bg-gray-100">
         <div className="bg-white shadow-lg rounded-lg w-full pt-12 pb-24 flex flex-col items-center gap-10 ">
@@ -34,6 +37,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path="/grape-row/create" element={<GrapeRowCreate/>} />
           <Route path="/wine" element={<Wine />} />
           <Route path="/wine/:wineId" element={<WineElement />} />
+          <Route path="/statistics" element={<StatistcsPage />} />
           <Route path="/additive" element={<AdditiveListV2 />} />
           <Route path="/additive/:additiveId" element={<AdditiveReadV2 />} />
           <Route path="/additive/create" element={<AdditiveCreateV2 />} />

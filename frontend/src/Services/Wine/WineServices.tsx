@@ -1,4 +1,7 @@
-const baseUrl = 'http://localhost:8081/api/v1/wines';
+//const baseUrl = 'http://localhost:8081/api/v1/wines';
+const url = import.meta.env.VITE_API_BASE_URL; 
+const baseUrl = `${url}/api/v1/wines`;
+
 
 export type Wine = {
   WineId: number;

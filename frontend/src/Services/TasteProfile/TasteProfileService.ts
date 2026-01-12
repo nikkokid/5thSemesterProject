@@ -23,7 +23,9 @@ export type CreateTasteProfile = {
     date: string;
 }
 
-const TASTEPROFILE_API_URL = "http://localhost:8081/api/v1/TasteProfiles";
+//const TASTEPROFILE_API_URL = "http://localhost:8081/api/v1/TasteProfiles";
+const url = import.meta.env.VITE_API_BASE_URL; 
+const TASTEPROFILE_API_URL = `${url}/api/v1/TasteProfiles`;
 
 export async function createTasteProfileForJuice(juiceId: number, data: CreateTasteProfile) {
 const res = await fetch(`${TASTEPROFILE_API_URL}/${juiceId}`, {
