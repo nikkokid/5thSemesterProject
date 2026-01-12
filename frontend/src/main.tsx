@@ -18,10 +18,10 @@ import AdditiveListV2 from './Pages/AdditiveV2/AdditiveListV2.tsx';
 import AdditiveReadV2 from './Pages/AdditiveV2/AdditiveReadV2.tsx';
 import AdditiveCreateV2 from './Pages/AdditiveV2/AdditiveCreateV2.tsx';
 
-console.log("VITE ENV:", import.meta.env);
 createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <StrictMode>
+
 
       <Header />
       <div className="flex-col items-center justify-center p-5 bg-gray-100">
