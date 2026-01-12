@@ -50,7 +50,6 @@ export default function FrontPage() {
   { image: plantsvg, title: "Rækker", description: "Se rækkedata her", onClick: () => navigate('/grape-row')},
   { image: statistics, title: "Statistik", description: "Se statistik her", onClick: () => navigate('/statistics')},
   { image: additive, title: "Tilsætningsstoffer", description: "Se tilsætningsstofsdata her", onClick: () => navigate('/additive')},
-  { image: statistics, title: "Statistik", description: "Kommer senere..."}
 ];
 
   return (
