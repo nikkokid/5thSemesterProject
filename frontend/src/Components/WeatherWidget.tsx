@@ -23,11 +23,11 @@ export default function WeatherWidget() {
 
     const iconUrl = `/weatherIcons/${iconName}.svg`;
     return (
-        <div className="text-white text-sm flex items-center space-x-2">
+        <div className="text-white text-sm flex-col items-center space-x-2">
             <div>
+            <img src={iconUrl} alt={iconName} className="w-10 h-10"/>
                 <span>{weather.temperature}°C</span>
             </div>
-            <img src={iconUrl} alt={iconName} className="w-10 h-10"/>
         </div>
     );
 }
