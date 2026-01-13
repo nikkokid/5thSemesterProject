@@ -1,4 +1,9 @@
-const baseUrl = 'http://localhost:8081/api/v1/grapes';
+import { baseUrl } from "../baseUrl";
+
+const GRAPE_API_URL = `${baseUrl}/api/v1/grapes`;
+
+
+//const baseUrl = 'http://localhost:8081/api/v1/grapes';
 
 export type Grape = {
   GrapeId: number;
@@ -6,14 +11,14 @@ export type Grape = {
 };
 
 export async function fetchGrapes(): Promise<Grape[]> {
-    const response = await fetch(baseUrl);
+    const response = await fetch(GRAPE_API_URL);
     if (!response.ok) {
         throw new Error('Failed to fetch grapes');
     }
     return response.json();
 }
 export async function fetchGrapeById(GrapeId: number): Promise<Grape> {
-    const response = await fetch(`${baseUrl}/${GrapeId}`);
+    const response = await fetch(`${GRAPE_API_URL}/${GrapeId}`);
     if (!response.ok) {
         throw new Error(`Failed to fetch grape with id ${GrapeId}`);
     }
@@ -21,7 +26,7 @@ export async function fetchGrapeById(GrapeId: number): Promise<Grape> {
 }
 
 export async function createGrape(grapeData: { grapeName: string }): Promise<void> {
-    const response = await fetch(baseUrl, {
+    const response = await fetch(GRAPE_API_URL, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -36,7 +41,7 @@ export async function createGrape(grapeData: { grapeName: string }): Promise<voi
     return;
 }
 export async function updateGrapeById(grapeData: { GrapeId: number; GrapeName: string }): Promise<void> {
-    const response = await fetch(`${baseUrl}/${grapeData.GrapeId}`, {
+    const response = await fetch(`${GRAPE_API_URL}/${grapeData.GrapeId}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
@@ -51,7 +56,7 @@ export async function updateGrapeById(grapeData: { GrapeId: number; GrapeName: s
     return;
 }
 export async function deleteGrapeById(GrapeId: number): Promise<void> {
-    const response = await fetch(`${baseUrl}/${GrapeId}`, {
+    const response = await fetch(`${GRAPE_API_URL}/${GrapeId}`, {
         method: 'DELETE',
     });
     if (!response.ok) {

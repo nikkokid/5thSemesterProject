@@ -47,8 +47,8 @@ export default function GrapeRowOverall({selectedGrapeRowsPlantings, selectedGra
     }, [selectedGrapeRowsPlantings])
 
     return(
-        <div className="grid grid-cols-3 p-2 mb-2 mt-2 gap-2 border-3 rounded border-[rgb(77,16,39)] bg-gray-200 text-black">
-            <div className="border-3 rounded border-[rgb(77,16,39)] p-2">
+        <div className="grid grid-cols-2 p-2 mb-2 mt-2 gap-2 border-3 rounded border-[rgb(77,16,39)] bg-gray-200 text-black">
+            <div className="border-3 col-span-2 rounded border-[rgb(77,16,39)] p-2">
                 <h3 className="text-center">{selectedGrapeRow?.GrapeRowName}</h3>
                 <p>Rækkens Længde: {selectedGrapeRow?.LengthOfRow}m</p>
                 <p>Afstand Mellem Stokke: {selectedGrapeRow?.DistanceBetweenVines}m</p>

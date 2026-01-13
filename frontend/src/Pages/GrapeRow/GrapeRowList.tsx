@@ -27,8 +27,8 @@ export default function GrapeRowList() {
             </div>
 
             <div className="flex justify-center flex-wrap gap-3">
-                <div>
-                    <ButtonCard image={addsvg} title={"Opret ny række"} onClick={() => navigate(`/grape-row/create`)}/>
+                <div className="max-w-33 sm:max-w-none">
+                    <ButtonCard image={addsvg} title="Opret ny række" onClick={() => navigate(`/grape-row/create`)}/>
                 </div>
                 {allGrapeRows.map(grapeRow => 
                     <div key={grapeRow.GrapeRowId}>

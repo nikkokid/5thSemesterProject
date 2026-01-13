@@ -37,8 +37,8 @@ export default function AdditiveLineItem ({additiveLine, additives, setReloadNee
                         <h3>{additives[additiveLine.AdditiveId]}</h3>
                         <button className="w-9 h-9 p-0!" onClick={() => setEditingAdditiveLine(true)}><img src={settingsSvg}/></button>
                     </div>
-                    <p><strong>Mængde: </strong>{additiveLine.AdditiveAmount}g</p>
                     <p><strong>Dato: </strong>{additiveLine.AdditiveDate}</p>
+                    <p><strong>Mængde: </strong>{additiveLine.AdditiveAmount}g</p>
                 </div>
             </div>
         )
@@ -48,7 +48,7 @@ export default function AdditiveLineItem ({additiveLine, additives, setReloadNee
         <form action={handleSubmit}>
             <div className="flex flex-col p-4 border-b-2 bg-gray-100 text-black">
                 <button className="bg-green-600! text-white" type="submit">Gem Ændringer</button>
-                <p className="py-1">
+                <p className="py-1 mt-2">
                     <strong>Tilsætningsstof</strong>
                     <select className="bg-white rounded w-full" name="submittedAdditiveId" defaultValue={additiveLine.AdditiveId}>
                         {Object.entries(additives).map(([AdditiveId, AdditiveName]) => (
@@ -56,8 +56,8 @@ export default function AdditiveLineItem ({additiveLine, additives, setReloadNee
                         ))}
                     </select>
                 </p>
-                <p className="py-1"><strong>Mængde </strong>(gram)<input className="bg-white rounded w-full" required={true} type="number" name="submittedAdditiveAmount" defaultValue={additiveLine.AdditiveAmount}/></p>
                 <p className="py-1"><strong>Dato</strong><input className="bg-white rounded w-full" required={true} type="date" name="submittedAdditiveDate" defaultValue={additiveLine.AdditiveDate}/></p>
+                <p className="py-1"><strong>Mængde </strong>(gram)<input className="bg-white rounded w-full" required={true} type="number" name="submittedAdditiveAmount" defaultValue={additiveLine.AdditiveAmount}/></p>
                 <div className="flex flex-wrap justify-between">
                     <button className="text-white" type="button" onClick={() => setEditingAdditiveLine(false)}>Annuller</button>
                     <button className="bg-red-600! text-white" type="button" onClick={() => handleDelete()}>Slet tilsætningsstof</button>

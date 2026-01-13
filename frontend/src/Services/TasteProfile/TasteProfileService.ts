@@ -1,3 +1,10 @@
+import { baseUrl } from "../baseUrl";
+
+const TASTEPROFILE_API_URL = `${baseUrl}/api/v1/TasteProfiles`;
+
+//const TASTEPROFILE_API_URL = "http://localhost:8081/api/v1/TasteProfiles";
+
+
 //for read
 export type TasteProfile = {
     id: number;
@@ -23,7 +30,6 @@ export type CreateTasteProfile = {
     date: string;
 }
 
-const TASTEPROFILE_API_URL = "http://localhost:8081/api/v1/TasteProfiles";
 
 export async function createTasteProfileForJuice(juiceId: number, data: CreateTasteProfile) {
 const res = await fetch(`${TASTEPROFILE_API_URL}/${juiceId}`, {

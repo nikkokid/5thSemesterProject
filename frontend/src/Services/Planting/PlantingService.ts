@@ -1,4 +1,7 @@
-const baseUrl = "http://localhost:8081/api/v1/Plantings"
+import { baseUrl } from "../baseUrl";
+
+const PLANTING_API_URL = `${baseUrl}/api/v1/Plantings`;
+//const baseUrl = "http://localhost:8081/api/v1/Plantings"
 
 export type Planting = {
     PlantingId : number;
@@ -18,7 +21,7 @@ export type PlantingDTO = {
 }
 
 export async function getAllPlantings() {
-    const response = await fetch(baseUrl);
+    const response = await fetch(PLANTING_API_URL);
     if (!response.ok) {
         throw new Error("Failed to fetch plantings");
     }
@@ -26,7 +29,7 @@ export async function getAllPlantings() {
 };
 
 export async function getPlantingsByGrapeRowId(grapeRowId : number) {
-    const response = await fetch(`${baseUrl}/GetPlantingsByGrapeRowId?grapeRowId=${grapeRowId}`);
+    const response = await fetch(`${PLANTING_API_URL}/GetPlantingsByGrapeRowId?grapeRowId=${grapeRowId}`);
     if (!response.ok) {
         throw new Error("Failed to fetch plantings by grape row id");
     }
@@ -34,7 +37,7 @@ export async function getPlantingsByGrapeRowId(grapeRowId : number) {
 };
 
 export async function getPlantingByPlantingId(plantingId : number) {
-    const response = await fetch(`${baseUrl}/?plantingId=${plantingId}`);
+    const response = await fetch(`${PLANTING_API_URL}/?plantingId=${plantingId}`);
     if (!response.ok){
         throw new Error("Failed to fetch plantings by planting id");
     }
@@ -42,7 +45,7 @@ export async function getPlantingByPlantingId(plantingId : number) {
 };
 
 export async function createPlanting(planting : PlantingDTO) {
-    const response = await fetch(`${baseUrl}`,
+    const response = await fetch(`${PLANTING_API_URL}`,
         {
             method: "POST",
             headers: {
@@ -57,7 +60,7 @@ export async function createPlanting(planting : PlantingDTO) {
 };
 
 export async function updatePlanting(planting : PlantingDTO, plantingId : number) {
-    const response = await fetch(`${baseUrl}?plantingId=${plantingId}`,
+    const response = await fetch(`${PLANTING_API_URL}?plantingId=${plantingId}`,
         {
             method: "PATCH",
             headers: {
@@ -72,7 +75,7 @@ export async function updatePlanting(planting : PlantingDTO, plantingId : number
 };
 
 export async function deletePlanting(plantingId : number) {
-    const response = await fetch(`${baseUrl}?plantingId=${plantingId}`,
+    const response = await fetch(`${PLANTING_API_URL}?plantingId=${plantingId}`,
         {
             method: "DELETE"
         }

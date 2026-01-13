@@ -85,13 +85,13 @@ export default function TasteProfileList({ juiceId }: TasteProfileListProps) {
 						            <h3 className="text-lg font-semibold mb-4">Rediger Smagsprofil {tasteProfile.id}</h3>
                         <form action={(formData) => handleEditTasteProfile(tasteProfile.id, formData)} className="flex flex-col">
                         <p>Dato: <input type="date" name="editedTasteProfileDate" defaultValue={tasteProfile.date.split("T")[0]} className="border"/></p>
-                        <p>Sødme: <input type="number" name="editedTasteProfileSweetness" defaultValue={tasteProfile.sweetness} className="border"/></p>
-                        <p>Syre: <input type="number" name="editedTasteProfileAcidity" defaultValue={tasteProfile.acidity} className="border"/></p>
-                        <p>Aroma: <input type="number" name="editedTasteProfileAroma" defaultValue={tasteProfile.aroma} className="border"/></p>
-                        <p>Tørhed: <input type="number" name="editedTasteProfileDryness" defaultValue={tasteProfile.dryness} className="border"/></p>
-                        <p>Color: <input type="number" name="editedTasteProfileColor" defaultValue={tasteProfile.color} className="border"/></p>
-                        <p>Vurdering: <input type="number" name="editedTasteProfileRating" defaultValue={tasteProfile.rating} className="border"/></p>
-                        <p>Beskrivelse: <input type="text" name="editedTasteProfileDescription" defaultValue={tasteProfile.description} className="border"/></p>
+                        <p className="flex flex-col gap-1">Sødme: <input type="number" name="editedTasteProfileSweetness" defaultValue={tasteProfile.sweetness} className="border"/></p>
+                        <p className="flex flex-col gap-1">Syre: <input type="number" name="editedTasteProfileAcidity" defaultValue={tasteProfile.acidity} className="border"/></p>
+                        <p className="flex flex-col gap-1">Aroma: <input type="number" name="editedTasteProfileAroma" defaultValue={tasteProfile.aroma} className="border"/></p>
+                        <p className="flex flex-col gap-1">Tørhed: <input type="number" name="editedTasteProfileDryness" defaultValue={tasteProfile.dryness} className="border"/></p>
+                        <p className="flex flex-col gap-1">Color: <input type="number" name="editedTasteProfileColor" defaultValue={tasteProfile.color} className="border"/></p>
+                        <p className="flex flex-col gap-1">Vurdering: <input type="number" name="editedTasteProfileRating" defaultValue={tasteProfile.rating} className="border"/></p>
+                        <p className="flex flex-col gap-1">Beskrivelse: <input type="text" name="editedTasteProfileDescription" defaultValue={tasteProfile.description} className="border"/></p>
                         <div className="flex justify-between">
                           <div className="flex gap-2">
                           <button type="submit" className="bg-green-500! text-white">Gem</button>
@@ -121,7 +121,7 @@ export default function TasteProfileList({ juiceId }: TasteProfileListProps) {
                           <p><strong>Tørhed:</strong> {tasteProfile.dryness}</p>
                           <p><strong>Farve:</strong> {tasteProfile.color}</p>
                           <p><strong>Vurdering:</strong> {tasteProfile.rating}</p>
-                          <p><strong>Beskrivelse:</strong> {tasteProfile.description}</p>
+                          <p className="sm:max-w-57"><strong>Beskrivelse:</strong> {tasteProfile.description}</p>
                         </>
                       )}
                       </div>

@@ -1,5 +1,11 @@
 import type { TasteProfile } from "../TasteProfile/TasteProfileService";
 import type { Additive } from "../Additive/AdditiveService";
+import { baseUrl } from "../baseUrl";
+
+const JUICE_API_URL = `${baseUrl}/api/v1/juices`;
+
+//const JUICE_API_URL = "http://localhost:8081/api/v1/juices"; 
+
 
 export type Juice = {
   id: number;
@@ -18,7 +24,6 @@ export type CreateJuice = {
   grapeId: number;
 }
 
-const JUICE_API_URL = "http://localhost:8081/api/v1/juices"; 
 
 export async function createJuice(data: CreateJuice) {
   const res = await fetch(`${JUICE_API_URL}/${data.grapeId}/Juice`, {

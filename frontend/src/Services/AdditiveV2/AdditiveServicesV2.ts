@@ -1,4 +1,8 @@
-const baseUrl = "http://localhost:8081/api/v1/AdditivesV2"
+import { baseUrl } from "../baseUrl";
+
+const ADDITIVEV2_API_URL = `${baseUrl}/api/v1/AdditivesV2`;
+
+//const baseUrl = "http://localhost:8081/api/v1/AdditivesV2"
 
 export type AdditiveV2 = {
     AdditiveId : number,
@@ -14,7 +18,7 @@ export type AdditiveDTOV2 = {
 }
 
 export async function getAllAdditivesV2() {
-    const response = await fetch(baseUrl);
+    const response = await fetch(ADDITIVEV2_API_URL);
     if (!response.ok) {
         throw new Error("Failed to fetch Additives");
     }
@@ -22,7 +26,7 @@ export async function getAllAdditivesV2() {
 };
 
 export async function getAdditiveByAdditiveIdV2(additiveId : number) {
-    const response = await fetch(`${baseUrl}?additiveId=${additiveId}`);
+    const response = await fetch(`${ADDITIVEV2_API_URL}?additiveId=${additiveId}`);
     if (!response.ok) {
         throw new Error("Failed to fetch Additive by AdditiveId");
     }
@@ -30,7 +34,7 @@ export async function getAdditiveByAdditiveIdV2(additiveId : number) {
 };
 
 export async function createAdditiveV2(additive : AdditiveDTOV2) {
-    const response = await fetch(`${baseUrl}`,
+    const response = await fetch(`${ADDITIVEV2_API_URL}`,
         {
             method: "POST",
             headers: {
@@ -45,7 +49,7 @@ export async function createAdditiveV2(additive : AdditiveDTOV2) {
 };
 
 export async function updateAdditiveV2(additive : AdditiveDTOV2, additiveId : number) {
-    const response = await fetch(`${baseUrl}?additiveId=${additiveId}`,
+    const response = await fetch(`${ADDITIVEV2_API_URL}?additiveId=${additiveId}`,
         {
             method: "PATCH",
             headers: {
@@ -60,7 +64,7 @@ export async function updateAdditiveV2(additive : AdditiveDTOV2, additiveId : nu
 };
 
 export async function deleteAdditiveV2(additiveId : number) {
-    const response = await fetch(`${baseUrl}?additiveId=${additiveId}`,
+    const response = await fetch(`${ADDITIVEV2_API_URL}?additiveId=${additiveId}`,
         {
             method: "DELETE"
         }

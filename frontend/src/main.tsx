@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import './index.css'
 import Header from './Components/Header.tsx'
+import AppWrapper from "./Components/AppWrapper.tsx"
 import FrontPage from "./Pages/FrontPage.tsx"
 import Grape from './Pages/Grape/Grape.tsx';
 import GrapeElement from "./Pages/Grape/GrapeElement.tsx";
@@ -21,26 +22,25 @@ createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <StrictMode>
       <Header />
-      <div className="flex-col items-center justify-center p-5 bg-gray-100">
-        <div className="bg-white shadow-lg rounded-lg w-full pt-12 pb-24 flex flex-col items-center gap-10 ">
-        <Routes>
-          <Route path="/" element={<FrontPage />} />
-          <Route path="/grape" element={<Grape />} />
-          <Route path="/grape/:grapeId/" element={<GrapeElement/>} />
-          <Route path="/grape/:grapeId/harvest" element={<Harvest/>} />
-          <Route path="/grape/:grapeId/juice" element={<Juice/>} />
-          <Route path="/grape-row" element={<GrapeRowList/>} />
-          <Route path="/grape-row/:grapeRowId" element={<GrapeRowRead/>} />
-          <Route path="/grape-row/create" element={<GrapeRowCreate/>} />
-          <Route path="/wine" element={<Wine />} />
-          <Route path="/wine/:wineId" element={<WineElement />} />
-          <Route path="/additive" element={<AdditiveListV2 />} />
-          <Route path="/additive/:additiveId" element={<AdditiveReadV2 />} />
-          <Route path="/additive/create" element={<AdditiveCreateV2 />} />
-        </Routes>
-        </div>
-      </div>
-    
+        <AppWrapper>
+          <div className="bg-white shadow-lg rounded-lg w-full h-full pt-12 pb-24 flex flex-col items-center gap-10 ">
+          <Routes>
+            <Route path="/" element={<FrontPage />} />
+            <Route path="/grape" element={<Grape />} />
+            <Route path="/grape/:grapeId/" element={<GrapeElement/>} />
+            <Route path="/grape/:grapeId/harvest" element={<Harvest/>} />
+            <Route path="/grape/:grapeId/juice" element={<Juice/>} />
+            <Route path="/grape-row" element={<GrapeRowList/>} />
+            <Route path="/grape-row/:grapeRowId" element={<GrapeRowRead/>} />
+            <Route path="/grape-row/create" element={<GrapeRowCreate/>} />
+            <Route path="/wine" element={<Wine />} />
+            <Route path="/wine/:wineId" element={<WineElement />} />
+            <Route path="/additive" element={<AdditiveListV2 />} />
+            <Route path="/additive/:additiveId" element={<AdditiveReadV2 />} />
+            <Route path="/additive/create" element={<AdditiveCreateV2 />} />
+          </Routes>
+          </div>
+        </AppWrapper>    
     </StrictMode>
   </BrowserRouter>
 )

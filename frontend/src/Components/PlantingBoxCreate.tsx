@@ -25,16 +25,16 @@ export default function PlantingBoxCreate({grapeRowId, setReloadNeeded, grapes} 
 
     if(!creatingPlanting){
         return(
-            <div className="flex flex-col justify-center p-4 border-3 rounded border-[rgb(77,16,39)] bg-gray-200 text-black">
-                <button onClick={() => setCreatingPlanting(true)}>Opret Plantning</button>
+            <div className="flex justify-center p-4 border-3 rounded border-[rgb(77,16,39)] bg-gray-200">
+                <button className="bg-green-400!" onClick={() => setCreatingPlanting(true)}>Opret Plantning</button>
             </div>
         )
     }
     return(
         <form action={handleSubmit}>
-            <div className="flex flex-col p-4 border-3 rounded border-[rgb(77,16,39)] bg-gray-200 text-black">
+            <div className="flex flex-col p-4 border-3 rounded border-[rgb(77,16,39)] bg-gray-200">
                 <button className="bg-red-300!" onClick={() => setCreatingPlanting(false)}>Annuller</button>
-                <p className="py-1">
+                <p className="mt-5">
                     Drue: 
                     <select className="bg-white" name="submittedGrapeId">
                         {Object.entries(grapes).map(([grapeId, grapeName]) => (
@@ -42,9 +42,9 @@ export default function PlantingBoxCreate({grapeRowId, setReloadNeeded, grapes} 
                         ))}
                     </select>
                 </p>
-                <p className="py-1">Plantede Stokke: <input className="bg-white"  min="0" max ="99999" name="submittedNumberOfVinesPlanted" type="number"/></p>
-                <p className="py-1">Døde Stokke: <input className="bg-white"  min="0"  max="99999" name="submittedNumberOfVinesDead" type="number"/></p>
-                <p className="py-1">Plantet: <input className="bg-white"  min="0" name="submittedPlantingDate" type="date"/></p>
+                <p className="py-1">Plantede Stokke: <input className="bg-white border"  min="0" max ="99999" name="submittedNumberOfVinesPlanted" type="number"/></p>
+                <p className="py-1">Døde Stokke: <input className="bg-white border"  min="0"  max="99999" name="submittedNumberOfVinesDead" type="number"/></p>
+                <p className="py-1">Plantet: <input className="bg-white border"  min="0" name="submittedPlantingDate" type="date"/></p>
                 <button className="bg-green-300!" type="submit">Opret Plantning</button>
             </div>
         </form>
