@@ -1,5 +1,6 @@
 import Hamburger from "./HamburgerSidebar"
 import {Link} from "react-router-dom";
+import WeatherWidget from "./WeatherWidget";
 
 export default function Header(){ 
   return( 
@@ -8,6 +9,9 @@ export default function Header(){
         <Link to ="/" className="absolute left-1/2 -translate-x-1/2 mt-3 hover:bg-transparent! focus:bg-transparent! "> 
           <h1 className="tangerine m-0 text-xs md:text-4xl whitespace-nowrap">Buurgaard Vin</h1>
         </Link>
+        <div className="absolute right-4 top-1/2 -translate-y-1/2">
+          <WeatherWidget />
+        </div>
     </header> 
   ) 
 }

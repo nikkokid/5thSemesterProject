@@ -2,7 +2,6 @@ using Dapper;
 using Npgsql;
 using _5thSemesterProject.Backend.DAL.IDAO;
 using _5thSemesterProject.Backend.DAL.Model;
-
 namespace _5thSemesterProject.Backend.DAL.DAO;
 
 public class WineDAO : BaseDAO, IWineDAO
