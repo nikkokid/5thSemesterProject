@@ -65,7 +65,7 @@ export default function GrapeRowRead () {
 
     if(!editingGrapeRow) {
         return (
-            <div>
+            <div className="p-2">
                 <div className="flex flex-wrap justify-between">
                     <h1>{selectedGrapeRow[0]?.GrapeRowName}</h1>
                     <button
@@ -75,13 +75,13 @@ export default function GrapeRowRead () {
                 <div>
                     <GrapeRowOverall selectedGrapeRowsPlantings={selectedGrapeRowsPlantings} selectedGrapeRow={selectedGrapeRow[0]} grapes={grapes}/>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                    <PlantingBoxCreate grapeRowId={selectedGrapeRowId} setReloadNeeded={setReloadNeeded} grapes={grapes}/>
+                <div className="flex flex-wrap sm:gap-2 flex-col gap-2">
                     {selectedGrapeRowsPlantings.map(planting => 
                         <div key={planting.PlantingId}>
                             <PlantingBox planting={planting} setReloadNeeded={setReloadNeeded} grapes={grapes}/>
                         </div>
                     )}
+                    <PlantingBoxCreate grapeRowId={selectedGrapeRowId} setReloadNeeded={setReloadNeeded} grapes={grapes}/>
                 </div>
             </div>
         )

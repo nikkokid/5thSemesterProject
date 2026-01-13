@@ -36,16 +36,22 @@ export default function AdditiveLineList ({juiceId} : AdditiveLineListProps) {
     }, [juiceId, reloadNeeded]);
 
     return (
-        <div className="col-start-2 mb-6 rounded-2xl border p-2 bg-gray-100">
-            <h3 className="border-b-4">Tilsætningsstoffer: {selectedJuicesAdditiveLines.length}</h3>
-            {selectedJuicesAdditiveLines.map(additiveLine =>
-                <div key={additiveLine.AdditiveLineId}>
-                    <AdditiveLineItem additiveLine={additiveLine} additives={additives} setReloadNeeded={setReloadNeeded}/>
-                </div>
-            )}
-            <div className="mt-3">
-                <AdditiveLineCreate additives={additives} juiceId={juiceId} setReloadNeeded={setReloadNeeded}/>
-            </div>
+        <div className="sm:col-start-2 mb-6 rounded-2xl border p-2 bg-gray-100">
+            <h3 className="border-b-4 pb-2">Tilsætningsstoffer: {selectedJuicesAdditiveLines.length}</h3>
+            {selectedJuicesAdditiveLines?.length === 0 ? (
+              <p className="text-sm text-gray-500">Ingen tilsætningsstoffer endnu.</p>
+            ) : (
+              <>
+                {selectedJuicesAdditiveLines.map(additiveLine => (
+                    <div key={additiveLine.AdditiveLineId}>
+                        <AdditiveLineItem additiveLine={additiveLine} additives={additives} setReloadNeeded={setReloadNeeded}/>
+                    </div>
+                ))}
+              </>
+              )}
+              <div className="mt-3">
+                  <AdditiveLineCreate additives={additives} juiceId={juiceId} setReloadNeeded={setReloadNeeded}/>
+              </div>
         </div>
     )
 }

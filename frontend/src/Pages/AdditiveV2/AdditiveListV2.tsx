@@ -23,12 +23,12 @@ export default function AdditiveListV2() {
             <div className="text-center mb-12">
                 <h2>Tilsætningsstoffer</h2>
             </div>
-            <div className="flex justify-center flex-wrap gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-5 justify-center flex-wrap gap-3">
                 <div>
                     <ButtonCard image={addsvg} title={"Opret nyt tilsætningsstof"} onClick={() => navigate(`/additive/create`)}/>
                 </div>
                 {allAdditivesV2.map(additive =>
-                    <div key={additive.AdditiveId}>
+                    <div className="flex flex-none" key={additive.AdditiveId}>
                         <ButtonCard image={additivesvg} title={additive.AdditiveName} onClick={() => navigate(`/additive/${additive.AdditiveId}`)}/>
                     </div>
                 )}

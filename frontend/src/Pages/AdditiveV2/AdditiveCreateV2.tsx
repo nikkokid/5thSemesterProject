@@ -22,7 +22,7 @@ export default function AdditiveCreateV2() {
                     <p>Navn: <input className="bg-white rounded" name="submittedAdditiveName" type="text" placeholder="Skriv navn her..."/></p>
                     <p>URL: <input className="bg-white rounded" name="submittedAdditiveURL" type="text" placeholder="Indsæt URL her..."/></p>
                     <p>Beskrivelse:</p> <textarea className="bg-white rounded" spellCheck={false} name="submittedAdditiveDescription" rows={5} placeholder="Skriv beskrivelse her..."></textarea>
-                    <div className="flex flex-wrap justify-evenly">
+                    <div className="flex flex-wrap justify-evenly mt-3">
                         <button className="bg-red-300!" type="button" onClick={() => navigate(`/additive`) }>Annuller</button>
                         <button className="bg-green-300!" type="submit">Opret</button>
                     </div>

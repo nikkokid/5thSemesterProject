@@ -6,7 +6,7 @@ type YearDropdownProps = {
 
 export function YearDropdown({ years, value, onChange }: YearDropdownProps) {
   return (
-    <select
+    <select className="border"
       value={value}
       onChange={(e) => onChange(Number(e.target.value))}
     >

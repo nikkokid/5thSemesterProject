@@ -40,11 +40,11 @@ export default function AdditiveReadV2() {
 
     if(!editingAdditive) {
         return (
-            <div>
-                <div className="flex flex-wrap justify-between">
+            <div className="p-2 w-full sm:w-3xl">
+                <div className="flex justify-between mb-2">
                     <h1>{selectedAdditive[0]?.AdditiveName}</h1>
                     <button 
-                        className="w-12 h-12 p-0! mt-2" 
+                        className="w-9 h-9 p-0! mt-3" 
                         onClick={() => setEditingAdditive(true)}><img src={settingsSvg}/></button>
                 </div>
                 <div>

@@ -37,8 +37,8 @@ export default function Juice() {
 
   return (
     <div className="">
-      <div>
-        <h1>Most for {grapeName}</h1>
+      <div className="flex items-baseline justify-between p-4">
+        <h2>Most for {grapeName}</h2>
 
         <YearDropdown
           years={years}
@@ -47,7 +47,7 @@ export default function Juice() {
         />
       </div>
 
-      <div className="grid grid-cols-2 gap-12 md:gap-18 lg:gap-20 mt-12">
+      <div className="grid sm:grid-cols-2 gap-12 md:gap-18 lg:gap-20 sm:mt-12 p-2 sm:p-0">
         {juiceTypes.map(type => (
           <JuiceColumn
             key={type.typeId}

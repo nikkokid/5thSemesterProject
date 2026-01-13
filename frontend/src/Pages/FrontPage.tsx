@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import ButtonCard from "../Components/ButtonCard";
 import grape from "../assets/grapesvg.svg"; 
 import statistics from "../assets/statisticssvg.svg";
 import wine from "../assets/winesvg.svg";
@@ -26,21 +27,6 @@ type ButtonCardProps = {
  * @param {() => void} [props.onClick]
  * @returns {JSX.Element} A button card element
  */
-function ButtonCard({ image, title, description, onClick}: ButtonCardProps){
-  return (
-    <button 
-      className="flex flex-col items-center"
-      onClick={onClick}
-    >
-        <div>
-          <img src={image} className="w-24 h-24 p-2" alt={title} />
-        </div>
-        <h1 className="mt-2">{title}</h1>
-        <p>{description}</p>
-        </button>
-  )
-}  
-
 export default function FrontPage() {
   const navigate = useNavigate();
 
@@ -49,12 +35,12 @@ export default function FrontPage() {
   { image: wine, title: "Vin", description: "Se vindata her", onClick: () => navigate('/wine')},
   { image: plantsvg, title: "Rækker", description: "Se rækkedata her", onClick: () => navigate('/grape-row')},
   { image: additive, title: "Tilsætningsstoffer", description: "Se tilsætningsstofsdata her", onClick: () => navigate('/additive')},
-  { image: statistics, title: "Statistik", description: "Kommer senere..."}
+  { image: statistics, title: "Statistik", description: "Kommer senere..."},
 ];
 
   return (
     <>
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-25 p-2 "> 
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-16 p-2"> 
 
         {buttons.map((btn, index) => (
           <ButtonCard

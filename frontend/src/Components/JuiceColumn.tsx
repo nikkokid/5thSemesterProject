@@ -76,11 +76,11 @@ export default function JuiceColumn({
   return (
     <div>
       {juices?.map((juice) => (
-        <div className="grid grid-cols-2 gap-5 border rounded-lg p-6" key={juice.id}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 border rounded-lg p-4 sm:p-6" key={juice.id}>
           {/* Juice Info */}
-          <div className="col-span-2 border bg-gray-100 rounded-lg p-2 mb-4">
+          <div className="sm:col-span-2 border bg-gray-100 rounded-lg p-2 mb-4">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-semibold mb-4">{title}</h2>
+              <h2 className="text-lg mb-4">{title}</h2>
               <button onClick={() => toggleEditJuice(juice)} className="mb-2 p-0!">
                 <img src={settingssvg} alt="Indstillinger" className="w-9 h-9" />
               </button>
