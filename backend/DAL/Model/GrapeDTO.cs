@@ -4,3 +4,8 @@ namespace _5thSemesterProject.Backend.DAL.Model;
     {
         public string GrapeName { get; set; }
     }
+
+
+
+
+    

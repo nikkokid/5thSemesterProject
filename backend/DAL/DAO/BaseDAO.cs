@@ -15,3 +15,4 @@ public abstract class BaseDAO
         return new NpgsqlConnection(_configuration.GetConnectionString("DefaultConnection"));
     }
 }
+

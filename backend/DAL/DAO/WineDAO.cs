@@ -108,7 +108,7 @@ public class WineDAO : BaseDAO, IWineDAO
             );
 
             if (rowsAffected == 0)
-            {
+            {   
                 throw new Exception(
                     $"Not enough volume available for JuiceId {juice.JuiceId}"
                 );
@@ -267,7 +267,7 @@ public class WineDAO : BaseDAO, IWineDAO
         return result;
     }
 
-    private static Dictionary<int, decimal> CalculatePercentages(
+    public static Dictionary<int, decimal> CalculatePercentages(
     IEnumerable<(int JuiceId, decimal VolumeUsed)> juices)
     {
     decimal totalVolume = juices.Sum(j => j.VolumeUsed);
