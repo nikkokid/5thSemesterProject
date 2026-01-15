@@ -25,8 +25,8 @@ namespace backend.tests.DAO
     var db   = "test_database";
 
     // 
-    // - tests kører på localhost
-    // - test postgres container kører på port 5433
+    // - tests runs on localhost
+    // - test postgres container runs on port 5433
     _connectionString = $"Host=localhost;Port=5433;Username={user};Password={pwd};Database={db}";
 
     Environment.SetEnvironmentVariable("ConnectionStrings__DefaultConnection", _connectionString);
@@ -47,7 +47,7 @@ namespace backend.tests.DAO
         [TearDown]
         public void TearDown()
         {
-            // Ryd op efter hver test, så DB ikke bliver overfyldt med testdata.
+            // Clean up database after each test
             using var connection = OpenConnection();
             connection.Execute(@"
                 TRUNCATE TABLE
@@ -62,8 +62,8 @@ namespace backend.tests.DAO
         {
             using var connection = OpenConnection();
 
-            // indsæt juice og returner juiceId
-            // bruges i testene til at have noget most at lave vin af
+            // insert juice and return juiceId
+            // used in tests to have some juice to make wine from
             return connection.ExecuteScalar<int>(@"
                 INSERT INTO Juice (Volume, PressedDate, GrapeId, JuiceTypeId)
                 VALUES (@Volume, CURRENT_DATE, 1, 1)
@@ -99,7 +99,7 @@ namespace backend.tests.DAO
             using var connection = OpenConnection();
 
 
-            // 1) Wine er oprettet  
+            // 1) Wine is created 
             var wineName = connection.ExecuteScalar<string>(
             "SELECT winename FROM wine WHERE wineid = @id",
             new { id = createdWineId }
@@ -107,7 +107,7 @@ namespace backend.tests.DAO
 
             Assert.That(wineName, Is.EqualTo("TestWine"));
 
-            // 2) WineJuice row findes
+            // 2) WineJuice row is created
             var wineJuiceCount = connection.ExecuteScalar<int>(
             "SELECT COUNT(*) FROM winejuice WHERE wineid = @wineId AND juiceid = @juiceId",
             new { wineId = createdWineId, juiceId }
@@ -115,7 +115,7 @@ namespace backend.tests.DAO
 
             Assert.That(wineJuiceCount, Is.EqualTo(1));
 
-            // 3) Juice.Volume er reduceret
+            // 3) Juice.Volume is reduced
             var newJuiceVol = connection.ExecuteScalar<decimal>(
             "SELECT volume FROM juice WHERE juiceid = @id",
             new { id = juiceId }
@@ -138,7 +138,7 @@ namespace backend.tests.DAO
                 VintageYear = 2024,
                 Juices = new List<WineJuice>
                 {
-                    new WineJuice { JuiceId = juiceId, VolumeUsed = 10m } // for meget, skal fejle
+                    new WineJuice { JuiceId = juiceId, VolumeUsed = 10m } // too much volume
                 }
             };
 
@@ -148,7 +148,7 @@ namespace backend.tests.DAO
 
             using var connection = OpenConnection();
 
-            // Wine må ikke være oprettet (rollback)
+            // Wine must not be created (rollback)
             var wineCount = connection.ExecuteScalar<int>(@"
                 SELECT COUNT(*)
                 FROM Wine
@@ -157,7 +157,7 @@ namespace backend.tests.DAO
 
             Assert.That(wineCount, Is.EqualTo(0));
 
-            // Juice volumen må ikke være ændret (rollback)
+            // Juice volume must not be changed (rollback)
             var vol = connection.ExecuteScalar<decimal>(@"
                 SELECT Volume
                 FROM Juice

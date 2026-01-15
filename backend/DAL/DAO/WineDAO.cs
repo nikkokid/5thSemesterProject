@@ -37,9 +37,7 @@ public class WineDAO : BaseDAO, IWineDAO
 
     try
     {
-        // ----------------------------------
         // 1. Insert wine
-        // ----------------------------------
         const string insertWineSql = @"
             INSERT INTO Wine (WineName, VintageYear)
             VALUES (@WineName, @VintageYear)
@@ -52,16 +50,12 @@ public class WineDAO : BaseDAO, IWineDAO
             transaction
         );
 
-        // ----------------------------------
         // 2. Calculate total volume
-        // ----------------------------------
         var percentages = CalculatePercentages(
             wineDTO.Juices.Select(j => (j.JuiceId, j.VolumeUsed))
         );
 
-        // ----------------------------------
         // 3. Insert WineJuice + subtract juice volume
-        // ----------------------------------
         const string insertWineJuiceSql = @"
             INSERT INTO WineJuice
                 (WineId, JuiceId, VolumeUsed, WineJuicePercentage)
@@ -115,9 +109,7 @@ public class WineDAO : BaseDAO, IWineDAO
             }
         }
 
-        // ----------------------------------
         // 4. Commit transaction
-        // ----------------------------------
         transaction.Commit();
         return wineId;
     }
