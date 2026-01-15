@@ -92,8 +92,6 @@ namespace backend.tests.DAO
             // Act
             var createdWineId = dao.CreateWine(wineDto);
 
-            TestContext.WriteLine($"CreatedWineId: {createdWineId}");
-
 
             // Assert
             Assert.That(createdWineId, Is.GreaterThan(0));
