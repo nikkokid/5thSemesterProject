@@ -2,7 +2,7 @@ namespace _5thSemesterProject.Backend.DAL.Model;
 public class WineView
 {
     public int WineId { get; set; }
-    public string WineName { get; set; }
+    public string? WineName { get; set; }
     public int VintageYear { get; set; }
 
     public int JuiceId { get; set; }
@@ -11,5 +11,5 @@ public class WineView
     public string? PressedDate { get; set; }
 
     public int GrapeId { get; set; }
-    public string GrapeName { get; set; }
+    public string? GrapeName { get; set; }
 }

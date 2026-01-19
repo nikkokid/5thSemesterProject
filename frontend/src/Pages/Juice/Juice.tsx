@@ -36,6 +36,7 @@ export default function Juice() {
   ];
 
   return (
+    
     <div className="">
       <div className="flex items-baseline justify-between p-4">
         <h2>Most for {grapeName}</h2>
