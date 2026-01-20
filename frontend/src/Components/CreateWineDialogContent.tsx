@@ -77,11 +77,6 @@ export default function CreateWineDialogContent({ onClose, onCreated }: Props) {
     .filter(j => selectedJuiceIds.includes(j.id))
     .reduce((sum, j) => sum + j.usedVolume, 0);
 
-  function percentageOf(juice: JuiceWithVolume) {
-    if (totalVolume === 0) return 0;
-    return Math.round((juice.usedVolume / totalVolume) * 100);
-  }
-
   // ----------------------------------
   // Submit
   // ----------------------------------
@@ -183,7 +178,7 @@ export default function CreateWineDialogContent({ onClose, onCreated }: Props) {
                       }
                       className="w-20 border rounded p-1"
                     />
-                    <span>{percentageOf(j)}%</span>
+                    <span>L</span>
                   </>
                 )}
               </div>
