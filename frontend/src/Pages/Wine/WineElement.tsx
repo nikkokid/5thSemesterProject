@@ -39,6 +39,16 @@ export default function WineElementPage() {
       ? dialogRef.current.close()
       : dialogRef.current.showModal();
   }
+  const juiceTypeLabel: Record<string, string> = {
+    pressed: "Presset",
+    unpressed: "Gennemløb",
+  };
+
+  function formatJuiceType(typeName?: string) {
+  if (!typeName) return "-";
+  const key = typeName.toLowerCase().trim();
+  return juiceTypeLabel[key] ?? typeName;
+}
 
   if (!wineId) return <div className="text-red-600">Wine ID not provided</div>;
   if (error) return <div className="flex flex-col gap-10">
@@ -92,7 +102,7 @@ export default function WineElementPage() {
           <table className="w-full table-auto border-collapse border border-gray-300">
             <thead>
               <tr className="bg-gray-100">
-                <th className="border px-2 py-1 text-left">Juice ID</th>
+                <th className="border px-2 py-1 text-left">Most Type</th>
                 <th className="border px-2 py-1 text-left">Volume (L)</th>
                 <th className="border px-2 py-1 text-left">Procent (%)</th>
                 <th className="border px-2 py-1 text-left">Pressedato</th>
@@ -101,7 +111,7 @@ export default function WineElementPage() {
             <tbody>
               {juices.map((j) => (
                 <tr key={j.JuiceId}>
-                  <td className="border px-2 py-1">{j.JuiceId}</td>
+                  <td className="border px-2 py-1">{formatJuiceType(j.JuiceTypeName)}</td>
                   <td className="border px-2 py-1">{j.VolumeUsed}</td>
                   <td className="border px-2 py-1">{j.Percentage}</td>
                   <td className="border px-2 py-1">{j.PressedDate.split(" ")[0]}</td>

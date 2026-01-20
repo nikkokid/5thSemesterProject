@@ -21,7 +21,7 @@ public class WineDAO : BaseDAO, IWineDAO
     public IEnumerable<WineView> GetWineById(int WineId)
     {
         using var connection = CreateConnection();
-        var sql = "SELECT WineId, WineName, VintageYear, Percentage, JuiceId, VolumeUsed, PressedDate::timestamp AS PressedDate, GrapeId, GrapeName FROM WineView WHERE WineId = @WineId;";
+        var sql = "SELECT WineId, WineName, VintageYear, Percentage, JuiceId, JuiceTypeId, JuiceTypeName, VolumeUsed, PressedDate::timestamp AS PressedDate, GrapeId, GrapeName FROM WineView WHERE WineId = @WineId;";
 
         var result = connection.Query<WineView>(sql, new { WineID = WineId }).ToList();
 

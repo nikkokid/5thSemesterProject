@@ -12,4 +12,6 @@ public class WineView
 
     public int GrapeId { get; set; }
     public string GrapeName { get; set; }
+    public int JuiceTypeId { get; set; }
+    public string JuiceTypeName { get; set; } = "";
 }

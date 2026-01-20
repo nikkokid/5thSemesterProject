@@ -152,6 +152,8 @@ SELECT
     w.VintageYear,
     wj.WineJuicePercentage AS Percentage,
     j.JuiceId,
+    j.JuiceTypeId,
+    jt.JuiceTypeName,
     wj.VolumeUsed,
     j.PressedDate,
     g.GrapeId,
@@ -159,4 +161,5 @@ SELECT
 FROM Wine w
 JOIN WineJuice wj ON w.WineId = wj.WineId
 JOIN Juice j ON wj.JuiceId = j.JuiceId
+JOIN JuiceType jt ON j.JuiceTypeId = jt.JuiceTypeId
 JOIN Grape g ON j.GrapeId = g.GrapeId;

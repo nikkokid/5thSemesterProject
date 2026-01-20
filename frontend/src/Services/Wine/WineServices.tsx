@@ -23,6 +23,8 @@ export type WineDetail = {
   GrapeId: number;
   GrapeName: string;
   JuiceId: number;
+  JuiceTypeId: number;
+  JuiceTypeName: string;
   VolumeUsed: number;
   Percentage: number;
   PressedDate: string;
