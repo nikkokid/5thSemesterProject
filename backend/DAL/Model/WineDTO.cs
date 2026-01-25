@@ -3,5 +3,5 @@ public class WineDTO
     {
         public string? WineName { get; set; }
         public int VintageYear { get; set; }
-        public List<WineJuice> Juices { get; set; }
+        public required List<WineJuice> Juices { get; set; }
     }
